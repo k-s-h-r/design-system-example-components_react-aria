@@ -327,14 +327,11 @@ export const twMerge = extendTailwindMerge({
 
 // forced-colors:outline-[Highlight]
 export const focusRing = _cva({
-  base: [
-    'outline outline-2 outline-offset-2 outline-focus-yellow',
-    // 'dark:outline-focus-yellow'
-  ],
+  base: ['outline outline-black outline-offset-2', 'ring ring-yellow-300'],
   variants: {
     isFocusVisible: {
-      false: 'outline-0',
-      true: 'outline-2',
+      false: 'outline-0 ring-0',
+      true: 'outline-4 ring-2',
     },
   },
 });

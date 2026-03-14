@@ -35,6 +35,9 @@
       "recommended": true,
       "style": {
         "useSelfClosingElements": "off"
+      },
+      "a11y": {
+        "noSvgWithoutTitle": "off"
       }
     }
   }

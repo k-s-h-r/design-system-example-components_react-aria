@@ -9,6 +9,7 @@
     ".[jt]sx$": "@markuplint/react-spec"
   },
   "rules": {
+    "heading-levels": false,
     "no-hard-code-id": false
   }
 }
