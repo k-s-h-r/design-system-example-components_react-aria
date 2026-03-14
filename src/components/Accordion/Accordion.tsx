@@ -69,12 +69,13 @@ const accordionContent = tv({
 });
 
 const accordionBackLink = tv({
+  extend: focusRing,
   base: [
-    'flex w-fit items-start gap-1.5',
+    'flex w-fit items-start gap-1.5 rounded',
     'text-blue-1000 underline underline-offset-[calc(3/16*1rem)]',
     'hover:text-blue-1000 hover:decoration-[calc(3/16*1rem)]',
     'active:text-orange-800 active:decoration-1',
-    'data-focus-visible:rounded-4 data-focus-visible:outline-4 data-focus-visible:outline-black data-focus-visible:outline-offset-[calc(2/16*1rem)] data-focus-visible:bg-yellow-300 data-focus-visible:text-blue-1000 data-focus-visible:ring-[calc(2/16*1rem)] data-focus-visible:ring-yellow-300',
+    'data-focus-visible:bg-yellow-300 data-focus-visible:text-blue-1000',
   ],
 });
 
