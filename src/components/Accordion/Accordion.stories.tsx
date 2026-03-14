@@ -1,11 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { Accordion, AccordionDefaultIcon, AccordionSummary } from './';
+import {
+  Accordion,
+  AccordionBackLink,
+  AccordionContent,
+  AccordionDefaultIcon,
+  AccordionGroup,
+  AccordionSummary,
+} from './';
 
 const meta = {
   title: 'Component/Accordion',
-  component: Accordion,
+  component: AccordionGroup,
   tags: ['autodocs'],
-} satisfies Meta<typeof Accordion>;
+} satisfies Meta<typeof AccordionGroup>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
@@ -13,123 +20,66 @@ type Story = StoryObj<typeof meta>;
 export const Example: Story = {
   render: () => {
     return (
-      <div className='flex flex-col'>
-        <Accordion>
-          <AccordionSummary className='p-2'>
-            <h3>ダミーテキストはどのような場合に使用されますか。</h3>
-            <AccordionDefaultIcon />
-          </AccordionSummary>
-          <div className='px-2 py-4'>
-            これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-          </div>
+      <AccordionGroup allowsMultipleExpanded defaultExpandedKeys={['accordion-example-summary-2']}>
+        <Accordion id='accordion-example-summary-1'>
+          <AccordionSummary>ダミーテキストとは何ですか？</AccordionSummary>
+          <AccordionContent>
+            <p className='mb-4'>これはダミーテキストです。</p>
+            <p>
+              ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
+            </p>
+            <AccordionBackLink href='#accordion-example-summary-1'>
+              「ダミーテキストとは何ですか？」の先頭に戻る
+            </AccordionBackLink>
+          </AccordionContent>
         </Accordion>
 
-        <Accordion>
-          <AccordionSummary className='p-2'>
-            <h3>ダミーテキストはどのような場合に使用されますか。</h3>
-            <AccordionDefaultIcon />
-          </AccordionSummary>
-          <div className='px-2 py-4'>
-            これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-          </div>
+        <Accordion id='accordion-example-summary-2'>
+          <AccordionSummary>ダミーテキストはどのような場合に使用されますか。</AccordionSummary>
+          <AccordionContent>
+            これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストは実際の文章ではないので、内容には意味がありません。
+            <AccordionBackLink href='#accordion-example-summary-2'>
+              「ダミーテキストとは何ですか？」の先頭に戻る
+            </AccordionBackLink>
+          </AccordionContent>
         </Accordion>
-      </div>
+      </AccordionGroup>
     );
   },
 };
 
-export const Compact: Story = {
+export const CustomIcon: Story = {
   render: () => {
     return (
-      <>
-        <h2 className='mb-8 text-std-32B-5'>コンパクトなアコーディオン</h2>
-        <div className='flex w-96 flex-col text-std-16N-7 [&>*]:border-b [&>*]:border-solid-grey-400'>
-          <Accordion>
-            <AccordionSummary className='p-1'>
-              <h3 className='font-medium'>ダミーテキストはどのような場合に使用されますか。</h3>
-              <AccordionDefaultIcon className='size-7' />
-            </AccordionSummary>
-            <div className='px-1 py-2'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
+      <AccordionGroup defaultExpandedKeys={['item-1']}>
+        <Accordion id='item-1'>
+          <AccordionSummary
+            icon={({ isExpanded, isDisabled }) => (
+              <span
+                className={
+                  isExpanded
+                    ? 'absolute top-2 left-0.5 inline-flex size-[var(--icon-size)] items-center justify-center rounded-full border border-current bg-blue-200 text-blue-1000 mt-[calc((1lh-var(--icon-size))/2)] desktop:top-3.5 desktop:left-1.5'
+                    : 'absolute top-2 left-0.5 inline-flex size-[var(--icon-size)] items-center justify-center rounded-full border border-current bg-white text-blue-1000 mt-[calc((1lh-var(--icon-size))/2)] desktop:top-3.5 desktop:left-1.5'
+                }
+              >
+                <AccordionDefaultIcon
+                  isDisabled={isDisabled}
+                  isExpanded={isExpanded}
+                  className='size-4 desktop:size-auto'
+                />
+              </span>
+            )}
+          >
+            カスタムアイコン
+          </AccordionSummary>
+          <AccordionContent>
+            render props で受け取った状態から、アイコンの見た目を差し替えられます。
+            <div className='mt-4'>
+              <AccordionBackLink href='#'>ページ上部へ戻る</AccordionBackLink>
             </div>
-          </Accordion>
-
-          <Accordion>
-            <AccordionSummary className='p-1'>
-              <h3 className='font-medium'>ダミーテキストはどのような場合に使用されますか。</h3>
-              <AccordionDefaultIcon className='size-7' />
-            </AccordionSummary>
-            <div className='px-1 py-2'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-
-          <Accordion>
-            <AccordionSummary className='p-1'>
-              <h3 className='font-medium'>ダミーテキストはどのような場合に使用されますか。</h3>
-              <AccordionDefaultIcon className='size-7' />
-            </AccordionSummary>
-            <div className='px-1 py-2'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-        </div>
-      </>
-    );
-  },
-};
-
-export const ExclusiveAccordion: Story = {
-  render: () => {
-    return (
-      <>
-        <h2 className='mb-4 text-std-32B-5'>排他的なアコーディオン</h2>
-        <p className='mb-8'>
-          ※ <code>details</code> 要素の <code>name</code>{' '}
-          属性による排他制御は、2024年5月時点のFirefox（バージョン 126）でサポートされていません。
-        </p>
-        <div className='flex flex-col'>
-          <Accordion name='test'>
-            <AccordionSummary className='p-2'>
-              <h3>排他制御サンプル</h3>
-              <AccordionDefaultIcon />
-            </AccordionSummary>
-            <div className='px-2 py-4'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-
-          <Accordion name='test'>
-            <AccordionSummary className='p-2'>
-              <h3>排他制御サンプル</h3>
-              <AccordionDefaultIcon />
-            </AccordionSummary>
-            <div className='px-2 py-4'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-
-          <Accordion name='test'>
-            <AccordionSummary className='p-2'>
-              <h3>排他制御サンプル</h3>
-              <AccordionDefaultIcon />
-            </AccordionSummary>
-            <div className='px-2 py-4'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-
-          <Accordion name='test'>
-            <AccordionSummary className='p-2'>
-              <h3>排他制御サンプル</h3>
-              <AccordionDefaultIcon />
-            </AccordionSummary>
-            <div className='px-2 py-4'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-        </div>
-      </>
+          </AccordionContent>
+        </Accordion>
+      </AccordionGroup>
     );
   },
 };

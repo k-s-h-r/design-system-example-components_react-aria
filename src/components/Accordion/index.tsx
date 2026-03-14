@@ -1,1 +1,8 @@
-export { Accordion, AccordionDefaultIcon, AccordionSummary } from './Accordion';
+export {
+  Accordion,
+  AccordionBackLink,
+  AccordionContent,
+  AccordionDefaultIcon,
+  AccordionGroup,
+  AccordionSummary,
+} from './Accordion';

@@ -1,4 +1,11 @@
-export { Accordion, AccordionDefaultIcon, AccordionSummary } from './Accordion';
+export {
+  Accordion,
+  AccordionBackLink,
+  AccordionContent,
+  AccordionDefaultIcon,
+  AccordionGroup,
+  AccordionSummary,
+} from './Accordion';
 export { Breadcrumb, BreadcrumbItem } from './Breadcrumb';
 export { Button, type ButtonProps, buttonVariants } from './Button';
 export { ButtonLink } from './ButtonLink';
@@ -12,6 +19,13 @@ export {
   DialogTitle,
   DialogTrigger,
 } from './Dialog';
+export {
+  Disclosure,
+  DisclosureBackLink,
+  DisclosureDefaultIcon,
+  DisclosurePanel,
+  DisclosureSummary,
+} from './Disclosure';
 export { Divider } from './Divider';
 export { Description, FieldError, FieldGroup, Input, Label, TextArea } from './Field';
 export { HamburgerButton } from './HamburgerButton';
