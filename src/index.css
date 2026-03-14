@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@plugin '@digital-go-jp/tailwind-theme-plugin';
+@plugin 'tailwindcss-react-aria-components';
+@plugin 'tailwindcss-animate';
+
+@theme {
+  --font-mono: "Noto Sans Mono", monospace;
+}
+
+/* Scale up hit targets on high resolution mobile devices. */
+@media (min-resolution: 200dpi) {
+  html {
+    font-size: 18px;
+  }
+
+  .text-sm {
+    /* ensure minimum font size of 16px */
+    font-size: 0.9rem;
+  }
+}
+
+@layer base {
+  body {
+    color: #1a1a1a;
+    font-size: 1.0625rem;
+    font-weight: 400;
+    line-height: 1.7;
+    letter-spacing: 0.02em;
+  }
+}

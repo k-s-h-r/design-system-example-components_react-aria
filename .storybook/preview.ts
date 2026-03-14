@@ -1,28 +1,21 @@
-import './globals.css';
 import type { Preview } from '@storybook/react';
-import 'tailwindcss/tailwind.css';
-import { withThemeByDataAttribute } from '@storybook/addon-themes';
+import { themes } from 'storybook/theming';
+import '../src/index.css';
+
+const docsTheme =
+  typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? themes.dark
+    : themes.light;
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
-      matchers: {
-        color: /(background|color)$/i,
-        date: /Date$/,
-      },
+      matchers: {},
+    },
+    docs: {
+      theme: docsTheme,
     },
   },
-  decorators: [
-    withThemeByDataAttribute({
-      themes: {
-        light: 'light',
-        dark: 'dark',
-      },
-      defaultTheme: 'light',
-      attributeName: 'data-mode',
-    }),
-  ],
 };
 
 export default preview;
