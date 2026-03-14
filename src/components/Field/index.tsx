@@ -1,6 +1,6 @@
-export { Label } from './Label';
-export { FieldError } from './FieldError';
 export { Description } from './Description';
-export { Input } from './Input';
-export { TextArea } from './TextArea';
+export { FieldError } from './FieldError';
 export { FieldGroup, fieldBorderStylesVariants } from './FieldGroup';
+export { Input } from './Input';
+export { Label } from './Label';
+export { TextArea } from './TextArea';

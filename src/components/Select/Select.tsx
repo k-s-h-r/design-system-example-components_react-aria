@@ -1,9 +1,9 @@
-import { Description, FieldError, Label } from '@/components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
-import type React from 'react';
 import {
+  Select as _Select,
+  type SelectProps as _SelectProps,
   Button,
   type ButtonProps,
+  composeRenderProps,
   ListBox,
   type ListBoxItemProps,
   type ListBoxProps,
@@ -12,11 +12,8 @@ import {
   type SelectValueProps,
   Separator,
   type SeparatorProps,
-  type ValidationResult,
-  Select as _Select,
-  type SelectProps as _SelectProps,
-  composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 import { DropdownItem, DropdownSection, type DropdownSectionProps } from '../ListBox';
 import { Popover } from '../Popover';
 
@@ -60,7 +57,7 @@ function Select<T extends object>({ ...props }: SelectProps<T>) {
   return (
     <_Select
       {...props}
-      className={composeRenderProps(props.className, (className, renderProps) =>
+      className={composeRenderProps(props.className, (className, _renderProps) =>
         cx('group flex flex-col gap-2', className),
       )}
       {...props}
@@ -70,7 +67,7 @@ function Select<T extends object>({ ...props }: SelectProps<T>) {
 
 const _SelectValue = <T extends object>({ className, ...props }: SelectValueProps<T>) => (
   <SelectValue
-    className={composeRenderProps('', (className, renderProps) =>
+    className={composeRenderProps('', (className, _renderProps) =>
       cx('flex-1 text-oln-16N-1', className),
     )}
     {...props}
@@ -92,7 +89,7 @@ function SelectTrigger({
       )}
       {...props}
     >
-      {composeRenderProps(children, (children, values) => (
+      {composeRenderProps(children, (children, _values) => (
         <>
           {children}
           <svg
@@ -113,7 +110,7 @@ function SelectTrigger({
 
 const SelectContent = <T extends object>({ className, ...props }: ListBoxProps<T>) => (
   <ListBox
-    className={composeRenderProps(className, (className, renderProps) =>
+    className={composeRenderProps(className, (className, _renderProps) =>
       cx(
         'outline-none p-1 max-h-[inherit] overflow-auto [clip-path:inset(0_0_0_0_round_.75rem)]',
         className,
@@ -125,7 +122,7 @@ const SelectContent = <T extends object>({ className, ...props }: ListBoxProps<T
 
 const SelectPopover = ({ className, ...props }: PopoverProps) => (
   <Popover
-    className={composeRenderProps(className, (className, renderProps) =>
+    className={composeRenderProps(className, (className, _renderProps) =>
       cx('min-w-[--trigger-width]', className),
     )}
     {...props}
@@ -142,16 +139,16 @@ const SelectSeparator = ({ className, ...props }: SeparatorProps) => (
   <Separator className={cx('-mx-1 my-1 h-px bg-solid-grey-100', className)} {...props} />
 );
 
+export type { PopoverProps as SelectPopoverProps, SelectProps };
 export {
-  Select,
   _SelectValue as SelectValue,
-  SelectTrigger,
-  SelectPopover,
+  Select,
   SelectContent,
   SelectItem,
+  SelectPopover,
   SelectSection,
   SelectSeparator,
+  SelectTrigger,
   // SelectCollection -> inside SelectSection
   // SelectHeader -> inside SelectSection
 };
-export type { SelectProps, PopoverProps as SelectPopoverProps };

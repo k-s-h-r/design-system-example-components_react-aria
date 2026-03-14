@@ -1,6 +1,5 @@
-import { Button } from '@/components';
 import type { Meta } from '@storybook/react';
-import React from 'react';
+import { Button } from '@/components';
 import {
   Dialog,
   DialogContent,
@@ -22,6 +21,7 @@ export default meta;
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const Example = (args: any) => (
   <DialogTrigger>
+    _args
     <Button size='lg' variant='primary'>
       ダイアログ表示
     </Button>
@@ -53,6 +53,7 @@ export const Example = (args: any) => (
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const DialogWithHorizontalActions = (args: any) => (
   <DialogTrigger>
+    _args
     <Button size='lg' variant='primary'>
       ダイアログ表示
     </Button>
@@ -87,6 +88,7 @@ export const DialogWithHorizontalActions = (args: any) => (
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const AlertDialog = (args: any) => (
   <DialogTrigger>
+    _args
     <Button size='lg' variant='primary'>
       ダイアログ表示
     </Button>

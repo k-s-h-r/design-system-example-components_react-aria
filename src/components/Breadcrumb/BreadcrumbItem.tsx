@@ -1,6 +1,5 @@
 import { Link, type LinkProps } from '@/components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
-import React from 'react';
+import { cx } from '@/lib/cva';
 
 export const BreadcrumbItem = ({ children, className, ...props }: LinkProps) => {
   return (

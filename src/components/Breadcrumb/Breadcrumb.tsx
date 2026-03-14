@@ -1,7 +1,6 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
-import React, { type ComponentProps, type ComponentPropsWithRef, forwardRef, useMemo } from 'react';
-import { Link, linkVariants } from '../Link';
+import React, { type ComponentProps } from 'react';
+import { cva, cx } from '@/lib/cva';
 import { BreadcrumbItem } from './BreadcrumbItem';
 
 export const variantsClass = cva({

@@ -1,10 +1,10 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import {
   Link as _Link,
   type LinkProps as _LinkProps,
   composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _scrollToTopButtonVariants = cva({
   base: [

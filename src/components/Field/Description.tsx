@@ -1,6 +1,5 @@
-import { cva, cx, focusRing } from '@/lib/cva';
-import * as React from 'react';
 import { Text, type TextProps } from 'react-aria-components';
+import { cx } from '@/lib/cva';
 
 const Description = (props: TextProps) => {
   return (

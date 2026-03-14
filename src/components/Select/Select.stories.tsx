@@ -1,7 +1,6 @@
-import { Button } from '@/components';
-import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import type { Meta } from '@storybook/react';
 import { Form, Label } from 'react-aria-components';
+import { Button } from '@/components';
 import {
   Select,
   SelectContent,
@@ -78,6 +77,7 @@ export const Separator = (args: any) => (
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const Sections = (args: any) => (
   <Select>
+    _args
     <Label>Ice cream flavor</Label>
     <SelectTrigger>
       <SelectValue />
@@ -125,7 +125,7 @@ Validation.args = {
 
 // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 export const Size = (args: any) => (
-  <div className='flex flex-col items-start gap-8'>
+  <div className='fle_argsex-col items-start gap-8'>
     <Select>
       <Label>Small</Label>
       <SelectTrigger size='sm'>

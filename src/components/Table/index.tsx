@@ -1,10 +1,15 @@
-export { Table, Thead, Tbody, Tr, Th, Td } from './Table';
+export type { TableProps, TbodyProps, TdProps, TheadProps, ThProps, TrProps } from './Table';
 export {
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
   tableVariants,
-  theadVariants,
   tbodyVariants,
-  trVariants,
-  thVariants,
   tdVariants,
+  theadVariants,
+  thVariants,
+  trVariants,
 } from './Table';
-export type { TableProps, TheadProps, TbodyProps, TrProps, ThProps, TdProps } from './Table';

@@ -1,16 +1,15 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
-import React from 'react';
 import {
   ListBox as AriaListBox,
   ListBoxItem as AriaListBoxItem,
   type ListBoxProps as AriaListBoxProps,
   Collection,
+  composeRenderProps,
   Header,
   type ListBoxItemProps,
   Section,
   type SectionProps,
-  composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 interface ListBoxProps<T> extends Omit<AriaListBoxProps<T>, 'layout' | 'orientation'> {}
 
@@ -18,7 +17,7 @@ export function ListBox<T extends object>({ children, ...props }: ListBoxProps<T
   return (
     <AriaListBox
       {...props}
-      className={composeRenderProps(props.className, (className, renderProps) =>
+      className={composeRenderProps(props.className, (className, _renderProps) =>
         cx('outline-0 p-1 border border-solid-grey-400 rounded-lg', className),
       )}
     >

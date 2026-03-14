@@ -1,7 +1,7 @@
-import { buttonVariants } from '@/components';
-import { cva, cx } from '@/lib/cva';
 import type { VariantProps } from 'cva';
-import { Link, type LinkProps, composeRenderProps } from 'react-aria-components';
+import { composeRenderProps, Link, type LinkProps } from 'react-aria-components';
+import { buttonVariants } from '@/components';
+import { cx } from '@/lib/cva';
 
 interface ButtonLinkProps extends LinkProps, VariantProps<typeof buttonVariants> {}
 
@@ -17,5 +17,5 @@ const ButtonLink = (props: ButtonLinkProps) => {
   );
 };
 
-export { ButtonLink };
 export type { ButtonLinkProps };
+export { ButtonLink };

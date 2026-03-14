@@ -1,6 +1,6 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
-import React, { type ComponentProps, forwardRef } from 'react';
+import React, { type ComponentProps } from 'react';
+import { cva } from '@/lib/cva';
 import { PaginationItem } from './PaginationItem';
 
 export const variantsClass = cva(
@@ -47,17 +47,21 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
   const prevItems = [...Array(siblings)].map((_, i) => {
     const page = value - siblings + i;
     return page > 0 ? (
-      <PaginationItem {...getItemProps?.(page)}>{page}</PaginationItem>
+      <PaginationItem {...getItemProps?.(page)} key={_}>
+        {page}
+      </PaginationItem>
     ) : (
-      <div className='h-12 w-12'></div>
+      <div className='h-12 w-12' key={_}></div>
     );
   });
   const nextItems = [...Array(siblings)].map((_, i) => {
     const page = value + i + 1;
     return page <= total ? (
-      <PaginationItem {...getItemProps?.(page)}>{page}</PaginationItem>
+      <PaginationItem {...getItemProps?.(page)} key={_}>
+        {page}
+      </PaginationItem>
     ) : (
-      <div className='h-12 w-12'></div>
+      <div className='h-12 w-12' key={_}></div>
     );
   });
 

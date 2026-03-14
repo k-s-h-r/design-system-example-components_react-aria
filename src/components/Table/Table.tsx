@@ -1,6 +1,7 @@
-import { compose, cva, cx } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import type { ComponentProps } from 'react';
+import { compose, cva, cx } from '@/lib/cva';
+
 // import { Cell as _Cell, Column as _Column, Row as _Row, Table as _Table, TableBody as _TableBody, TableHeader as _TableHeader } from 'react-aria-components';
 
 const tableVariants = cva({});
@@ -95,6 +96,18 @@ const Td = (props: TdProps) => {
   );
 };
 
-export { Table, Thead, Tbody, Tr, Th, Td };
-export { tableVariants, theadVariants, tbodyVariants, trVariants, thVariants, tdVariants };
-export type { TableProps, TheadProps, TbodyProps, TrProps, ThProps, TdProps };
+export type { TableProps, TbodyProps, TdProps, TheadProps, ThProps, TrProps };
+export {
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  tableVariants,
+  tbodyVariants,
+  tdVariants,
+  theadVariants,
+  thVariants,
+  trVariants,
+};

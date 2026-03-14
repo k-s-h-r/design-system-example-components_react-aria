@@ -1,7 +1,6 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { ComponentProps } from 'react';
-import { useRef } from 'react';
-import { useButton, useFocusRing } from 'react-aria';
+import { useFocusRing } from 'react-aria';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const accordionVariants = cva({
   base: ['group border-b border-solid-grey-400'],

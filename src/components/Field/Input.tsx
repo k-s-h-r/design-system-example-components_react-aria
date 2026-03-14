@@ -1,10 +1,10 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import {
   Input as _Input,
   type InputProps as _InputProps,
   composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _inputVariants = cva({
   base: [

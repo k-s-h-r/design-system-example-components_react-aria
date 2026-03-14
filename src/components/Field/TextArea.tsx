@@ -1,9 +1,9 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import {
-  type TextAreaProps,
   TextArea as _TextArea,
   composeRenderProps,
+  type TextAreaProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _inputVariants = cva({
   base: [
@@ -39,4 +39,4 @@ const TextArea = (props: TextAreaProps) => {
   );
 };
 
-export { TextArea, inputVariants };
+export { inputVariants, TextArea };

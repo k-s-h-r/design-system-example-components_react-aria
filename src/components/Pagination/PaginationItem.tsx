@@ -1,7 +1,7 @@
+import type { VariantProps } from 'cva';
+import { useMemo } from 'react';
 import { Button, type ButtonProps } from '@/components';
 import { cva } from '@/lib/cva';
-import type { VariantProps } from 'cva';
-import React, { useMemo } from 'react';
 
 export const variantsClass = cva({
   base: 'grid place-items-center h-12 w-12 border-border-divider p-1 shrink-0 font-normal rounded-full min-w-0',

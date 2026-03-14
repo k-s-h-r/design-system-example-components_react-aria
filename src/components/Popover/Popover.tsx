@@ -1,13 +1,12 @@
-import { cva } from '@/lib/cva';
-import type React from 'react';
 import {
-  OverlayArrow,
-  PopoverContext,
   Popover as _Popover,
   type PopoverProps as _PopoverProps,
   composeRenderProps,
+  OverlayArrow,
+  PopoverContext,
   useSlottedContext,
 } from 'react-aria-components';
+import { cva } from '@/lib/cva';
 
 export interface PopoverProps extends _PopoverProps {
   showArrow?: boolean;

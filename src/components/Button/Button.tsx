@@ -1,10 +1,10 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import {
   Button as _Button,
   type ButtonProps as _ButtonProps,
   composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _buttonVariants = cva({
   base: [

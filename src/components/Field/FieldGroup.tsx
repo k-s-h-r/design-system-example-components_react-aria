@@ -1,5 +1,5 @@
+import { composeRenderProps, Group, type GroupProps } from 'react-aria-components';
 import { compose, cva, cx, focusRing } from '@/lib/cva';
-import { Group, type GroupProps, composeRenderProps } from 'react-aria-components';
 
 export const fieldBorderStylesVariants = {
   isFocusWithin: {

@@ -13,11 +13,11 @@ export const HamburgerButton = (props: HamburgerButtonProps) => {
   const { label, align, className, ...rest } = props;
   const state = useContext(OverlayTriggerStateContext);
   const isOpen = state?.isOpen ?? false;
-  const dispLabel = isOpen ? label.close ?? label.open : label.open;
+  const dispLabel = isOpen ? (label.close ?? label.open) : label.open;
 
   return (
     <Button
-      aria-label={rest['aria-label'] ?? isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+      aria-label={(rest['aria-label'] ?? isOpen) ? 'メニューを閉じる' : 'メニューを開く'}
       className={`
         flex w-fit items-center touch-manipulation rounded focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus-yellow
         ${align === 'row' ? 'flex-row gap-1' : 'min-w-11 flex-col gap-px'}

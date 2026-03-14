@@ -1,14 +1,5 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogOverlay,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components';
 import type { Meta } from '@storybook/react';
-import React from 'react';
+import { DialogContent, DialogOverlay, DialogTrigger } from '@/components';
 import { HamburgerButton } from './';
 
 const meta = {

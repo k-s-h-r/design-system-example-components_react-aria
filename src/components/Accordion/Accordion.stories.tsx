@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import { Accordion, AccordionDefaultIcon, AccordionSummary } from './';
 
 const meta = {
@@ -14,29 +13,27 @@ type Story = StoryObj<typeof meta>;
 export const Example: Story = {
   render: () => {
     return (
-      <>
-        <div className='flex flex-col'>
-          <Accordion>
-            <AccordionSummary className='p-2'>
-              <h3>ダミーテキストはどのような場合に使用されますか。</h3>
-              <AccordionDefaultIcon />
-            </AccordionSummary>
-            <div className='px-2 py-4'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
+      <div className='flex flex-col'>
+        <Accordion>
+          <AccordionSummary className='p-2'>
+            <h3>ダミーテキストはどのような場合に使用されますか。</h3>
+            <AccordionDefaultIcon />
+          </AccordionSummary>
+          <div className='px-2 py-4'>
+            これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
+          </div>
+        </Accordion>
 
-          <Accordion>
-            <AccordionSummary className='p-2'>
-              <h3>ダミーテキストはどのような場合に使用されますか。</h3>
-              <AccordionDefaultIcon />
-            </AccordionSummary>
-            <div className='px-2 py-4'>
-              これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
-            </div>
-          </Accordion>
-        </div>
-      </>
+        <Accordion>
+          <AccordionSummary className='p-2'>
+            <h3>ダミーテキストはどのような場合に使用されますか。</h3>
+            <AccordionDefaultIcon />
+          </AccordionSummary>
+          <div className='px-2 py-4'>
+            これはダミーテキストです。ダミーテキストは、デザインやレイアウトの作成時に使用される仮の文章です。ダミーテキストを使用すると、デザインの全体像を評価したり、テキストの配置や長さを確認したりすることができます。ダミーテキストは実際の文章ではないので、内容には意味がありません。
+          </div>
+        </Accordion>
+      </div>
     );
   },
 };

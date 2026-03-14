@@ -1,4 +1,3 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import {
   Radio as _Radio,
@@ -7,6 +6,7 @@ import {
   type RadioProps as _RadioProps,
   composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 interface RadioGroupProps extends _RadioGroupProps {}
 
@@ -14,7 +14,9 @@ const RadioGroup = (props: RadioGroupProps) => {
   return (
     <_RadioGroup
       {...props}
-      className={composeRenderProps(props.className, (className, renderProps) => cx('', className))}
+      className={composeRenderProps(props.className, (className, _renderProps) =>
+        cx('', className),
+      )}
     >
       {props.children}
     </_RadioGroup>
@@ -103,5 +105,5 @@ const Radio = (props: RadioProps) => {
   );
 };
 
+export type { RadioGroupProps, RadioProps };
 export { Radio, RadioGroup };
-export type { RadioProps, RadioGroupProps };

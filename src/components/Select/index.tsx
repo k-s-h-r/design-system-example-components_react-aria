@@ -1,10 +1,10 @@
 export {
   Select,
-  SelectValue,
-  SelectTrigger,
-  SelectPopover,
   SelectContent,
   SelectItem,
+  SelectPopover,
   SelectSection,
   SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 } from './Select';

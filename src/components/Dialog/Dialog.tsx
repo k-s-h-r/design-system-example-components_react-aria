@@ -1,8 +1,10 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import type * as React from 'react';
 import {
+  Dialog as _Dialog,
+  DialogTrigger as _DialogTrigger,
   Button,
+  composeRenderProps,
   type DialogProps,
   type DialogTriggerProps,
   Heading,
@@ -10,11 +12,8 @@ import {
   Modal,
   ModalOverlay,
   type ModalOverlayProps,
-  Dialog as _Dialog,
-  DialogProps as _DialogProps,
-  DialogTrigger as _DialogTrigger,
-  composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const sheetVariants = cva({
   base: 'fixed z-50 gap-4 bg-background shadow-lg transition ease-in-out data-[entering]:duration-500 data-[exiting]:duration-300 data-[entering]:animate-in data-[exiting]:animate-out',
@@ -36,7 +35,7 @@ const Dialog = (props: DialogProps) => <_Dialog {...props} />;
 const DialogOverlay = ({ className, isDismissable = true, ...props }: ModalOverlayProps) => (
   <ModalOverlay
     isDismissable={isDismissable}
-    className={composeRenderProps(className, (className, renderProps) =>
+    className={composeRenderProps(className, (className, _renderProps) =>
       cx(
         [
           'fixed inset-0 z-50 bg-black/45',
@@ -105,15 +104,13 @@ const DialogContent = ({
                 cx(closeButtonVariants({ ...renderProps, className })),
               )}
             >
-              <>
-                <svg aria-hidden={true} width='24' height='24' viewBox='0 0 24 24' fill='none'>
-                  <path
-                    d='M6.39961 18.6496L5.34961 17.5996L10.9496 11.9996L5.34961 6.39961L6.39961 5.34961L11.9996 10.9496L17.5996 5.34961L18.6496 6.39961L13.0496 11.9996L18.6496 17.5996L17.5996 18.6496L11.9996 13.0496L6.39961 18.6496Z'
-                    fill='#1A1A1A'
-                  />
-                </svg>
-                <span className='sr-only'>Close</span>
-              </>
+              <svg aria-hidden={true} width='24' height='24' viewBox='0 0 24 24' fill='none'>
+                <path
+                  d='M6.39961 18.6496L5.34961 17.5996L10.9496 11.9996L5.34961 6.39961L6.39961 5.34961L11.9996 10.9496L17.5996 5.34961L18.6496 6.39961L13.0496 11.9996L18.6496 17.5996L17.5996 18.6496L11.9996 13.0496L6.39961 18.6496Z'
+                  fill='#1A1A1A'
+                />
+              </svg>
+              <span className='sr-only'>Close</span>
             </Button>
           )}
         </>
@@ -142,11 +139,11 @@ const DialogTitle = ({ className, ...props }: HeadingProps) => (
 );
 
 export {
-  DialogOverlay,
-  DialogTrigger,
-  DialogContent,
-  DialogHeader,
-  DialogFooter,
-  DialogTitle,
   Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogOverlay,
+  DialogTitle,
+  DialogTrigger,
 };

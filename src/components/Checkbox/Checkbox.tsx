@@ -1,4 +1,3 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import {
   Checkbox as _Checkbox,
@@ -7,6 +6,7 @@ import {
   type CheckboxProps as _CheckboxProps,
   composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 interface CheckboxGroupProps extends _CheckboxGroupProps {}
 
@@ -14,7 +14,9 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   return (
     <_CheckboxGroup
       {...props}
-      className={composeRenderProps(props.className, (className, renderProps) => cx('', className))}
+      className={composeRenderProps(props.className, (className, _renderProps) =>
+        cx('', className),
+      )}
     >
       {props.children}
     </_CheckboxGroup>
@@ -134,5 +136,5 @@ const Checkbox = (props: CheckboxProps) => {
   );
 };
 
+export type { CheckboxGroupProps, CheckboxProps };
 export { Checkbox, CheckboxGroup };
-export type { CheckboxProps, CheckboxGroupProps };

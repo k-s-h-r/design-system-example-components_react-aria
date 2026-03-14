@@ -1,7 +1,6 @@
-import { cva, cx } from '@/lib/cva';
 import type { VariantProps } from 'cva';
-import * as React from 'react';
 import { Label as _Label, type LabelProps as _LabelProps } from 'react-aria-components';
+import { cva, cx } from '@/lib/cva';
 
 const labelVariants = cva({
   base: 'flex w-fit items-center gap-2 text-dns-16B- text-solid-grey-9002',

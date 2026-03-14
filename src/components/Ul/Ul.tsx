@@ -1,6 +1,6 @@
-import { compose, cva, cx } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import type { ComponentProps } from 'react';
+import { cva, cx } from '@/lib/cva';
 
 const ulVariants = cva({
   base: '',

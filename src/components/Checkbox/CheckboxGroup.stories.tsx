@@ -1,7 +1,6 @@
-import { Button, Description, FieldError, Label, RequirementBadge } from '@/components';
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
 import { Form } from 'react-aria-components';
+import { Button, Description, FieldError, Label, RequirementBadge } from '@/components';
 import { Checkbox, CheckboxGroup } from './Checkbox';
 
 const meta = {

@@ -1,10 +1,10 @@
-import { compose, cva, cx, focusRing } from '@/lib/cva';
 import type { VariantProps } from 'cva';
 import {
   Link as _Link,
   type LinkProps as _LinkProps,
   composeRenderProps,
 } from 'react-aria-components';
+import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _linkVariants = cva({
   base: ['disabled:no-underline disabled:pointer-events-none disabled:text-solid-grey-400'],
@@ -43,7 +43,7 @@ const UtilityLink = (props: LinkProps) => {
             <svg
               aria-label={`${icon?.ariaLabel ?? '新規タブで開きます'}`}
               role='img'
-              className={`mb-[3px] ml-1 inline ${icon ? icon.className ?? '' : ''}`}
+              className={`mb-[3px] ml-1 inline ${icon ? (icon.className ?? '') : ''}`}
               fill='none'
               height='20'
               viewBox='0 0 21 20'
