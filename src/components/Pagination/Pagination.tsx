@@ -22,7 +22,7 @@ export interface PaginationProps extends PaginationVariants {
   withEdge?: boolean;
   withControl?: boolean;
   isSimple: boolean;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+
   getItemProps?(page: number, control?: 'first' | 'prev' | 'last' | 'next'): Record<string, any>;
 }
 

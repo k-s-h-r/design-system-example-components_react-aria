@@ -9,6 +9,7 @@ export {
   buttonVariants,
   Checkbox,
   Dialog,
+  Divider,
   FieldError,
   FieldGroup,
   HamburgerButton,

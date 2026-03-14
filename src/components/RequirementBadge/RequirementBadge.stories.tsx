@@ -10,15 +10,13 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <div className='flex flex-col gap-8'>
     <RequirementBadge {...args}>※必須</RequirementBadge>
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Optional = (args: any) => (
+export const Optional = (args) => (
   <div className='flex flex-col gap-8'>
     <RequirementBadge isOptional={true}>任意</RequirementBadge>
   </div>

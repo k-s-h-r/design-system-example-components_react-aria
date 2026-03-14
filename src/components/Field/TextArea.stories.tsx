@@ -13,8 +13,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <div className='flex flex-col gap-8'>
     <TextField {...args}>
       <TextArea />
@@ -22,24 +21,23 @@ export const Example = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Disabled = (args: any) => (
+export const Disabled = (args) => (
   <div className='flex flex-col gap-8'>
     <TextField isDisabled {...args}>
       <TextArea />
     </TextField>
   </div>
 );
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Invalid = (args: any) => (
+
+export const Invalid = (args) => (
   <div className='flex flex-col gap-8'>
     <TextField isInvalid {...args}>
       <TextArea />
     </TextField>
   </div>
 );
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const ReadOnly = (args: any) => (
+
+export const ReadOnly = (args) => (
   <div className='flex flex-col gap-8'>
     <TextField isReadOnly {...args}>
       <TextArea defaultValue={'デフォルトテキスト'} />

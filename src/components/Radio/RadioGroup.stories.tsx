@@ -15,8 +15,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <RadioGroup {...args}>
     <Label>
       ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
@@ -32,14 +31,12 @@ export const Example = (args: any) => (
   </RadioGroup>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Disabeld = (args: any) => <Example {...args} />;
+export const Disabeld = (args) => <Example {...args} />;
 Disabeld.args = {
   isDisabled: true,
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Validation = (args: any) => (
+export const Validation = (args) => (
   <Form className='flex flex-col gap-2 items-start'>
     <Example {...args} />
     <Button type='submit' variant='secondary'>

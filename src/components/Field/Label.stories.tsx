@@ -10,8 +10,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <div className='flex flex-col gap-8'>
     <Label>ラベル</Label>
     <Label isDisabled={true}>ラベル(isDisabled)</Label>

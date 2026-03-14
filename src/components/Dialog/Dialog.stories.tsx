@@ -18,8 +18,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <DialogTrigger>
     _args
     <Button size='lg' variant='primary'>
@@ -50,8 +49,7 @@ export const Example = (args: any) => (
   </DialogTrigger>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const DialogWithHorizontalActions = (args: any) => (
+export const DialogWithHorizontalActions = (args) => (
   <DialogTrigger>
     _args
     <Button size='lg' variant='primary'>
@@ -85,8 +83,7 @@ export const DialogWithHorizontalActions = (args: any) => (
   </DialogTrigger>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const AlertDialog = (args: any) => (
+export const AlertDialog = (args) => (
   <DialogTrigger>
     _args
     <Button size='lg' variant='primary'>

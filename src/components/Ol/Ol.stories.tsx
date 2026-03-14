@@ -20,8 +20,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <Ol {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>
@@ -46,8 +45,7 @@ export const Example = (args: any) => (
   </Ol>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const ListStyleDecimal = (args: any) => (
+export const ListStyleDecimal = (args) => (
   <Ol {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>
@@ -59,8 +57,7 @@ ListStyleDecimal.args = {
   listStyle: 'decimal',
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const ListStyleLowerLatin = (args: any) => (
+export const ListStyleLowerLatin = (args) => (
   <Ol {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>

@@ -16,8 +16,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <DialogTrigger>
     <HamburgerButton {...args} />
 
@@ -43,8 +42,7 @@ Example.args = {
   },
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Row = (args: any) => <Example {...args} />;
+export const Row = (args) => <Example {...args} />;
 
 Row.args = {
   align: 'col',

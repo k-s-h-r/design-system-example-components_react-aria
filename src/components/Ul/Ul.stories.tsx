@@ -19,8 +19,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <Ul {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>
@@ -45,8 +44,7 @@ export const Example = (args: any) => (
   </Ul>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const ListStyleDisc = (args: any) => (
+export const ListStyleDisc = (args) => (
   <Ul {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>
@@ -58,8 +56,7 @@ ListStyleDisc.args = {
   listStyle: 'disc',
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const ListStyleCircle = (args: any) => (
+export const ListStyleCircle = (args) => (
   <Ul {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>
@@ -71,8 +68,7 @@ ListStyleCircle.args = {
   listStyle: 'circle',
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const ListStyleSquere = (args: any) => (
+export const ListStyleSquere = (args) => (
   <Ul {...args}>
     <li>サンプルサンプル</li>
     <li>サンプルサンプル</li>

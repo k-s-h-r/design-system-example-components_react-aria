@@ -12,6 +12,7 @@ export {
   DialogTitle,
   DialogTrigger,
 } from './Dialog';
+export { Divider } from './Divider';
 export { Description, FieldError, FieldGroup, Input, Label, TextArea } from './Field';
 export { HamburgerButton } from './HamburgerButton';
 export { Link, type LinkProps, linkVariants } from './Link';

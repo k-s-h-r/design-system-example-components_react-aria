@@ -11,8 +11,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isSelected>
       選択肢
@@ -21,8 +20,7 @@ export const Example = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Disabeld = (args: any) => (
+export const Disabeld = (args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='3' isDisabled isSelected>
       選択肢
@@ -33,8 +31,7 @@ export const Disabeld = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Invalid = (args: any) => (
+export const Invalid = (args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isInvalid isSelected>
       選択肢
@@ -45,8 +42,7 @@ export const Invalid = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Readonly = (args: any) => (
+export const Readonly = (args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isReadOnly isSelected>
       選択肢
@@ -57,8 +53,7 @@ export const Readonly = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Indeterminate = (args: any) => (
+export const Indeterminate = (args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isIndeterminate>
       選択肢
@@ -69,8 +64,7 @@ export const Indeterminate = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Size = (args: any) => (
+export const Size = (args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox size='sm'>smaill</Checkbox>
     <Checkbox size='md'>medium</Checkbox>

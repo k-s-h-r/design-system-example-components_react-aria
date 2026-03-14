@@ -1,7 +1,7 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 @plugin "@digital-go-jp/tailwind-theme-plugin";
 @plugin "tailwindcss-react-aria-components";
-@plugin "tailwindcss-animate";
 
 @theme {
   --font-mono: "Noto Sans Mono", monospace;

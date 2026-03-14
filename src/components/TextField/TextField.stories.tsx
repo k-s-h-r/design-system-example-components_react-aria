@@ -22,8 +22,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <div className='flex flex-col gap-8'>
     <TextField {...args}>
       <Label>ラベル</Label>
@@ -77,8 +76,7 @@ export const Example = (args: any) => (
   </div>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Textarea = (args: any) => (
+export const Textarea = (args) => (
   <TextField {...args}>
     <Label>
       ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
@@ -88,8 +86,7 @@ export const Textarea = (args: any) => (
   </TextField>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Validation = (args: any) => (
+export const Validation = (args) => (
   <Form className='flex flex-col gap-2 items-start'>
     <TextField isRequired {...args}>
       <Label>

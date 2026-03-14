@@ -10,8 +10,7 @@ const meta = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <div className='flex f_argscol gap-8'>
     <TextField isInvalid>
       <FieldError>＊エラーテキスト</FieldError>

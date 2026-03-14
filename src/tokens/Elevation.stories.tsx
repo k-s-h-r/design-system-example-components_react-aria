@@ -1,5 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import React, { Fragment } from 'react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
+import { Fragment } from 'react';
 import { Elevation } from './Elevation';
 
 const meta = {

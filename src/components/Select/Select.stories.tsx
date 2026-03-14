@@ -24,8 +24,7 @@ const meta: Meta<typeof Select> = {
 
 export default meta;
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Example = (args: any) => (
+export const Example = (args) => (
   <Select {...args}>
     <Label>Ice cream flavor</Label>
     <SelectTrigger>
@@ -42,20 +41,17 @@ export const Example = (args: any) => (
   </Select>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const DisabledItems = (args: any) => <Example {...args} />;
+export const DisabledItems = (args) => <Example {...args} />;
 DisabledItems.args = {
   disabledKeys: ['mint'],
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Disabled = (args: any) => <Example {...args} />;
+export const Disabled = (args) => <Example {...args} />;
 Disabled.args = {
   isDisabled: true,
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Separator = (args: any) => (
+export const Separator = (args) => (
   <Select {...args}>
     <Label>Ice cream flavor</Label>
     <SelectTrigger>
@@ -74,8 +70,7 @@ export const Separator = (args: any) => (
   </Select>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Sections = (args: any) => (
+export const Sections = (args) => (
   <Select>
     _args
     <Label>Ice cream flavor</Label>
@@ -109,8 +104,7 @@ export const Sections = (args: any) => (
   </Select>
 );
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Validation = (args: any) => (
+export const Validation = (args) => (
   <Form className='flex flex-col gap-2 items-start'>
     <Example {...args} />
     <Button type='submit' variant='secondary'>
@@ -123,8 +117,7 @@ Validation.args = {
   isRequired: true,
 };
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
-export const Size = (args: any) => (
+export const Size = (args) => (
   <div className='fle_argsex-col items-start gap-8'>
     <Select>
       <Label>Small</Label>
