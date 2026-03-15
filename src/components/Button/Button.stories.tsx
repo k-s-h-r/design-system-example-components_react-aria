@@ -1,6 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './';
 
+const variantSet = [
+  { variant: 'primary' as const, label: 'solid-fill' },
+  { variant: 'secondary' as const, label: 'outline' },
+  { variant: 'tertiary' as const, label: 'text' },
+];
+
 const meta = {
   title: 'Component/Button',
   component: Button,
@@ -156,4 +162,40 @@ export const TertiaryDisabled: Story = {
     isDisabled: true,
     onClick: () => console.log('clicked'),
   },
+};
+
+export const VariantSet: Story = {
+  render: () => (
+    <div className='flex flex-wrap gap-4'>
+      {variantSet.map(({ variant, label }) => (
+        <Button key={variant} variant={variant} size='lg'>
+          {label}
+        </Button>
+      ))}
+    </div>
+  ),
+};
+
+export const DisabledAttribute: Story = {
+  render: () => (
+    <div className='flex flex-wrap gap-4'>
+      {variantSet.map(({ variant, label }) => (
+        <Button key={variant} variant={variant} size='lg' isDisabled>
+          {label}
+        </Button>
+      ))}
+    </div>
+  ),
+};
+
+export const AriaDisabledAttribute: Story = {
+  render: () => (
+    <div className='flex flex-wrap gap-4'>
+      {variantSet.map(({ variant, label }) => (
+        <Button key={variant} variant={variant} size='lg' aria-disabled>
+          {label}
+        </Button>
+      ))}
+    </div>
+  ),
 };
