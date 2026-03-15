@@ -24,7 +24,7 @@ const disclosureSummary = tv({
   extend: focusRing,
   base: [
     'group/summary flex w-fit cursor-default list-none items-start justify-start gap-2',
-    'data-hovered:underline data-hovered:underline-offset-[calc(3/16*1rem)]',
+    'data-hovered:underline data-hovered:underline-offset-[calc(3*var(--px-to-rem))]',
     'data-focus-visible:rounded-4 data-focus-visible:bg-yellow-300',
     'data-disabled:pointer-events-none data-disabled:text-solid-gray-400',
     'aria-disabled:pointer-events-none aria-disabled:text-solid-gray-400',
@@ -47,8 +47,8 @@ const disclosureBackLink = tv({
   extend: focusRing,
   base: [
     'flex w-fit items-start gap-1.5 rounded',
-    'text-blue-1000 underline underline-offset-[calc(3/16*1rem)]',
-    'data-hovered:text-blue-1000 data-hovered:decoration-[calc(3/16*1rem)]',
+    'text-blue-1000 underline underline-offset-[calc(3*var(--px-to-rem))]',
+    'data-hovered:text-blue-1000 data-hovered:decoration-[calc(3*var(--px-to-rem))]',
     'data-pressed:text-orange-800 data-pressed:decoration-1',
     'data-focus-visible:bg-yellow-300 data-focus-visible:text-blue-1000',
   ],
