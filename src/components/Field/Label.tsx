@@ -3,7 +3,7 @@ import { Label as _Label, type LabelProps as _LabelProps } from 'react-aria-comp
 import { cva, cx } from '@/lib/cva';
 
 const labelVariants = cva({
-  base: 'flex w-fit items-center gap-2 text-dns-16B- text-solid-grey-9002',
+  base: 'flex w-fit items-center gap-2 text-dns-16B- text-solid-gray-9002',
   variants: {
     size: {
       sm: 'text-dns-16N-2',
@@ -15,7 +15,7 @@ const labelVariants = cva({
       false: '',
     },
     isDisabled: {
-      true: 'text-solid-grey-400',
+      true: 'text-solid-gray-400',
     },
   },
   compoundVariants: [

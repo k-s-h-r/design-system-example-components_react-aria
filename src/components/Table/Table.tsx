@@ -66,7 +66,7 @@ const Tr = (props: TrProps) => {
 };
 
 const cellVariants = cva({
-  base: 'border-b border-solid-grey-400 px-4 py-6 text-left text-solid-grey-900',
+  base: 'border-b border-solid-gray-400 px-4 py-6 text-left text-solid-gray-900',
 });
 const thVariants = compose(cellVariants, cva({}));
 

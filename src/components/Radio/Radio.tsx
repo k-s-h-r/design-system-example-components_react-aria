@@ -35,15 +35,15 @@ const _radioVariants = cva({
       true: 'text-error-1',
     },
     isDisabled: {
-      false: 'text-solid-grey-800',
-      true: 'text-solid-grey-600',
+      false: 'text-solid-gray-800',
+      true: 'text-solid-gray-600',
     },
   },
   compoundVariants: [
     {
       isInvalid: true,
       isDisabled: true,
-      className: 'text-solid-grey-600',
+      className: 'text-solid-gray-600',
     },
   ],
   defaultVariants: {
@@ -59,7 +59,7 @@ const _boxVariants = cva({
   variants: {
     isSelected: {
       false: [
-        '[--color:theme(colors.solid-grey.900)]',
+        '[--color:theme(colors.solid-gray.900)]',
         'group-pressed:[--color:theme(colors.black)]',
         'bg-white border-[--color]',
       ],
@@ -79,7 +79,7 @@ const _boxVariants = cva({
       ],
     },
     isDisabled: {
-      true: ['[--color:theme(colors.solid-grey.200)]', ''],
+      true: ['[--color:theme(colors.solid-gray.200)]', ''],
     },
   },
 });

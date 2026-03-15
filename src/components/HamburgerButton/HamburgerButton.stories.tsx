@@ -24,7 +24,7 @@ export const Example = (args) => (
       <DialogContent side='right' className='bg-white'>
         {({ close }) => (
           <>
-            <div className='h-40 w-60 border border-solid-grey-400 p-4' id='menu'>
+            <div className='h-40 w-60 border border-solid-gray-400 p-4' id='menu'>
               メニューを表示中
             </div>
           </>

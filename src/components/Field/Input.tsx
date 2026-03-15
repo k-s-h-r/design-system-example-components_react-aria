@@ -8,11 +8,11 @@ import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _inputVariants = cva({
   base: [
-    'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-grey-900',
-    'bg-white border border-solid-grey-900',
+    'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-gray-900',
+    'bg-white border border-solid-gray-900',
     'h-auto',
     'flex-1 min-w-0',
-    'disabled:text-solid-grey-200 disabled:bg-solid-grey-50 disabled:border-solid-grey-400',
+    'disabled:text-solid-gray-200 disabled:bg-solid-gray-50 disabled:border-solid-gray-400',
   ],
   variants: {
     size: {
@@ -21,14 +21,14 @@ const _inputVariants = cva({
       lg: 'px-4 py-5',
     },
     isFocused: {
-      false: 'border-solid-grey-900',
+      false: 'border-solid-gray-900',
       true: 'border-focus-yellow',
     },
     isInvalid: {
       true: 'border-error-1 border-2',
     },
     isDisabled: {
-      true: 'border-solid-grey-200',
+      true: 'border-solid-gray-200',
     },
   },
   defaultVariants: {

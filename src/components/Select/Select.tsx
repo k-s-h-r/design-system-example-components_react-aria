@@ -20,11 +20,11 @@ import { Popover } from '../Popover';
 const _selectButtonVariants = cva({
   base: [
     'flex items-center text-start gap-4 w-full cursor-default transition',
-    'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-grey-900',
+    'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-gray-900',
     'bg-white border',
     'h-auto',
     'flex-1 min-w-0',
-    'disabled:text-solid-grey-200 disabled:bg-solid-grey-50 disabled:border-solid-grey-400',
+    'disabled:text-solid-gray-200 disabled:bg-solid-gray-50 disabled:border-solid-gray-400',
     'pressed:border-focus-yellow pressed:',
   ],
   variants: {
@@ -34,7 +34,7 @@ const _selectButtonVariants = cva({
       lg: 'px-4 py-5',
     },
     isFocused: {
-      false: 'border-solid-grey-900',
+      false: 'border-solid-gray-900',
       true: 'border-focus-yellow',
     },
     isInvalid: {
@@ -42,7 +42,7 @@ const _selectButtonVariants = cva({
     },
     isDisabled: {
       false: '',
-      true: 'border-solid-grey-200',
+      true: 'border-solid-gray-200',
     },
   },
   defaultVariants: {
@@ -93,7 +93,7 @@ function SelectTrigger({
         <>
           {children}
           <svg
-            className='w-4 h-4 text-solid-grey-900 fill-current group-disabled:text-solid-grey-400 '
+            className='w-4 h-4 text-solid-gray-900 fill-current group-disabled:text-solid-gray-400 '
             aria-hidden={true}
             width='16'
             height='16'
@@ -136,7 +136,7 @@ const SelectSection = <T extends object>(props: DropdownSectionProps<T>) => {
   return <DropdownSection {...props} />;
 };
 const SelectSeparator = ({ className, ...props }: SeparatorProps) => (
-  <Separator className={cx('-mx-1 my-1 h-px bg-solid-grey-100', className)} {...props} />
+  <Separator className={cx('-mx-1 my-1 h-px bg-solid-gray-100', className)} {...props} />
 );
 
 export type { PopoverProps as SelectPopoverProps, SelectProps };

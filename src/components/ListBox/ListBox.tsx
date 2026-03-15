@@ -18,7 +18,7 @@ export function ListBox<T extends object>({ children, ...props }: ListBoxProps<T
     <AriaListBox
       {...props}
       className={composeRenderProps(props.className, (className, _renderProps) =>
-        cx('outline-0 p-1 border border-solid-grey-400 rounded-lg', className),
+        cx('outline-0 p-1 border border-solid-gray-400 rounded-lg', className),
       )}
     >
       {children}
@@ -30,7 +30,7 @@ export const _itemStyles = cva({
   base: 'group relative flex items-center gap-8 cursor-default select-none py-1.5 px-2.5 rounded-md will-change-transform text-oln-16N-1 forced-color-adjust-none',
   variants: {
     isSelected: {
-      false: 'text-solid-grey-700 hover:bg-slate-200 -outline-offset-2',
+      false: 'text-solid-gray-700 hover:bg-slate-200 -outline-offset-2',
       true: 'bg-blue-900 text-white',
     },
     isDisabled: {

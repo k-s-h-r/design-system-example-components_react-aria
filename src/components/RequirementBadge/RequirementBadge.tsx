@@ -11,7 +11,7 @@ export const RequirementBadge = (props: RequirementBadgeProps) => {
     <span
       className={`
       text-oln-16N-1
-      ${isOptional ? 'text-solid-grey-600' : 'text-error-1'}
+      ${isOptional ? 'text-solid-gray-600' : 'text-error-1'}
       ${className ?? ''}
     `}
       {...rest}

@@ -7,10 +7,10 @@ import {
 import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 const _linkVariants = cva({
-  base: ['disabled:no-underline disabled:pointer-events-none disabled:text-solid-grey-400'],
+  base: ['disabled:no-underline disabled:pointer-events-none disabled:text-solid-gray-400'],
   variants: {
     hasHref: {
-      true: ['text-solid-grey-800 underline underline-offset-2 hover:decoration-[3px]'],
+      true: ['text-solid-gray-800 underline underline-offset-2 hover:decoration-[3px]'],
     },
   },
   defaultVariants: {},

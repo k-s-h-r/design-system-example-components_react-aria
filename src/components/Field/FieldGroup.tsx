@@ -3,14 +3,14 @@ import { compose, cva, cx, focusRing } from '@/lib/cva';
 
 export const fieldBorderStylesVariants = {
   isFocusWithin: {
-    false: 'border-solid-grey-900',
+    false: 'border-solid-gray-900',
     true: 'border-focus-yellow',
   },
   isInvalid: {
     true: 'border-error-1',
   },
   isDisabled: {
-    true: 'border-solid-grey-200',
+    true: 'border-solid-gray-200',
   },
 };
 export const fieldBorderStyles = cva({

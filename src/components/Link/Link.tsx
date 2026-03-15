@@ -4,14 +4,13 @@ import {
   type LinkProps as AriaLinkProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
-import { composeTailwindRenderProps, focusRing } from '../utils';
+import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const linkVariants = tv({
   extend: focusRing,
   base: [
     'rounded',
-    // 'data-aria-disabled:no-underline data-aria-disabled:pointer-events-none data-aria-disabled:text-solid-grey-400',
+    // 'aria-disabled:no-underline aria-disabled:pointer-events-none aria-disabled:text-solid-gray-400',
   ],
   variants: {
     hasHref: {

@@ -14,8 +14,7 @@ import {
   composeRenderProps,
   DisclosureStateContext,
 } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
-import { composeTailwindRenderProps, focusRing } from '../utils';
+import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const disclosure = tv({
   base: 'group/disclosure',
@@ -28,7 +27,7 @@ const disclosureSummary = tv({
     'data-hovered:underline data-hovered:underline-offset-[calc(3/16*1rem)]',
     'data-focus-visible:rounded-4 data-focus-visible:bg-yellow-300',
     'data-disabled:pointer-events-none data-disabled:text-solid-gray-400',
-    'data-aria-disabled:pointer-events-none data-aria-disabled:text-solid-gray-400',
+    'aria-disabled:pointer-events-none aria-disabled:text-solid-gray-400',
   ],
 });
 

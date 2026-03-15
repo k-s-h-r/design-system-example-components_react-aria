@@ -6,7 +6,7 @@ const Description = (props: TextProps) => {
     <Text
       {...props}
       slot='description'
-      className={cx('text-std-16N-7 text-solid-grey-700', props.className)}
+      className={cx('text-std-16N-7 text-solid-gray-700', props.className)}
     />
   );
 };

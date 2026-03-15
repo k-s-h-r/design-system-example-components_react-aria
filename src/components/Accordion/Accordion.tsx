@@ -17,8 +17,7 @@ import {
   DisclosureStateContext,
   Heading,
 } from 'react-aria-components';
-import { tv } from 'tailwind-variants';
-import { composeTailwindRenderProps, focusRing } from '../utils';
+import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const accordion = tv({
   base: [
@@ -36,7 +35,7 @@ const accordionSummary = tv({
     'data-hovered:bg-solid-gray-50',
     'data-focus-visible:rounded-4 data-focus-visible:bg-yellow-300',
     'data-disabled:hover:bg-transparent data-disabled:text-solid-gray-400',
-    'data-aria-disabled:hover:bg-transparent data-aria-disabled:text-solid-gray-400 data-aria-disabled:pointer-events-none',
+    'aria-disabled:hover:bg-transparent aria-disabled:text-solid-gray-400 aria-disabled:pointer-events-none',
   ],
   variants: {},
 });
@@ -52,7 +51,7 @@ const accordionIconContainer = tv({
       true: 'rotate-180',
     },
     isDisabled: {
-      true: 'text-solid-grey-400',
+      true: 'text-solid-gray-400',
     },
   },
 });

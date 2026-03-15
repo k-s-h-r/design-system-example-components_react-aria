@@ -35,15 +35,15 @@ const _checkboxVariants = cva({
       true: 'text-error-1',
     },
     isDisabled: {
-      false: 'text-solid-grey-800',
-      true: 'text-solid-grey-600',
+      false: 'text-solid-gray-800',
+      true: 'text-solid-gray-600',
     },
   },
   compoundVariants: [
     {
       isInvalid: true,
       isDisabled: true,
-      className: 'text-solid-grey-600',
+      className: 'text-solid-gray-600',
     },
   ],
   defaultVariants: {
@@ -59,7 +59,7 @@ const _boxVariants = cva({
   variants: {
     isSelected: {
       false: [
-        '[--color:theme(colors.solid-grey.900)]',
+        '[--color:theme(colors.solid-gray.900)]',
         'group-pressed:[--color:theme(colors.black)]',
         'bg-white border-[--color]',
       ],
@@ -73,14 +73,14 @@ const _boxVariants = cva({
       true: ['[--color:theme(colors.error-1)]', 'group-pressed:[--color:theme(colors.error-1)]'],
     },
     isDisabled: {
-      true: ['[--color:theme(colors.solid-grey.200)]'],
+      true: ['[--color:theme(colors.solid-gray.200)]'],
     },
   },
 });
 
 const boxVariants = compose(focusRing, _boxVariants);
 
-const iconVariants = 'w-4 h-4 text-white group-disabled:text-solid-grey-400 ';
+const iconVariants = 'w-4 h-4 text-white group-disabled:text-solid-gray-400 ';
 
 const SvgCheck = (props: { className: string }) => (
   <svg
