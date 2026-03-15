@@ -30,9 +30,13 @@
 }
 
 :root {
+  --px-to-rem: calc(1rem / 16); /* 1pxをremに変換するための値 */
   --magnification-base: 3; /* 0~4: 0は完全rem, 4は完全px */
   --spacing: calc(
     (0.0625rem * (4 - var(--magnification-base))) +
       (1px * var(--magnification-base))
   ); /* 0.0625rem = 1px */
+  --inline-center-offset: calc(
+    (1lh - var(--inline-center-size)) / 2
+  ); /* インライン要素を行の中央に配置するためのオフセット */
 }

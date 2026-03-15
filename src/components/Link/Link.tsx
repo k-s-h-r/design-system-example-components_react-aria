@@ -15,8 +15,8 @@ const linkVariants = tv({
   variants: {
     hasHref: {
       true: [
-        'text-blue-1000 underline underline-offset-[calc(3/16*1rem)]',
-        'data-hovered:decoration-[calc(3/16*1rem)]',
+        'text-blue-1000 underline underline-offset-[calc(3*var(--px-to-rem))]',
+        'data-hovered:decoration-[calc(3*var(--px-to-rem))]',
         'data-visited:text-magenta-900',
         'data-pressed:text-orange-700 data-pressed:decoration-1',
         'data-focus-visible:bg-yellow-300',

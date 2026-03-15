@@ -22,7 +22,7 @@ import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 const accordion = tv({
   base: [
     'group/accordion border-b border-solid-gray-420',
-    '[--icon-size:calc(20/16*1rem)] desktop:[--icon-size:calc(32/16*1rem)]',
+    '[--icon-size:calc(20*var(--px-to-rem))] desktop:[--icon-size:calc(32*var(--px-to-rem))]',
   ],
 });
 
@@ -62,8 +62,8 @@ const accordionDefaultIcon = tv({
 
 const accordionContent = tv({
   base: [
-    'pl-[calc(var(--icon-size)+(12/16*1rem))] pr-2 py-4',
-    'desktop:pl-[calc(var(--icon-size)+(20/16*1rem))] desktop:pr-4 desktop:py-6',
+    'pl-[calc(var(--icon-size)+(12*var(--px-to-rem)))] pr-2 py-4',
+    'desktop:pl-[calc(var(--icon-size)+(20*var(--px-to-rem)))] desktop:pr-4 desktop:py-6',
   ],
 });
 
@@ -71,8 +71,8 @@ const accordionBackLink = tv({
   extend: focusRing,
   base: [
     'flex w-fit items-start gap-1.5 rounded',
-    'text-blue-1000 underline underline-offset-[calc(3/16*1rem)]',
-    'hover:text-blue-1000 hover:decoration-[calc(3/16*1rem)]',
+    'text-blue-1000 underline underline-offset-[calc(3*var(--px-to-rem))]',
+    'hover:text-blue-1000 hover:decoration-[calc(3*var(--px-to-rem))]',
     'active:text-orange-800 active:decoration-1',
     'data-focus-visible:bg-yellow-300 data-focus-visible:text-blue-1000',
   ],

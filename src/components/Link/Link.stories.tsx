@@ -54,7 +54,7 @@ export const Example: Story = {
           です。
         </p>
 
-        <p className='w-[calc(160/16*1rem)]'>
+        <p className='w-[calc(160*var(--px-to-rem))]'>
           これは
           <Link href='https://www.digital.go.jp' target='_blank'>
             複数行にまたがる文中のインラインリンク
