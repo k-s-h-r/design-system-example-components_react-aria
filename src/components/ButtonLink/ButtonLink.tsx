@@ -1,21 +1,18 @@
-import type { VariantProps } from 'cva';
-import { composeRenderProps, Link, type LinkProps } from 'react-aria-components';
+import { Link, type LinkProps } from 'react-aria-components';
+import type { VariantProps } from 'tailwind-variants';
 import { buttonVariants } from '@/components';
-import { cx } from '@/lib/cva';
+import { composeTailwindRenderProps } from '../utils';
 
-interface ButtonLinkProps extends LinkProps, VariantProps<typeof buttonVariants> {}
+export interface ButtonLinkProps extends LinkProps, VariantProps<typeof buttonVariants> {}
 
 const ButtonLink = (props: ButtonLinkProps) => {
   const { className, variant, size, ...rest } = props;
   return (
     <Link
-      className={composeRenderProps(className, (className, renderProps) =>
-        cx(buttonVariants({ ...renderProps, variant, size, className })),
-      )}
+      className={composeTailwindRenderProps(className, buttonVariants({ variant, size }))}
       {...rest}
     />
   );
 };
 
-export type { ButtonLinkProps };
 export { ButtonLink };

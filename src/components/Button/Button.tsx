@@ -1,5 +1,5 @@
-import type { VariantProps } from 'cva';
 import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react-aria-components';
+import type { VariantProps } from 'tailwind-variants';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const buttonVariants = tv({
