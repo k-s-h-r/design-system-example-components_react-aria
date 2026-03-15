@@ -1,42 +1,45 @@
 import type { VariantProps } from 'cva';
-import {
-  Button as _Button,
-  type ButtonProps as _ButtonProps,
-  composeRenderProps,
-} from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
+import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react-aria-components';
+import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
-const _buttonVariants = cva({
+const buttonVariants = tv({
+  extend: focusRing,
   base: [
-    'border border-transparent underline-offset-2',
-    'disabled:no-underline disabled:pointer-events-none',
+    'border border-transparent underline-offset-2 cursor-pointer',
+    'aria-disabled:no-underline aria-disabled:pointer-events-none',
   ],
   variants: {
     variant: {
       primary: [
         'bg-blue-900 text-white',
-        'hover:bg-blue-1000 hover:underline',
-        'pressed:bg-blue-1100 pressed:underline',
-        'disabled:bg-black/30',
+        'data-hovered:bg-blue-1000 data-hovered:underline',
+        'data-pressed:bg-blue-1200 data-pressed:underline',
+        'aria-disabled:bg-solid-gray-300',
+        'disabled:bg-solid-gray-300',
       ],
       secondary: [
-        '!border-blue-900 bg-white text-blue-900',
-        'hover:!border-blue-1000 hover:bg-blue-200 hover:text-blue-1000 hover:underline',
-        'pressed:!border-blue-1100 pressed:bg-blue-300 pressed:text-blue-1200 pressed:underline',
-        'disabled:!border-solid-grey-400 disabled:bg-white disabled:text-solid-grey-400',
+        'border-blue-900 bg-white text-blue-900',
+        'data-hovered:border-blue-1000 data-hovered:bg-blue-200 data-hovered:text-blue-1000 data-hovered:underline',
+        'data-pressed:border-blue-1200 data-pressed:bg-blue-300 data-pressed:text-blue-1200 data-pressed:underline',
+        'aria-disabled:border-solid-gray-400 aria-disabled:bg-white aria-disabled:text-solid-gray-400',
+        'aria-disabled:data-focus-visibled:border-solid-gray-420',
+        'disabled:border-solid-gray-400 disabled:bg-white disabled:text-solid-gray-400',
+        'disabled:data-focus-visibled:border-solid-gray-420',
       ],
       tertiary: [
         'bg-transparent text-blue-900 underline',
-        'hover:bg-blue-200 hover:text-blue-1000',
-        'pressed:bg-blue-300 pressed:text-blue-1200',
-        'disabled:bg-transparent disabled:text-solid-grey-400',
+        'data-hovered:bg-blue-50 data-hovered:text-blue-1000',
+        'data-pressed:bg-blue-100 data-pressed:text-blue-1200',
+        'data-focus-visible:bg-yellow-300',
+        'aria-disabled:bg-transparent aria-disabled:text-solid-gray-400',
+        'disabled:bg-transparent disabled:text-solid-gray-400',
       ],
     },
     size: {
-      lg: 'min-w-[8.5rem] rounded-8 p-4 text-oln-16B-1 leading-snug',
-      md: 'min-w-24 rounded-8 px-4 py-3 text-oln-16B-1 leading-snug',
-      sm: 'min-w-20 rounded-md px-3 py-1.5 text-oln-16B-1 leading-snug relative after:absolute after:-inset-x-[1px] after:-inset-y-[5px]',
-      xs: 'min-w-18 rounded px-2 py-1.5 text-oln-14B-1 relative after:absolute after:-inset-x-[1px] after:-inset-y-[9px]',
+      lg: 'min-w-[calc(136/16*1rem)] min-h-14 rounded-8 px-4 py-3 text-oln-16B-100',
+      md: 'min-w-24 min-h-12 rounded-8 px-4 py-2 text-oln-16B-100',
+      sm: 'relative min-w-20 min-h-9 rounded-6 px-3 py-0.5 text-oln-16B-100 after:absolute after:inset-x-0 after:-inset-y-full after:m-auto after:h-[44px]',
+      xs: 'relative min-w-18 min-h-7 rounded-4 px-2 py-0.5 text-oln-14B-100 after:absolute after:inset-x-0 after:-inset-y-full after:m-auto after:h-[44px]',
     },
   },
   defaultVariants: {
@@ -44,8 +47,6 @@ const _buttonVariants = cva({
     size: 'md',
   },
 });
-
-const buttonVariants = compose(focusRing, _buttonVariants);
 
 /*
 // required for type checking
@@ -59,16 +60,15 @@ export interface ButtonProps
   asChild?: boolean;
 }
 */
-export interface ButtonProps extends _ButtonProps, VariantProps<typeof buttonVariants> {}
+export interface ButtonProps extends AriaButtonProps, VariantProps<typeof buttonVariants> {}
 
 const Button = (props: ButtonProps) => {
-  const { className, variant, size, ...rest } = props;
+  const { className, variant, size, 'aria-disabled': ariaDisabled, ...rest } = props;
 
   return (
-    <_Button
-      className={composeRenderProps(className, (className, renderProps) =>
-        cx(buttonVariants({ ...renderProps, variant, size, className })),
-      )}
+    <AriaButton
+      className={composeTailwindRenderProps(className, buttonVariants({ variant, size }))}
+      aria-disabled={ariaDisabled}
       {...rest}
     />
   );
