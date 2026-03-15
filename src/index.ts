@@ -7,6 +7,8 @@ export {
   AccordionSummary,
   Breadcrumb,
   BreadcrumbItem,
+  Breadcrumbs,
+  BreadcrumbsLabel,
   Button,
   ButtonLink,
   buttonVariants,

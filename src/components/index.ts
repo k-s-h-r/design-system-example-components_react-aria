@@ -6,7 +6,7 @@ export {
   AccordionGroup,
   AccordionSummary,
 } from './Accordion';
-export { Breadcrumb, BreadcrumbItem } from './Breadcrumb';
+export { Breadcrumb, BreadcrumbItem, Breadcrumbs, BreadcrumbsLabel } from './Breadcrumb';
 export { Button, type ButtonProps, buttonVariants } from './Button';
 export { ButtonLink } from './ButtonLink';
 export { Checkbox } from './Checkbox';

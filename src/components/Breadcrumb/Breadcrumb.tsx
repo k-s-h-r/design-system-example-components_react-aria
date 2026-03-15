@@ -1,124 +1,128 @@
-import type { VariantProps } from 'cva';
-import React, { type ComponentProps } from 'react';
-import { cva, cx } from '@/lib/cva';
-import { BreadcrumbItem } from './BreadcrumbItem';
+import type { Key } from '@react-types/shared';
+import React from 'react';
+import {
+  Breadcrumb as AriaBreadcrumb,
+  type BreadcrumbProps as AriaBreadcrumbProps,
+  Breadcrumbs as AriaBreadcrumbs,
+  type BreadcrumbsProps as AriaBreadcrumbsProps,
+} from 'react-aria-components';
+import { twMerge } from 'tailwind-merge';
+import { Link, type LinkProps } from '@/components';
+import { composeTailwindRenderProps, tv } from '../utils';
 
-export const variantsClass = cva({
-  base: [],
-  variants: {},
-  compoundVariants: [],
-  defaultVariants: {},
-});
+export type BreadcrumbItemData = {
+  id?: Key;
+  label: React.ReactNode;
+} & Omit<LinkProps, 'children' | 'className'>;
 
-type BreadcrumbVariants = VariantProps<typeof variantsClass> & ComponentProps<'div'>;
+const defaultSeparator = (
+  <svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden={true}>
+    <path
+      d='M6.71 11.96L6 11.25L9.27 7.98L6 4.71L6.71 4L10.69 7.98L6.71 11.96Z'
+      fill='currentColor'
+    />
+  </svg>
+);
 
-type Items = {
-  label: string;
-  href?: string;
-  className?: string;
-}[];
+export type BreadcrumbsLabelProps = React.ComponentProps<'span'>;
 
-export interface BreadcrumbProps extends BreadcrumbVariants {
-  separator: React.ReactNode;
-  ariaLabel?: string;
-  classNames?: {
-    items?: string;
-    item?: string;
-    separator?: string;
-  };
-  items?: Items;
-}
+export function BreadcrumbsLabel(props: BreadcrumbsLabelProps) {
+  const { children, className, ...rest } = props;
 
-function getItems(
-  items: Items,
-  separator: React.ReactNode,
-  itemClass: string,
-  separatorClass: string,
-) {
-  return items.map((item, index) => {
-    const { label, href, className, ...rest } = item;
-    return (
-      <li className={itemClass} key={String(index)}>
-        {index === items.length - 1 && (
-          <BreadcrumbItem className={className} aria-current='page' {...rest}>
-            {label}
-          </BreadcrumbItem>
-        )}
-        {index !== items.length - 1 && (
-          <>
-            <BreadcrumbItem className={className} href={href} {...rest}>
-              {label}
-            </BreadcrumbItem>
-            <div className={separatorClass} aria-hidden={true} key={`separator-${String(index)}`}>
-              {separator}
-            </div>
-          </>
-        )}
-      </li>
-    );
-  });
-}
-
-function getNodeItems(
-  children: React.ReactNode,
-  separator: React.ReactNode,
-  itemClass: string | undefined,
-  separatorClass: string | undefined,
-) {
-  const _children =
-    React.isValidElement(children) && children.type === React.Fragment
-      ? children.props.children
-      : children;
-  const items = React.Children.toArray(_children).reduce<React.ReactNode[]>(
-    (acc, child, index, array) => {
-      const item = (
-        <li className={itemClass} key={String(index)}>
-          {child}
-
-          {index !== array.length - 1 && (
-            <div className={separatorClass} aria-hidden={true} key={`separator-${String(index)}`}>
-              {separator}
-            </div>
-          )}
-        </li>
-      );
-
-      acc.push(item);
-      return acc;
-    },
-    [],
+  return (
+    <span className={className} {...rest}>
+      {children}
+    </span>
   );
-  return items;
 }
 
-export const Breadcrumb = ({ ...props }: BreadcrumbProps) => {
-  const { className, classNames, separator, children, items, ...rest } = props;
-  const _separator = (
-    <svg width='16' height='16' viewBox='0 0 16 16' fill='none' aria-hidden={true}>
-      <path
-        d='M6.71 11.96L6 11.25L9.27 7.98L6 4.71L6.71 4L10.69 7.98L6.71 11.96Z'
-        fill='currentColor'
-      />
-    </svg>
+export interface BreadcrumbsProps<T extends object>
+  extends Omit<AriaBreadcrumbsProps<T>, 'className'> {
+  className?: string;
+  listClassName?: string;
+}
+
+export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
+  const { children, className, listClassName, items, ...rest } = props;
+
+  if (typeof children === 'function' || items) {
+    return (
+      <nav className={className}>
+        <AriaBreadcrumbs
+          {...rest}
+          items={items}
+          className={twMerge('inline', listClassName)}
+        >
+          {children}
+        </AriaBreadcrumbs>
+      </nav>
+    );
+  }
+
+  const allChildren = React.Children.toArray(children);
+  const breadcrumbChildren = allChildren.filter(
+    (child) => React.isValidElement(child) && child.type === Breadcrumb,
+  );
+  const otherChildren = allChildren.filter(
+    (child) => !(React.isValidElement(child) && child.type === Breadcrumb),
   );
 
   return (
-    <nav aria-label={props.ariaLabel || 'パンくずリスト'} className={className} {...rest}>
-      <ol className={classNames?.items}>
-        {items
-          ? getItems(
-              items,
-              separator || _separator,
-              cx('inline', classNames?.item),
-              cx('inline-block align-middle mx-2', classNames?.separator),
-            )
-          : getNodeItems(
-              children,
-              separator || _separator,
-              cx('inline', classNames?.item),
-              cx('inline-block align-middle mx-2', classNames?.separator),
-            )}
-      </ol>
+    <nav className={className}>
+      {otherChildren}
+      <AriaBreadcrumbs {...rest} className={twMerge('inline', listClassName)}>
+        {breadcrumbChildren}
+      </AriaBreadcrumbs>
     </nav>
   );
-};
+}
+
+const breadcrumbVariants = tv({
+  base: ['wrap-break-word'],
+  variants: {
+    isCurrent: {
+      true: '',
+      false: 'text-blue-1000',
+    },
+  },
+  defaultVariants: {},
+});
+
+export interface BreadcrumbProps extends Omit<LinkProps, 'className' | 'id'> {
+  id?: AriaBreadcrumbProps['id'];
+  className?: AriaBreadcrumbProps['className'];
+  separator?: React.ReactNode;
+  linkClassName?: LinkProps['className'];
+}
+
+export function Breadcrumb(props: BreadcrumbProps) {
+  const {
+    id,
+    children,
+    className,
+    linkClassName,
+    separator = defaultSeparator,
+    ...linkProps
+  } = props;
+
+  return (
+    <AriaBreadcrumb id={id} className={composeTailwindRenderProps(className, 'inline')}>
+      {({ isCurrent }) => (
+        <>
+          <Link
+            {...linkProps}
+            aria-current={isCurrent ? 'page' : undefined}
+            className={composeTailwindRenderProps(linkClassName, breadcrumbVariants({ isCurrent }))}
+          >
+            {children}
+          </Link>
+          {!isCurrent && (
+            <span className='inline-block align-middle mx-2' aria-hidden={true}>
+              {separator}
+            </span>
+          )}
+        </>
+      )}
+    </AriaBreadcrumb>
+  );
+}
