@@ -22,7 +22,7 @@ export {
   Divider,
   FieldError,
   FieldGroup,
-  HamburgerButton,
+  HamburgerMenuButton,
   Input,
   Label,
   Link,

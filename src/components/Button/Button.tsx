@@ -22,9 +22,9 @@ const buttonVariants = tv({
         'data-hovered:border-blue-1000 data-hovered:bg-blue-200 data-hovered:text-blue-1000 data-hovered:underline',
         'data-pressed:border-blue-1200 data-pressed:bg-blue-300 data-pressed:text-blue-1200 data-pressed:underline',
         'aria-disabled:border-solid-gray-400 aria-disabled:bg-white aria-disabled:text-solid-gray-400',
-        'aria-disabled:data-focus-visibled:border-solid-gray-420',
+        'aria-disabled:data-focus-visible:border-solid-gray-420',
         'disabled:border-solid-gray-400 disabled:bg-white disabled:text-solid-gray-400',
-        'disabled:data-focus-visibled:border-solid-gray-420',
+        'disabled:data-focus-visible:border-solid-gray-420',
       ],
       tertiary: [
         'bg-transparent text-blue-900 underline',

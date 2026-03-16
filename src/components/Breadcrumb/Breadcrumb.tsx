@@ -48,11 +48,7 @@ export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
   if (typeof children === 'function' || items) {
     return (
       <nav className={className}>
-        <AriaBreadcrumbs
-          {...rest}
-          items={items}
-          className={twMerge('inline', listClassName)}
-        >
+        <AriaBreadcrumbs {...rest} items={items} className={twMerge('inline', listClassName)}>
           {children}
         </AriaBreadcrumbs>
       </nav>

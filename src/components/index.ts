@@ -28,7 +28,7 @@ export {
 } from './Disclosure';
 export { Divider } from './Divider';
 export { Description, FieldError, FieldGroup, Input, Label, TextArea } from './Field';
-export { HamburgerButton } from './HamburgerButton';
+export { HamburgerMenuButton } from './HamburgerMenuButton';
 export { Link, type LinkProps, linkVariants } from './Link';
 export { Ol, olVariants } from './Ol';
 export { Pagination } from './Pagination';
