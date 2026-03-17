@@ -4,7 +4,7 @@ import {
   Button,
   Description,
   FieldError,
-  Input,
+  InputText,
   Label,
   RequirementBadge,
   TextArea,
@@ -27,7 +27,7 @@ export const Example = (args) => (
     <TextField {...args}>
       <Label>ラベル</Label>
       <Description>サポートテキスト</Description>
-      <Input />
+      <InputText />
     </TextField>
 
     <TextField {...args}>
@@ -35,7 +35,7 @@ export const Example = (args) => (
         ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
       </Label>
       <Description>サポートテキスト</Description>
-      <Input />
+      <InputText />
     </TextField>
 
     <TextField {...args}>
@@ -55,7 +55,7 @@ export const Example = (args) => (
         ラベル<RequirementBadge>※必須</RequirementBadge>
       </Label>
       <Description>サポートテキスト</Description>
-      <Input />
+      <InputText />
     </TextField>
 
     <TextField isInvalid={true} aria-invalid={true} isRequired {...args}>
@@ -63,14 +63,14 @@ export const Example = (args) => (
         ラベル<RequirementBadge>※必須</RequirementBadge>
       </Label>
       <Description>サポートテキスト</Description>
-      <Input />
+      <InputText />
       <FieldError>＊エラーテキスト</FieldError>
     </TextField>
 
     <TextField isDisabled={true} {...args}>
       <Label>ラベル</Label>
       <Description>サポートテキスト</Description>
-      <Input />
+      <InputText />
       <TextField />
     </TextField>
   </div>
@@ -93,7 +93,7 @@ export const Validation = (args) => (
         ラベル<RequirementBadge>※必須</RequirementBadge>
       </Label>
       <Description>サポートテキスト</Description>
-      <Input />
+      <InputText />
       <FieldError />
     </TextField>
     <Button type='submit' variant='secondary'>

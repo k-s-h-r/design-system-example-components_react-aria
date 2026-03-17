@@ -27,13 +27,14 @@ export {
   DisclosureSummary,
 } from './Disclosure';
 export { Divider } from './Divider';
-export { Description, FieldError, FieldGroup, Input, Label, TextArea } from './Field';
+export { Description, FieldError, FieldGroup, Label, TextArea } from './FormControlLabel';
+export { RequirementBadge } from './FormControlLabel/RequirementBadge';
 export { HamburgerMenuButton } from './HamburgerMenuButton';
+export { InputText } from './InputText';
 export { Link, type LinkProps, linkVariants } from './Link';
 export { Ol, olVariants } from './Ol';
 export { Pagination } from './Pagination';
 export { Radio } from './Radio';
-export { RequirementBadge } from './RequirementBadge';
 export { ScrollToTopButton, scrollToTopButtonVariants } from './ScrollToTopButton';
 export { Select, SelectItem, SelectSection } from './Select';
 export { Table, Tbody, Td, Th, Thead, Tr, tdVariants, thVariants } from './Table';

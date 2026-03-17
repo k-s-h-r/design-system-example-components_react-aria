@@ -1,9 +1,8 @@
 import type { Meta } from '@storybook/react';
-import React from 'react';
 import { RequirementBadge } from './';
 
 const meta = {
-  title: 'Component/RequirementBadge',
+  title: 'Component/FormControlLabel/RequirementBadge',
   component: RequirementBadge,
   tags: ['autodocs'],
 } satisfies Meta<typeof RequirementBadge>;

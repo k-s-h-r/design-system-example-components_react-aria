@@ -23,7 +23,7 @@ export {
   FieldError,
   FieldGroup,
   HamburgerMenuButton,
-  Input,
+  InputText,
   Label,
   Link,
   linkVariants,

@@ -1,9 +1,8 @@
 import type { Meta } from '@storybook/react';
-import React from 'react';
 import { Description } from './Description';
 
 const meta = {
-  title: 'Component/Field-Description',
+  title: 'Component/FormControlLabel/Description',
   component: Description,
   tags: ['autodocs'],
 } satisfies Meta<typeof Description>;

@@ -39,7 +39,7 @@ const _inputVariants = cva({
 const inputVariants = compose(focusRing, _inputVariants);
 export interface InputProps extends Omit<_InputProps, 'size'>, VariantProps<typeof inputVariants> {}
 
-const Input = (props: InputProps) => {
+const InputText = (props: InputProps) => {
   const { size, ...rest } = props;
   return (
     <_Input
@@ -51,4 +51,4 @@ const Input = (props: InputProps) => {
   );
 };
 
-export { Input, inputVariants };
+export { InputText, inputVariants };
