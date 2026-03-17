@@ -25,7 +25,7 @@ const variants = cva({
 });
 
 export function Popover({ children, showArrow, className, ...props }: PopoverProps) {
-  // biome-ignore lint/style/noNonNullAssertion: <explanation>
+  // biome-ignore lint/style/noNonNullAssertion: The context is guaranteed to be available when the Popover is rendered.
   const popoverContext = useSlottedContext(PopoverContext)!;
   const isSubmenu = popoverContext?.trigger === 'SubmenuTrigger';
   let offset = showArrow ? 12 : 8;

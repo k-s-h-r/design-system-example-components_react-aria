@@ -10,7 +10,7 @@ const meta = {
 
 export default meta;
 
-export const Example = (args) => (
+export const Example = (_args) => (
   <div className='flex f_argscol gap-8'>
     <TextField isInvalid>
       <FieldError>＊エラーテキスト</FieldError>

@@ -9,7 +9,7 @@ const meta = {
 
 export default meta;
 
-export const Example = (args) => (
+export const Example = (_args) => (
   <div className='flex flex-col gap-8'>
     <Description>サポートテキスト</Description>
   </div>

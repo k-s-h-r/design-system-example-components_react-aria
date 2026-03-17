@@ -1,5 +1,4 @@
 import type { Meta } from '@storybook/react';
-import React from 'react';
 import { Checkbox, CheckboxGroup } from './Checkbox';
 
 const meta = {
@@ -11,7 +10,7 @@ const meta = {
 
 export default meta;
 
-export const Example = (args) => (
+export const Example = (_args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isSelected>
       選択肢
@@ -20,7 +19,7 @@ export const Example = (args) => (
   </div>
 );
 
-export const Disabeld = (args) => (
+export const Disabeld = (_args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='3' isDisabled isSelected>
       選択肢
@@ -31,7 +30,7 @@ export const Disabeld = (args) => (
   </div>
 );
 
-export const Invalid = (args) => (
+export const Invalid = (_args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isInvalid isSelected>
       選択肢
@@ -42,7 +41,7 @@ export const Invalid = (args) => (
   </div>
 );
 
-export const Readonly = (args) => (
+export const Readonly = (_args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isReadOnly isSelected>
       選択肢
@@ -53,7 +52,7 @@ export const Readonly = (args) => (
   </div>
 );
 
-export const Indeterminate = (args) => (
+export const Indeterminate = (_args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox value='1' isIndeterminate>
       選択肢
@@ -64,7 +63,7 @@ export const Indeterminate = (args) => (
   </div>
 );
 
-export const Size = (args) => (
+export const Size = (_args) => (
   <div className='flex flex-col gap-1'>
     <Checkbox size='sm'>smaill</Checkbox>
     <Checkbox size='md'>medium</Checkbox>

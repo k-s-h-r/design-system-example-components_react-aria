@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import React from 'react';
+import { useId } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { Breadcrumb, Breadcrumbs, BreadcrumbsLabel } from './';
 import type { BreadcrumbItemData } from './Breadcrumb';
@@ -18,7 +18,7 @@ type Story = StoryObj<typeof Breadcrumbs>;
 
 export const Default: Story = {
   render: (args) => {
-    const breadcrumbsId = React.useId();
+    const breadcrumbsId = useId();
 
     return (
       <Breadcrumbs {...args} aria-labelledby={`${breadcrumbsId}-label`}>
@@ -36,7 +36,7 @@ export const Default: Story = {
 
 export const LongLabelExample: Story = {
   render: (args) => {
-    const breadcrumbsId = React.useId();
+    const breadcrumbsId = useId();
 
     return (
       <Breadcrumbs {...args} aria-labelledby={`${breadcrumbsId}-label`}>
@@ -58,7 +58,7 @@ export const LongLabelExample: Story = {
 
 export const Separator: Story = {
   render: (args) => {
-    const breadcrumbsId = React.useId();
+    const breadcrumbsId = useId();
 
     return (
       <Breadcrumbs {...args} aria-labelledby={`${breadcrumbsId}-label`}>
@@ -123,17 +123,14 @@ export const PropItems: Story = {
 
 export const WithHomeIcon: Story = {
   render: (args) => {
-    const breadcrumbsId = React.useId();
+    const breadcrumbsId = useId();
 
     return (
       <Breadcrumbs {...args} aria-labelledby={`${breadcrumbsId}-label`}>
         <BreadcrumbsLabel className='sr-only' id={`${breadcrumbsId}-label`}>
           現在位置
         </BreadcrumbsLabel>
-        <Breadcrumb
-          href='/'
-          linkClassName='inline-flex items-center gap-1'
-        >
+        <Breadcrumb href='/' linkClassName='inline-flex items-center gap-1'>
           <svg aria-hidden={true} fill='none' height='16' viewBox='0 0 16 16' width='16'>
             <path
               d='M3 13.6666V6.16667L7.99998 2.40387L13 6.16667V13.6666H9.26922V9.2051H6.73075V13.6666H3Z'
@@ -152,7 +149,7 @@ export const WithHomeIcon: Story = {
 
 export const WithVisibleLabel: Story = {
   render: (args) => {
-    const breadcrumbsId = React.useId();
+    const breadcrumbsId = useId();
 
     return (
       <Breadcrumbs

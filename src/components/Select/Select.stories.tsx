@@ -70,7 +70,7 @@ export const Separator = (args) => (
   </Select>
 );
 
-export const Sections = (args) => (
+export const Sections = (_args) => (
   <Select>
     _args
     <Label>Ice cream flavor</Label>
@@ -117,7 +117,7 @@ Validation.args = {
   isRequired: true,
 };
 
-export const Size = (args) => (
+export const Size = (_args) => (
   <div className='fle_argsex-col items-start gap-8'>
     <Select>
       <Label>Small</Label>

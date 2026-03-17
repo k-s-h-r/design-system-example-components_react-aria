@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { Button, type ButtonProps, OverlayTriggerStateContext } from 'react-aria-components';
-import { composeTailwindRenderProps, focusRing, tv, twMerge } from '../utils';
+import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const hamburgerMenuButtonVariants = tv({
   extend: focusRing,

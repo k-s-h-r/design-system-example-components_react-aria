@@ -18,7 +18,7 @@ const meta = {
 
 export default meta;
 
-export const Example = (args) => (
+export const Example = (_args) => (
   <DialogTrigger>
     _args
     <Button size='lg' variant='primary'>
@@ -49,7 +49,7 @@ export const Example = (args) => (
   </DialogTrigger>
 );
 
-export const DialogWithHorizontalActions = (args) => (
+export const DialogWithHorizontalActions = (_args) => (
   <DialogTrigger>
     _args
     <Button size='lg' variant='primary'>
@@ -83,7 +83,7 @@ export const DialogWithHorizontalActions = (args) => (
   </DialogTrigger>
 );
 
-export const AlertDialog = (args) => (
+export const AlertDialog = (_args) => (
   <DialogTrigger>
     _args
     <Button size='lg' variant='primary'>

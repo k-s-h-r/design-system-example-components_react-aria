@@ -15,7 +15,7 @@ export const Example = (args) => (
   </div>
 );
 
-export const Optional = (args) => (
+export const Optional = (_args) => (
   <div className='flex flex-col gap-8'>
     <RequirementBadge isOptional={true}>任意</RequirementBadge>
   </div>

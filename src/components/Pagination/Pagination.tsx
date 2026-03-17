@@ -23,6 +23,7 @@ export interface PaginationProps extends PaginationVariants {
   withControl?: boolean;
   isSimple: boolean;
 
+  // biome-ignore lint/suspicious/noExplicitAny: The getItemProps function is expected to return an object with any props that should be applied to the pagination item, such as onClick handlers or aria attributes. The exact shape of this object can vary depending on the implementation, so using Record<string, any> allows for flexibility in the props that can be returned.
   getItemProps?(page: number, control?: 'first' | 'prev' | 'last' | 'next'): Record<string, any>;
 }
 

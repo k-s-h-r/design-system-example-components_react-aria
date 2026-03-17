@@ -1,5 +1,4 @@
 import type { Meta } from '@storybook/react';
-import React from 'react';
 import { Label } from './Label';
 
 const meta = {
@@ -10,7 +9,7 @@ const meta = {
 
 export default meta;
 
-export const Example = (args) => (
+export const Example = (_args) => (
   <div className='flex flex-col gap-8'>
     <Label>ラベル</Label>
     <Label isDisabled={true}>ラベル(isDisabled)</Label>
