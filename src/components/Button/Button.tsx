@@ -5,8 +5,9 @@ import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 const buttonVariants = tv({
   extend: focusRing,
   base: [
-    'border border-transparent underline-offset-2 cursor-pointer',
-    'aria-disabled:no-underline aria-disabled:pointer-events-none',
+    'inline-flex items-center justify-center border border-transparent underline-offset-2 cursor-pointer',
+    'aria-disabled:no-underline aria-disabled:pointer-events-none aria-disabled:cursor-default',
+    'disabled:no-underline disabled:cursor-default',
   ],
   variants: {
     variant: {
@@ -63,12 +64,11 @@ export interface ButtonProps
 export interface ButtonProps extends AriaButtonProps, VariantProps<typeof buttonVariants> {}
 
 const Button = (props: ButtonProps) => {
-  const { className, variant, size, 'aria-disabled': ariaDisabled, ...rest } = props;
+  const { className, variant, size, ...rest } = props;
 
   return (
     <AriaButton
       className={composeTailwindRenderProps(className, buttonVariants({ variant, size }))}
-      aria-disabled={ariaDisabled}
       {...rest}
     />
   );
