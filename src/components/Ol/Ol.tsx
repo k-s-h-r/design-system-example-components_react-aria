@@ -1,12 +1,12 @@
-import type { VariantProps } from 'cva';
 import type { ComponentProps } from 'react';
-import { cva, cx } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { tv } from '../utils';
 
-const olVariants = cva({
+const olVariants = tv({
   base: '',
   variants: {
     listStyle: {
-      unset: null,
+      unset: '',
       none: 'list-none',
       decimal: 'pl-8 list-decimal',
       'lower-latin': 'pl-8 list-lower-latin',
@@ -21,12 +21,12 @@ const olVariants = cva({
   },
 });
 
-interface OlProps extends ComponentProps<'ol'>, VariantProps<typeof olVariants> {}
+export interface OlProps extends ComponentProps<'ol'>, VariantProps<typeof olVariants> {}
 
 const Ol = (props: OlProps) => {
   const { children, className, listStyle, hierarchicalStyles, ...rest } = props;
   return (
-    <ol className={cx(olVariants({ listStyle, hierarchicalStyles, className }))} {...rest}>
+    <ol className={olVariants({ listStyle, hierarchicalStyles, className })} {...rest}>
       {children}
     </ol>
   );

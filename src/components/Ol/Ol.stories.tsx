@@ -1,9 +1,8 @@
 import type { Meta } from '@storybook/react';
-import React from 'react';
 import { Ol } from './';
 
 const meta = {
-  title: 'Component/Ol',
+  title: 'Component/List/Ol',
   component: Ol,
   tags: ['autodocs'],
   argTypes: {

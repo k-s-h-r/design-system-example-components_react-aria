@@ -2,7 +2,7 @@ import type { Meta } from '@storybook/react';
 import { Ul } from './';
 
 const meta = {
-  title: 'Component/Ul',
+  title: 'Component/List/Ul',
   component: Ul,
   tags: ['autodocs'],
   argTypes: {

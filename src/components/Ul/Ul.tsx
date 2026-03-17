@@ -1,12 +1,12 @@
-import type { VariantProps } from 'cva';
 import type { ComponentProps } from 'react';
-import { cva, cx } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { tv } from '../utils';
 
-const ulVariants = cva({
+const ulVariants = tv({
   base: '',
   variants: {
     listStyle: {
-      unset: null,
+      unset: '',
       none: 'list-none',
       disc: 'pl-8 list-disc',
       circle: 'pl-8 list-circle',
@@ -22,12 +22,12 @@ const ulVariants = cva({
   },
 });
 
-interface UlProps extends ComponentProps<'ul'>, VariantProps<typeof ulVariants> {}
+export interface UlProps extends ComponentProps<'ul'>, VariantProps<typeof ulVariants> {}
 
 const Ul = (props: UlProps) => {
   const { children, className, listStyle, hierarchicalStyles, ...rest } = props;
   return (
-    <ul className={cx(ulVariants({ listStyle, hierarchicalStyles, className }))} {...rest}>
+    <ul className={ulVariants({ listStyle, hierarchicalStyles, className })} {...rest}>
       {children}
     </ul>
   );
