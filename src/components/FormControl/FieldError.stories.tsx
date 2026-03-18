@@ -3,7 +3,7 @@ import { TextField } from '@/components';
 import { FieldError } from './FieldError';
 
 const meta = {
-  title: 'Component/FormControlLabel/FieldError',
+  title: 'Component/FormControl/FieldError',
   component: FieldError,
   tags: ['autodocs'],
 } satisfies Meta<typeof FieldError>;

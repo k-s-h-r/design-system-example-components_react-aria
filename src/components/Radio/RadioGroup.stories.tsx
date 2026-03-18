@@ -1,6 +1,6 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta } from '@storybook/react';
 import { Form } from 'react-aria-components';
-import { Button, Description, FieldError, Label, RequirementBadge } from '@/components';
+import { Button, Description, FieldError, Label, Requirements } from '@/components';
 import { Radio, RadioGroup } from './';
 
 const meta = {
@@ -13,12 +13,11 @@ const meta = {
 } satisfies Meta<typeof RadioGroup>;
 
 export default meta;
-type Story = StoryObj<typeof meta>;
 
 export const Example = (args) => (
   <RadioGroup {...args}>
     <Label>
-      ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
+      ラベル<Requirements variant='optional'>任意</Requirements>
     </Label>
     <Description>サポートテキスト</Description>
     <div className='flex flex-col'>

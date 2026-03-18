@@ -1,12 +1,12 @@
 import { Text, type TextProps } from 'react-aria-components';
-import { cx } from '@/lib/cva';
+import { twMerge } from '../utils';
 
 const Description = (props: TextProps) => {
   return (
     <Text
       {...props}
       slot='description'
-      className={cx('text-std-16N-7 text-solid-gray-700', props.className)}
+      className={twMerge('text-std-16N-170 text-solid-gray-600', props.className)}
     />
   );
 };

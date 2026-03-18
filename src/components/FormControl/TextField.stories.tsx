@@ -6,17 +6,29 @@ import {
   FieldError,
   InputText,
   Label,
-  RequirementBadge,
+  Requirements,
   TextArea,
 } from '@/components';
 import { TextField } from './';
 
 const meta = {
-  title: 'Component/TextField',
+  title: 'Component/FormControl/TextField',
   component: TextField,
   tags: ['autodocs'],
   args: {
     className: 'flex gap-2 flex-col',
+  },
+  parameters: {
+    docs: {
+      description: {
+        component: `
+\`TextField\` は \`react-aria-components\` の \`TextField\` を薄く包んだ wrapper です。
+
+親の \`TextField\` に \`isRequired\` / \`isInvalid\` / \`isDisabled\` / \`isReadOnly\` を渡すと、子の \`Label\`、\`Description\`、\`FieldError\`、\`InputText\`、\`TextArea\` が React Aria の context と slot を通じて連動します。
+
+このため、入力部だけに状態を個別で渡さなくても、フォーム項目単位で意味付けと見た目をまとめて扱えます。`,
+      },
+    },
   },
 } satisfies Meta<typeof TextField>;
 
@@ -32,7 +44,7 @@ export const Example = (args) => (
 
     <TextField {...args}>
       <Label>
-        ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
+        ラベル<Requirements variant='optional'>任意</Requirements>
       </Label>
       <Description>サポートテキスト</Description>
       <InputText />
@@ -40,7 +52,7 @@ export const Example = (args) => (
 
     <TextField {...args}>
       <Label>
-        ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
+        ラベル<Requirements variant='optional'>任意</Requirements>
       </Label>
       <Description>サポートテキスト</Description>
       <TextArea rows={5} />
@@ -52,7 +64,7 @@ export const Example = (args) => (
       {...args}
     >
       <Label>
-        ラベル<RequirementBadge>※必須</RequirementBadge>
+        ラベル<Requirements variant='required'>※必須</Requirements>
       </Label>
       <Description>サポートテキスト</Description>
       <InputText />
@@ -60,7 +72,7 @@ export const Example = (args) => (
 
     <TextField isInvalid={true} aria-invalid={true} isRequired {...args}>
       <Label>
-        ラベル<RequirementBadge>※必須</RequirementBadge>
+        ラベル<Requirements variant='required'>※必須</Requirements>
       </Label>
       <Description>サポートテキスト</Description>
       <InputText />
@@ -79,7 +91,7 @@ export const Example = (args) => (
 export const Textarea = (args) => (
   <TextField {...args}>
     <Label>
-      ラベル<RequirementBadge isOptional={true}>任意</RequirementBadge>
+      ラベル<Requirements variant='optional'>任意</Requirements>
     </Label>
     <Description>サポートテキスト</Description>
     <TextArea rows={5} />
@@ -90,7 +102,7 @@ export const Validation = (args) => (
   <Form className='flex flex-col gap-2 items-start'>
     <TextField isRequired {...args}>
       <Label>
-        ラベル<RequirementBadge>※必須</RequirementBadge>
+        ラベル<Requirements variant='required'>※必須</Requirements>
       </Label>
       <Description>サポートテキスト</Description>
       <InputText />

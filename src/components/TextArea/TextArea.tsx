@@ -1,5 +1,5 @@
 import {
-  TextArea as _TextArea,
+  TextArea as AriaTextArea,
   composeRenderProps,
   type TextAreaProps,
 } from 'react-aria-components';
@@ -30,7 +30,7 @@ const inputVariants = compose(focusRing, _inputVariants);
 
 const TextArea = (props: TextAreaProps) => {
   return (
-    <_TextArea
+    <AriaTextArea
       {...props}
       className={composeRenderProps(props.className, (className, renderProps) =>
         cx(inputVariants({ ...renderProps, className })),

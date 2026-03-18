@@ -27,8 +27,7 @@ export {
   DisclosureSummary,
 } from './Disclosure';
 export { Divider } from './Divider';
-export { Description, FieldError, FieldGroup, Label, TextArea } from './FormControlLabel';
-export { RequirementBadge } from './FormControlLabel/RequirementBadge';
+export { Description, FieldError, FieldGroup, Label, Requirements, TextField } from './FormControl';
 export { HamburgerMenuButton } from './HamburgerMenuButton';
 export { InputText } from './InputText';
 export { Link, type LinkProps, linkVariants } from './Link';
@@ -38,6 +37,6 @@ export { Radio } from './Radio';
 export { ScrollToTopButton, scrollToTopButtonVariants } from './ScrollToTopButton';
 export { Select, SelectItem, SelectSection } from './Select';
 export { Table, Tbody, Td, Th, Thead, Tr, tdVariants, thVariants } from './Table';
-export { TextField } from './TextField';
+export { TextArea } from './TextArea';
 export { Ul, ulVariants } from './Ul';
 export { UtilityLink, utilityLinkVariants } from './UtilityLink';

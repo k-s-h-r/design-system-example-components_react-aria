@@ -31,7 +31,7 @@ export {
   olVariants,
   Pagination,
   Radio,
-  RequirementBadge,
+  Requirements,
   ScrollToTopButton,
   Select,
   scrollToTopButtonVariants,

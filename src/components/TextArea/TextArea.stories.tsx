@@ -3,7 +3,7 @@ import { TextField } from '@/components';
 import { TextArea } from './TextArea';
 
 const meta = {
-  title: 'Component/Field-TextArea',
+  title: 'Component/TextArea',
   component: TextArea,
   tags: ['autodocs'],
   args: {

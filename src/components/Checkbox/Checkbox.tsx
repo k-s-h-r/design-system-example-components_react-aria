@@ -1,25 +1,25 @@
 import type { VariantProps } from 'cva';
 import {
-  Checkbox as _Checkbox,
-  CheckboxGroup as _CheckboxGroup,
-  type CheckboxGroupProps as _CheckboxGroupProps,
-  type CheckboxProps as _CheckboxProps,
+  Checkbox as AriaCheckbox,
+  CheckboxGroup as AriaCheckboxGroup,
+  type CheckboxGroupProps as AriaCheckboxGroupProps,
+  type CheckboxProps as AriaCheckboxProps,
   composeRenderProps,
 } from 'react-aria-components';
 import { compose, cva, cx, focusRing } from '@/lib/cva';
 
-interface CheckboxGroupProps extends _CheckboxGroupProps {}
+interface CheckboxGroupProps extends AriaCheckboxGroupProps {}
 
 const CheckboxGroup = (props: CheckboxGroupProps) => {
   return (
-    <_CheckboxGroup
+    <AriaCheckboxGroup
       {...props}
       className={composeRenderProps(props.className, (className, _renderProps) =>
         cx('', className),
       )}
     >
       {props.children}
-    </_CheckboxGroup>
+    </AriaCheckboxGroup>
   );
 };
 
@@ -52,7 +52,7 @@ const _checkboxVariants = cva({
 });
 
 const checkboxVariants = compose(_checkboxVariants);
-interface CheckboxProps extends _CheckboxProps, VariantProps<typeof checkboxVariants> {}
+interface CheckboxProps extends AriaCheckboxProps, VariantProps<typeof checkboxVariants> {}
 
 const _boxVariants = cva({
   base: 'w-[--size] h-[--size] flex-shrink-0 rounded-sm flex items-center justify-center border-2 transition',
@@ -112,7 +112,7 @@ const SvgIndeterminate = (props: { className: string }) => (
 const Checkbox = (props: CheckboxProps) => {
   const { size, ...rest } = props;
   return (
-    <_Checkbox
+    <AriaCheckbox
       {...rest}
       className={composeRenderProps(props.className, (className, renderProps) =>
         checkboxVariants({ ...renderProps, size, className }),
@@ -132,7 +132,7 @@ const Checkbox = (props: CheckboxProps) => {
           {props.children}
         </>
       )}
-    </_Checkbox>
+    </AriaCheckbox>
   );
 };
 
