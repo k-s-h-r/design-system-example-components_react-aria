@@ -6,7 +6,7 @@ import {
 } from 'react-aria-components';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
-const linkVariants = tv({
+const linkStyles = tv({
   extend: focusRing,
   base: [
     'rounded',
@@ -29,7 +29,7 @@ const linkVariants = tv({
   defaultVariants: {},
 });
 
-export interface LinkProps extends AriaLinkProps, VariantProps<typeof linkVariants> {
+export interface LinkProps extends AriaLinkProps, VariantProps<typeof linkStyles> {
   icon?: false | ((isDisabled: boolean) => React.ReactNode);
 }
 
@@ -41,7 +41,7 @@ const Link = (props: LinkProps) => {
 
   return (
     <AriaLink
-      className={composeTailwindRenderProps(className, linkVariants({ hasHref, isDisabled }))}
+      className={composeTailwindRenderProps(className, linkStyles({ hasHref, isDisabled }))}
       {...rest}
     >
       {composeRenderProps(children, (children) => (
@@ -77,4 +77,4 @@ const Link = (props: LinkProps) => {
   );
 };
 
-export { Link, linkVariants };
+export { Link, linkStyles };

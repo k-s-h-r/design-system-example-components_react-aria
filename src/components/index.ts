@@ -7,7 +7,7 @@ export {
   AccordionSummary,
 } from './Accordion';
 export { Breadcrumb, BreadcrumbItem, Breadcrumbs, BreadcrumbsLabel } from './Breadcrumb';
-export { Button, type ButtonProps, buttonVariants } from './Button';
+export { Button, type ButtonProps, buttonStyles } from './Button';
 export { ButtonLink } from './ButtonLink';
 export { Checkbox } from './Checkbox';
 export {
@@ -30,13 +30,13 @@ export { Divider } from './Divider';
 export { Description, FieldError, FieldGroup, Label, Requirements, TextField } from './FormControl';
 export { HamburgerMenuButton } from './HamburgerMenuButton';
 export { InputText } from './InputText';
-export { Link, type LinkProps, linkVariants } from './Link';
-export { Ol, olVariants } from './Ol';
+export { Link, type LinkProps, linkStyles } from './Link';
+export { Ol, olStyles } from './Ol';
 export { Pagination } from './Pagination';
 export { Radio } from './Radio';
-export { ScrollToTopButton, scrollToTopButtonVariants } from './ScrollToTopButton';
+export { ScrollToTopButton, scrollToTopButtonStyles } from './ScrollToTopButton';
 export { Select, SelectItem, SelectSection } from './Select';
-export { Table, Tbody, Td, Th, Thead, Tr, tdVariants, thVariants } from './Table';
+export { Table, Tbody, Td, Th, Thead, Tr, tdStyles, thStyles } from './Table';
 export { TextArea } from './TextArea';
-export { Ul, ulVariants } from './Ul';
-export { UtilityLink, utilityLinkVariants } from './UtilityLink';
+export { Ul, ulStyles } from './Ul';
+export { UtilityLink, utilityLinkStyles } from './UtilityLink';

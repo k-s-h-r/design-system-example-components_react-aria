@@ -5,7 +5,7 @@ import {
 } from 'react-aria-components';
 import { compose, cva, cx, focusRing } from '@/lib/cva';
 
-const _inputVariants = cva({
+const _inputStyles = cva({
   base: [
     'rounded-8 min-w-80 max-w-full p-4 text-std-16N-7 text-solid-gray-900',
     'bg-white border border-solid-gray-900',
@@ -26,17 +26,17 @@ const _inputVariants = cva({
     },
   },
 });
-const inputVariants = compose(focusRing, _inputVariants);
+const inputStyles = compose(focusRing, _inputStyles);
 
 const TextArea = (props: TextAreaProps) => {
   return (
     <AriaTextArea
       {...props}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        cx(inputVariants({ ...renderProps, className })),
+        cx(inputStyles({ ...renderProps, className })),
       )}
     />
   );
 };
 
-export { inputVariants, TextArea };
+export { inputStyles, TextArea };

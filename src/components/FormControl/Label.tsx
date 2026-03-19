@@ -2,7 +2,7 @@ import type { VariantProps } from 'cva';
 import { Label as AriaLabel, type LabelProps as AriaLabelProps } from 'react-aria-components';
 import { tv } from '../utils';
 
-const labelVariants = tv({
+const labelStyles = tv({
   base: 'text-solid-gray-800',
   variants: {
     size: {
@@ -38,11 +38,11 @@ const labelVariants = tv({
   },
 });
 
-export interface LabelProps extends AriaLabelProps, VariantProps<typeof labelVariants> {}
+export interface LabelProps extends AriaLabelProps, VariantProps<typeof labelStyles> {}
 
 export function Label(props: LabelProps) {
   const { size, bold, ...rest } = props;
   return (
-    <AriaLabel {...rest} className={labelVariants({ size, bold, className: props.className })} />
+    <AriaLabel {...rest} className={labelStyles({ size, bold, className: props.className })} />
   );
 }

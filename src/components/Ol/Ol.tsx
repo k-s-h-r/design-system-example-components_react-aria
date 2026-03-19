@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 import { tv } from '../utils';
 
-const olVariants = tv({
+const olStyles = tv({
   base: '',
   variants: {
     listStyle: {
@@ -21,15 +21,15 @@ const olVariants = tv({
   },
 });
 
-export interface OlProps extends ComponentProps<'ol'>, VariantProps<typeof olVariants> {}
+export interface OlProps extends ComponentProps<'ol'>, VariantProps<typeof olStyles> {}
 
 const Ol = (props: OlProps) => {
   const { children, className, listStyle, hierarchicalStyles, ...rest } = props;
   return (
-    <ol className={olVariants({ listStyle, hierarchicalStyles, className })} {...rest}>
+    <ol className={olStyles({ listStyle, hierarchicalStyles, className })} {...rest}>
       {children}
     </ol>
   );
 };
 
-export { Ol, olVariants };
+export { Ol, olStyles };

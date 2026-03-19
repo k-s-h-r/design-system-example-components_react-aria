@@ -2,7 +2,7 @@ import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react
 import type { VariantProps } from 'tailwind-variants';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
-const buttonVariants = tv({
+const buttonStyles = tv({
   extend: focusRing,
   base: [
     'inline-flex items-center justify-center border border-transparent underline-offset-2 cursor-pointer',
@@ -51,8 +51,8 @@ const buttonVariants = tv({
 
 /*
 // required for type checking
-export type ButtonVariantProps = VariantProps<typeof buttonVariants>;
-export const button = (props: ButtonProps) => buttonVariants(props);
+export type ButtonVariantProps = VariantProps<typeof buttonStyles>;
+export const button = (props: ButtonProps) => buttonStyles(props);
 
 export interface ButtonProps
   extends ReactAriaButtonProps,
@@ -61,17 +61,17 @@ export interface ButtonProps
   asChild?: boolean;
 }
 */
-export interface ButtonProps extends AriaButtonProps, VariantProps<typeof buttonVariants> {}
+export interface ButtonProps extends AriaButtonProps, VariantProps<typeof buttonStyles> {}
 
 const Button = (props: ButtonProps) => {
   const { className, variant, size, ...rest } = props;
 
   return (
     <AriaButton
-      className={composeTailwindRenderProps(className, buttonVariants({ variant, size }))}
+      className={composeTailwindRenderProps(className, buttonStyles({ variant, size }))}
       {...rest}
     />
   );
 };
 
-export { Button, buttonVariants };
+export { Button, buttonStyles };

@@ -1,1 +1,1 @@
-export { UtilityLink, utilityLinkVariants } from './UtilityLink';
+export { UtilityLink, utilityLinkStyles } from './UtilityLink';

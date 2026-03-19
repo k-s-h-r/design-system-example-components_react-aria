@@ -4,10 +4,10 @@ import { compose, cva, cx } from '@/lib/cva';
 
 // import { Cell as _Cell, Column as _Column, Row as _Row, Table as _Table, TableBody as _TableBody, TableHeader as _TableHeader } from 'react-aria-components';
 
-const tableVariants = cva({});
+const tableStyles = cva({});
 
 type TableProps = ComponentProps<'table'> &
-  VariantProps<typeof tableVariants> & {
+  VariantProps<typeof tableStyles> & {
     outerClassName?: string;
   };
 
@@ -16,81 +16,81 @@ const Table = (props: TableProps) => {
 
   return (
     <div className={cx('w-full overflow-x-auto', outerClassName)}>
-      <table className={cx(tableVariants({ className }))} {...rest}>
+      <table className={cx(tableStyles({ className }))} {...rest}>
         {children}
       </table>
     </div>
   );
 };
 
-const theadVariants = cva({});
+const theadStyles = cva({});
 
-type TheadProps = ComponentProps<'thead'> & VariantProps<typeof theadVariants>;
+type TheadProps = ComponentProps<'thead'> & VariantProps<typeof theadStyles>;
 
 const Thead = (props: TheadProps) => {
   const { children, className, ...rest } = props;
 
   return (
-    <thead {...rest} className={cx(theadVariants({ className }))}>
+    <thead {...rest} className={cx(theadStyles({ className }))}>
       {children}
     </thead>
   );
 };
 
-const tbodyVariants = cva({});
+const tbodyStyles = cva({});
 
-type TbodyProps = ComponentProps<'tbody'> & VariantProps<typeof tbodyVariants>;
+type TbodyProps = ComponentProps<'tbody'> & VariantProps<typeof tbodyStyles>;
 
 const Tbody = (props: TbodyProps) => {
   const { children, className, ...rest } = props;
 
   return (
-    <tbody {...rest} className={cx(tbodyVariants({ className }))}>
+    <tbody {...rest} className={cx(tbodyStyles({ className }))}>
       {children}
     </tbody>
   );
 };
 
-const trVariants = cva({});
+const trStyles = cva({});
 
-type TrProps = ComponentProps<'tr'> & VariantProps<typeof trVariants>;
+type TrProps = ComponentProps<'tr'> & VariantProps<typeof trStyles>;
 
 const Tr = (props: TrProps) => {
   const { children, className, ...rest } = props;
 
   return (
-    <tr {...rest} className={cx(trVariants({ className }))}>
+    <tr {...rest} className={cx(trStyles({ className }))}>
       {children}
     </tr>
   );
 };
 
-const cellVariants = cva({
+const cellStyles = cva({
   base: 'border-b border-solid-gray-400 px-4 py-6 text-left text-solid-gray-900',
 });
-const thVariants = compose(cellVariants, cva({}));
+const thStyles = compose(cellStyles, cva({}));
 
-type ThProps = ComponentProps<'th'> & VariantProps<typeof thVariants>;
+type ThProps = ComponentProps<'th'> & VariantProps<typeof thStyles>;
 
 const Th = (props: ThProps) => {
   const { children, className, ...rest } = props;
 
   return (
-    <th {...rest} className={cx(thVariants({ className }))}>
+    <th {...rest} className={cx(thStyles({ className }))}>
       {children}
     </th>
   );
 };
 
-const tdVariants = compose(cellVariants, cva({}));
+const tdStyles = compose(cellStyles, cva({}));
 
-type TdProps = ComponentProps<'td'> & VariantProps<typeof tdVariants>;
+type TdProps = ComponentProps<'td'> & VariantProps<typeof tdStyles>;
 
 const Td = (props: TdProps) => {
   const { children, className, ...rest } = props;
 
   return (
-    <td {...rest} className={cx(tdVariants({ className }))}>
+    <td {...rest} className={cx(tdStyles({ className }))}>
       {children}
     </td>
   );
@@ -104,10 +104,10 @@ export {
   Th,
   Thead,
   Tr,
-  tableVariants,
-  tbodyVariants,
-  tdVariants,
-  theadVariants,
-  thVariants,
-  trVariants,
+  tableStyles,
+  tbodyStyles,
+  tdStyles,
+  theadStyles,
+  thStyles,
+  trStyles,
 };

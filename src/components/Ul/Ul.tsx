@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 import { tv } from '../utils';
 
-const ulVariants = tv({
+const ulStyles = tv({
   base: '',
   variants: {
     listStyle: {
@@ -22,15 +22,15 @@ const ulVariants = tv({
   },
 });
 
-export interface UlProps extends ComponentProps<'ul'>, VariantProps<typeof ulVariants> {}
+export interface UlProps extends ComponentProps<'ul'>, VariantProps<typeof ulStyles> {}
 
 const Ul = (props: UlProps) => {
   const { children, className, listStyle, hierarchicalStyles, ...rest } = props;
   return (
-    <ul className={ulVariants({ listStyle, hierarchicalStyles, className })} {...rest}>
+    <ul className={ulStyles({ listStyle, hierarchicalStyles, className })} {...rest}>
       {children}
     </ul>
   );
 };
 
-export { Ul, ulVariants };
+export { Ul, ulStyles };

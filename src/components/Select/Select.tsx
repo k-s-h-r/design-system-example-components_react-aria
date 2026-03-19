@@ -17,7 +17,7 @@ import { compose, cva, cx, focusRing } from '@/lib/cva';
 import { DropdownItem, DropdownSection, type DropdownSectionProps } from '../ListBox';
 import { Popover } from '../Popover';
 
-const _selectButtonVariants = cva({
+const _selectButtonStyles = cva({
   base: [
     'flex items-center text-start gap-4 w-full cursor-default transition',
     'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-gray-900',
@@ -50,7 +50,7 @@ const _selectButtonVariants = cva({
   },
 });
 
-const selectButtonVariants = compose(focusRing, _selectButtonVariants);
+const selectButtonStyles = compose(focusRing, _selectButtonStyles);
 
 interface SelectProps<T extends object> extends _SelectProps<T> {}
 function Select<T extends object>({ ...props }: SelectProps<T>) {
@@ -85,7 +85,7 @@ function SelectTrigger({
   return (
     <Button
       className={composeRenderProps('', (className, renderProps) =>
-        cx(selectButtonVariants({ ...renderProps, size }), className),
+        cx(selectButtonStyles({ ...renderProps, size }), className),
       )}
       {...props}
     >

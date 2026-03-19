@@ -1,15 +1,15 @@
 import { Link, type LinkProps } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { buttonVariants } from '@/components';
+import { buttonStyles } from '@/components';
 import { composeTailwindRenderProps } from '../utils';
 
-export interface ButtonLinkProps extends LinkProps, VariantProps<typeof buttonVariants> {}
+export interface ButtonLinkProps extends LinkProps, VariantProps<typeof buttonStyles> {}
 
 const ButtonLink = (props: ButtonLinkProps) => {
   const { className, variant, size, ...rest } = props;
   return (
     <Link
-      className={composeTailwindRenderProps(className, buttonVariants({ variant, size }))}
+      className={composeTailwindRenderProps(className, buttonStyles({ variant, size }))}
       {...rest}
     />
   );

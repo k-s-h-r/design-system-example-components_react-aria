@@ -73,7 +73,7 @@ export function Breadcrumbs<T extends object>(props: BreadcrumbsProps<T>) {
   );
 }
 
-const breadcrumbVariants = tv({
+const breadcrumbStyles = tv({
   base: ['wrap-break-word'],
   variants: {
     isCurrent: {
@@ -108,7 +108,7 @@ export function Breadcrumb(props: BreadcrumbProps) {
           <Link
             {...linkProps}
             aria-current={isCurrent ? 'page' : undefined}
-            className={composeTailwindRenderProps(linkClassName, breadcrumbVariants({ isCurrent }))}
+            className={composeTailwindRenderProps(linkClassName, breadcrumbStyles({ isCurrent }))}
           >
             {children}
           </Link>

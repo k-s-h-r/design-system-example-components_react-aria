@@ -3,7 +3,7 @@ import { tv, twMerge } from './utils';
 
 describe('components utils merge config', () => {
   it('keeps text color and custom typography class in tv output', () => {
-    const buttonVariants = tv({
+    const buttonStyles = tv({
       variants: {
         variant: {
           primary: 'text-white',
@@ -14,7 +14,7 @@ describe('components utils merge config', () => {
       },
     });
 
-    expect(buttonVariants({ variant: 'primary', size: 'md' })).toBe('text-white text-oln-16B-100');
+    expect(buttonStyles({ variant: 'primary', size: 'md' })).toBe('text-white text-oln-16B-100');
   });
 
   it('keeps text color and custom typography class in twMerge output', () => {

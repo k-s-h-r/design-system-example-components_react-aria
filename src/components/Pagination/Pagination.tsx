@@ -10,12 +10,12 @@ export const variantsClass = cva(
     compoundVariants: [],
     defaultVariants: {},
   },
-  // { responsiveVariants: ['sm', 'md', 'lg'] },
+  // { responsiveStyles: ['sm', 'md', 'lg'] },
 );
 
-type PaginationVariants = VariantProps<typeof variantsClass> & ComponentProps<'table'>;
+type PaginationStyles = VariantProps<typeof variantsClass> & ComponentProps<'table'>;
 
-export interface PaginationProps extends PaginationVariants {
+export interface PaginationProps extends PaginationStyles {
   value: number;
   total: number;
   siblings?: number;

@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { Button, type ButtonProps, OverlayTriggerStateContext } from 'react-aria-components';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
-const hamburgerMenuButtonVariants = tv({
+const hamburgerMenuButtonStyles = tv({
   extend: focusRing,
   base: [
     'flex w-fit touch-manipulation items-center gap-x-1 rounded-6 px-3 py-1.5 text-solid-gray-900',
@@ -18,7 +18,7 @@ const hamburgerMenuButtonVariants = tv({
   },
 });
 
-const hamburgerMenuButtonLabelVariants = tv({
+const hamburgerMenuButtonLabelStyles = tv({
   variants: {
     orientation: {
       horizontal:
@@ -74,17 +74,12 @@ export const HamburgerMenuButton = (props: HamburgerMenuButtonProps) => {
 
   return (
     <Button
-      className={composeTailwindRenderProps(
-        className,
-        hamburgerMenuButtonVariants({ orientation }),
-      )}
+      className={composeTailwindRenderProps(className, hamburgerMenuButtonStyles({ orientation }))}
       {...rest}
     >
       {orientation === 'horizontal' && (isOpen ? iconHorizontalOpend : iconHorizontalClosed)}
       {orientation === 'vertical' && (isOpen ? iconVerticalOpend : iconVerticalClosed)}
-      <span
-        className={hamburgerMenuButtonLabelVariants({ orientation, className: labelClassName })}
-      >
+      <span className={hamburgerMenuButtonLabelStyles({ orientation, className: labelClassName })}>
         {dispLabel}
       </span>
     </Button>

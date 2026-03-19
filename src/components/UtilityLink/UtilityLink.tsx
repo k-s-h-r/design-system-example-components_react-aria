@@ -6,7 +6,7 @@ import {
 } from 'react-aria-components';
 import { compose, cva, cx, focusRing } from '@/lib/cva';
 
-const _linkVariants = cva({
+const _linkStyles = cva({
   base: ['disabled:no-underline disabled:pointer-events-none disabled:text-solid-gray-400'],
   variants: {
     hasHref: {
@@ -16,9 +16,9 @@ const _linkVariants = cva({
   defaultVariants: {},
 });
 
-const utilityLinkVariants = compose(focusRing, _linkVariants);
+const utilityLinkStyles = compose(focusRing, _linkStyles);
 
-export interface LinkProps extends _LinkProps, VariantProps<typeof utilityLinkVariants> {
+export interface LinkProps extends _LinkProps, VariantProps<typeof utilityLinkStyles> {
   icon?: {
     className?: string;
     ariaLabel?: string;
@@ -32,7 +32,7 @@ const UtilityLink = (props: LinkProps) => {
   return (
     <_Link
       className={composeRenderProps(className, (className, renderProps) =>
-        cx(utilityLinkVariants({ ...renderProps, hasHref, className })),
+        cx(utilityLinkStyles({ ...renderProps, hasHref, className })),
       )}
       {...rest}
     >
@@ -65,4 +65,4 @@ const UtilityLink = (props: LinkProps) => {
   );
 };
 
-export { UtilityLink, utilityLinkVariants };
+export { UtilityLink, utilityLinkStyles };

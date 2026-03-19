@@ -6,7 +6,7 @@ import {
 } from 'react-aria-components';
 import { compose, cva, cx, focusRing } from '@/lib/cva';
 
-const _scrollToTopButtonVariants = cva({
+const _scrollToTopButtonStyles = cva({
   base: [
     'flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-blue-900 text-blue-900 bg-white',
     'hover:border-blue-1000 hover:bg-blue-200 hover:text-blue-1000',
@@ -16,11 +16,9 @@ const _scrollToTopButtonVariants = cva({
   defaultVariants: {},
 });
 
-const scrollToTopButtonVariants = compose(focusRing, _scrollToTopButtonVariants);
+const scrollToTopButtonStyles = compose(focusRing, _scrollToTopButtonStyles);
 
-interface ScrollToTopButtonProps
-  extends _LinkProps,
-    VariantProps<typeof scrollToTopButtonVariants> {}
+interface ScrollToTopButtonProps extends _LinkProps, VariantProps<typeof scrollToTopButtonStyles> {}
 
 const ScrollToTopButton = (props: ScrollToTopButtonProps) => {
   const { className, ...rest } = props;
@@ -28,7 +26,7 @@ const ScrollToTopButton = (props: ScrollToTopButtonProps) => {
   return (
     <_Link
       className={composeRenderProps(className, (className, renderProps) =>
-        cx(scrollToTopButtonVariants({ ...renderProps, className })),
+        cx(scrollToTopButtonStyles({ ...renderProps, className })),
       )}
       {...rest}
     >
@@ -49,4 +47,4 @@ const ScrollToTopButton = (props: ScrollToTopButtonProps) => {
   );
 };
 
-export { ScrollToTopButton, scrollToTopButtonVariants };
+export { ScrollToTopButton, scrollToTopButtonStyles };

@@ -2,7 +2,7 @@ import { Group, type GroupProps } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
-export const fieldGroupVariants = tv({
+export const fieldGroupStyles = tv({
   extend: focusRing,
   base: 'group flex items-center h-9 bg-white',
   variants: {
@@ -19,14 +19,11 @@ export const fieldGroupVariants = tv({
   },
 });
 
-export interface FieldGroupProps extends GroupProps, VariantProps<typeof fieldGroupVariants> {}
+export interface FieldGroupProps extends GroupProps, VariantProps<typeof fieldGroupStyles> {}
 
 export function FieldGroup(props: FieldGroupProps) {
   const { isFocusWithin, isInvalid, isDisabled, ...rest } = props;
   return (
-    <Group
-      {...rest}
-      className={composeTailwindRenderProps(props.className, fieldGroupVariants())}
-    />
+    <Group {...rest} className={composeTailwindRenderProps(props.className, fieldGroupStyles())} />
   );
 }

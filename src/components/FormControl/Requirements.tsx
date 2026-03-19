@@ -2,7 +2,7 @@ import type { ComponentProps } from 'react';
 import type { VariantProps } from 'tailwind-variants';
 import { tv } from '../utils';
 
-const requirementsVariants = tv({
+const requirementsStyles = tv({
   base: 'inline-block text-oln-16N-100 ml-2',
   variants: {
     variant: {
@@ -16,13 +16,13 @@ const requirementsVariants = tv({
 
 export interface RequirementsProps
   extends ComponentProps<'span'>,
-    VariantProps<typeof requirementsVariants> {}
+    VariantProps<typeof requirementsStyles> {}
 
 export const Requirements = (props: RequirementsProps) => {
   const { children, className, variant, ...rest } = props;
 
   return (
-    <span className={requirementsVariants({ variant, className })} {...rest}>
+    <span className={requirementsStyles({ variant, className })} {...rest}>
       {children}
     </span>
   );

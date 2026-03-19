@@ -1,1 +1,1 @@
-export { Ul, ulVariants } from './Ul';
+export { Ul, ulStyles } from './Ul';

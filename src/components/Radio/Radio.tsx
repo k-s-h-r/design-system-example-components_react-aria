@@ -23,7 +23,7 @@ const RadioGroup = (props: RadioGroupProps) => {
   );
 };
 
-const _radioVariants = cva({
+const _radioStyles = cva({
   base: 'flex gap-2 items-center group text-sm transition',
   variants: {
     size: {
@@ -51,10 +51,10 @@ const _radioVariants = cva({
   },
 });
 
-const radioVariants = compose(_radioVariants);
-interface RadioProps extends _RadioProps, VariantProps<typeof radioVariants> {}
+const radioStyles = compose(_radioStyles);
+interface RadioProps extends _RadioProps, VariantProps<typeof radioStyles> {}
 
-const _boxVariants = cva({
+const _boxStyles = cva({
   base: 'relative w-[--size] h-[--size] flex-shrink-0 rounded-full flex items-center justify-center border-2 transition',
   variants: {
     isSelected: {
@@ -84,7 +84,7 @@ const _boxVariants = cva({
   },
 });
 
-const boxVariants = compose(focusRing, _boxVariants);
+const boxStyles = compose(focusRing, _boxStyles);
 
 const Radio = (props: RadioProps) => {
   const { size, ...rest } = props;
@@ -92,12 +92,12 @@ const Radio = (props: RadioProps) => {
     <_Radio
       {...rest}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        cx(radioVariants({ ...renderProps, size, className })),
+        cx(radioStyles({ ...renderProps, size, className })),
       )}
     >
       {(renderProps) => (
         <>
-          <span className={boxVariants(renderProps)}></span>
+          <span className={boxStyles(renderProps)}></span>
           {props.children}
         </>
       )}

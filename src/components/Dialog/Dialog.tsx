@@ -15,7 +15,7 @@ import {
 } from 'react-aria-components';
 import { compose, cva, cx, focusRing } from '@/lib/cva';
 
-const sheetVariants = cva({
+const sheetStyles = cva({
   base: 'fixed z-50 gap-4 bg-background shadow-lg transition ease-in-out data-[entering]:duration-500 data-[exiting]:duration-300 data-[entering]:animate-in data-[exiting]:animate-out',
   variants: {
     side: {
@@ -50,13 +50,13 @@ const DialogOverlay = ({ className, isDismissable = true, ...props }: ModalOverl
 
 export interface DialogContentProps
   extends Omit<React.ComponentProps<typeof Modal>, 'children'>,
-    VariantProps<typeof sheetVariants> {
+    VariantProps<typeof sheetStyles> {
   children?: DialogProps['children'];
   role?: DialogProps['role'];
   closeButton?: boolean;
 }
 
-const _closeButtonVariants = cva({
+const _closeButtonStyles = cva({
   base: [
     'absolute right-4 top-4 rounded-sm',
     'disabled:pointer-events-none',
@@ -66,7 +66,7 @@ const _closeButtonVariants = cva({
   defaultVariants: {},
 });
 
-const closeButtonVariants = compose(focusRing, _closeButtonVariants);
+const closeButtonStyles = compose(focusRing, _closeButtonStyles);
 
 // flex flex-col items-center gap-4
 const DialogContent = ({
@@ -86,7 +86,7 @@ const DialogContent = ({
           'border border-solid-gray-200 bg-white rounded-xl p-6 desktop:p-10 duration-200',
           'data-[exiting]:duration-300 data-[entering]:animate-in data-[exiting]:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0 data-[entering]:zoom-in-95 data-[exiting]:zoom-out-95 data-[entering]:slide-in-from-left-1/2 data-[entering]:slide-in-from-top-[48%] data-[exiting]:slide-out-to-left-1/2 data-[exiting]:slide-out-to-top-[48%]',
         ],
-        side && sheetVariants({ side }),
+        side && sheetStyles({ side }),
         side && 'h-full p-6',
       ],
       className,
@@ -101,7 +101,7 @@ const DialogContent = ({
             <Button
               onPress={values.close}
               className={composeRenderProps('', (className, renderProps) =>
-                cx(closeButtonVariants({ ...renderProps, className })),
+                cx(closeButtonStyles({ ...renderProps, className })),
               )}
             >
               <svg aria-hidden={true} width='24' height='24' viewBox='0 0 24 24' fill='none'>

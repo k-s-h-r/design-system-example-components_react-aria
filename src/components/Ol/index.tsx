@@ -1,1 +1,1 @@
-export { Ol, olVariants } from './Ol';
+export { Ol, olStyles } from './Ol';
