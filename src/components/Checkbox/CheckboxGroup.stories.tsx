@@ -1,7 +1,8 @@
 import type { Meta } from '@storybook/react';
 import { Form } from 'react-aria-components';
 import { Button, Description, FieldError, Label, Requirements } from '@/components';
-import { Checkbox, CheckboxGroup } from './Checkbox';
+import { Checkbox } from './Checkbox';
+import { CheckboxGroup } from './CheckboxGroup';
 
 const meta = {
   title: 'Component/CheckboxGroup',

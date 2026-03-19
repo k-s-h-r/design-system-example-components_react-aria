@@ -1,91 +1,15 @@
-import type { VariantProps } from 'cva';
 import {
   Checkbox as AriaCheckbox,
-  CheckboxGroup as AriaCheckboxGroup,
-  type CheckboxGroupProps as AriaCheckboxGroupProps,
   type CheckboxProps as AriaCheckboxProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { focusRing, tv, twMerge } from '../utils';
 
-interface CheckboxGroupProps extends AriaCheckboxGroupProps {}
-
-const CheckboxGroup = (props: CheckboxGroupProps) => {
-  return (
-    <AriaCheckboxGroup
-      {...props}
-      className={composeRenderProps(props.className, (className, _renderProps) =>
-        cx('', className),
-      )}
-    >
-      {props.children}
-    </AriaCheckboxGroup>
-  );
-};
-
-const _checkboxVariants = cva({
-  base: 'flex gap-2 items-center group text-sm transition',
-  variants: {
-    size: {
-      sm: '[--size:17px] text-std-16N-7',
-      md: '[--size:17px] text-std-16N-7',
-      lg: '[--size:23px] text-std-17N-7',
-    },
-    isInvalid: {
-      true: 'text-error-1',
-    },
-    isDisabled: {
-      false: 'text-solid-gray-800',
-      true: 'text-solid-gray-600',
-    },
-  },
-  compoundVariants: [
-    {
-      isInvalid: true,
-      isDisabled: true,
-      className: 'text-solid-gray-600',
-    },
-  ],
-  defaultVariants: {
-    size: 'md',
-  },
-});
-
-const checkboxVariants = compose(_checkboxVariants);
-interface CheckboxProps extends AriaCheckboxProps, VariantProps<typeof checkboxVariants> {}
-
-const _boxVariants = cva({
-  base: 'w-[--size] h-[--size] flex-shrink-0 rounded-sm flex items-center justify-center border-2 transition',
-  variants: {
-    isSelected: {
-      false: [
-        '[--color:theme(colors.solid-gray.900)]',
-        'group-pressed:[--color:theme(colors.black)]',
-        'bg-white border-[--color]',
-      ],
-      true: [
-        '[--color:theme(colors.blue.900)]',
-        'group-pressed:[--color:theme(colors.blue.1000)]',
-        'bg-[--color] border-[--color]',
-      ],
-    },
-    isInvalid: {
-      true: ['[--color:theme(colors.error-1)]', 'group-pressed:[--color:theme(colors.error-1)]'],
-    },
-    isDisabled: {
-      true: ['[--color:theme(colors.solid-gray.200)]'],
-    },
-  },
-});
-
-const boxVariants = compose(focusRing, _boxVariants);
-
-const iconVariants = 'w-4 h-4 text-white group-disabled:text-solid-gray-400 ';
-
-const SvgCheck = (props: { className: string }) => (
+const Check = (props: { className: string }) => (
   <svg
     aria-hidden={true}
-    className={cx('fill-current', props.className)}
+    className={twMerge('fill-current', props.className)}
     width='17'
     height='17'
     viewBox='0 0 17 17'
@@ -97,10 +21,10 @@ const SvgCheck = (props: { className: string }) => (
     />
   </svg>
 );
-const SvgIndeterminate = (props: { className: string }) => (
+const Indeterminate = (props: { className: string }) => (
   <svg
     aria-hidden={true}
-    className={cx('fill-current', props.className)}
+    className={twMerge('fill-current', props.className)}
     width='23'
     height='23'
     viewBox='0 0 23 23'
@@ -109,32 +33,114 @@ const SvgIndeterminate = (props: { className: string }) => (
   </svg>
 );
 
-const Checkbox = (props: CheckboxProps) => {
+const checkboxStyles = tv({
+  base: [
+    'group relative flex w-fit items-start py-2 text-solid-gray-800 transition',
+    'touch-manipulation [-webkit-tap-highlight-color:transparent]',
+  ],
+  variants: {
+    size: {
+      sm: 'gap-1 text-dns-16N-130',
+      md: 'gap-2 text-dns-16N-130',
+      lg: 'gap-2 text-dns-17N-130',
+    },
+    isDisabled: {
+      true: 'text-solid-gray-600 forced-colors:text-[GrayText]',
+    },
+    isInvalid: {
+      true: 'text-error-1',
+    },
+  },
+  compoundVariants: [
+    {
+      isDisabled: true,
+      isInvalid: true,
+      className: 'text-solid-gray-600',
+    },
+  ],
+  defaultVariants: {
+    size: 'sm',
+  },
+});
+
+const boxStyles = tv({
+  extend: focusRing,
+  base: [
+    'box-content shrink-0 rounded-[calc(2/18*100%)] border-solid',
+    'flex items-center justify-center transition',
+    // hover時のoutline
+    'group-data-hovered:ring-solid-gray-420 group-data-hovered:ring-3',
+  ],
+  variants: {
+    size: {
+      sm: 'border-2 size-3.5',
+      md: 'border-2 size-4.5',
+      lg: 'border-3 size-6',
+    },
+    isSelected: {
+      false: ['[--color:theme(colors.solid-gray.600)]', 'bg-white border-(--color)'],
+      true: [
+        '[--color:theme(colors.blue.900)]',
+        'bg-(--color) border-(--color)',
+        'group-data-hovered:[--color:theme(colors.blue.1100)]',
+      ],
+    },
+    isInvalid: {
+      true: [
+        '[--color:theme(colors.error-1)]',
+        'group-data-hovered:[--color:theme(colors.red.1000)]',
+      ],
+    },
+    isDisabled: {
+      true: ['[--color:theme(colors.solid-gray.300)]', 'border-solid-gray-300 bg-solid-gray-50'],
+    },
+  },
+  defaultVariants: {
+    size: 'sm',
+  },
+});
+
+const iconStyles = tv({
+  base: 'size-full pointer-events-none text-white group-disabled:text-solid-gray-50',
+  variants: {},
+  defaultVariants: {
+    size: 'sm',
+  },
+});
+
+export interface CheckboxProps extends AriaCheckboxProps, VariantProps<typeof checkboxStyles> {}
+
+export function Checkbox(props: CheckboxProps) {
   const { size, ...rest } = props;
+
   return (
     <AriaCheckbox
       {...rest}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        checkboxVariants({ ...renderProps, size, className }),
+        checkboxStyles({ ...renderProps, size, className }),
       )}
     >
-      {({ isSelected, isIndeterminate, ...renderProps }) => (
-        <>
-          <span
-            className={boxVariants({ isSelected: isSelected || isIndeterminate, ...renderProps })}
-          >
-            {isIndeterminate ? (
-              <SvgIndeterminate className={iconVariants} />
-            ) : isSelected ? (
-              <SvgCheck className={iconVariants} />
-            ) : null}
-          </span>
-          {props.children}
-        </>
+      {composeRenderProps(
+        props.children,
+        (children, { isSelected, isIndeterminate, ...renderProps }) => (
+          <>
+            <div
+              className={boxStyles({
+                isSelected: isSelected || isIndeterminate,
+                size,
+                ...renderProps,
+              })}
+            >
+              {isIndeterminate ? (
+                <Indeterminate aria-hidden className={iconStyles()} />
+              ) : isSelected ? (
+                <Check aria-hidden className={iconStyles()} />
+              ) : null}
+            </div>
+            {children}
+          </>
+        ),
       )}
     </AriaCheckbox>
   );
-};
-
-export type { CheckboxGroupProps, CheckboxProps };
-export { Checkbox, CheckboxGroup };
+}
