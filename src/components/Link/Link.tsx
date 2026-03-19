@@ -41,7 +41,9 @@ const Link = (props: LinkProps) => {
 
   return (
     <AriaLink
-      className={composeTailwindRenderProps(className, linkStyles({ hasHref, isDisabled }))}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        linkStyles({ ...renderProps, hasHref, isDisabled, className }),
+      )}
       {...rest}
     >
       {composeRenderProps(children, (children) => (

@@ -1,5 +1,10 @@
 import { useContext } from 'react';
-import { Button, type ButtonProps, OverlayTriggerStateContext } from 'react-aria-components';
+import {
+  Button,
+  type ButtonProps,
+  composeRenderProps,
+  OverlayTriggerStateContext,
+} from 'react-aria-components';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const hamburgerMenuButtonStyles = tv({
@@ -74,7 +79,9 @@ export const HamburgerMenuButton = (props: HamburgerMenuButtonProps) => {
 
   return (
     <Button
-      className={composeTailwindRenderProps(className, hamburgerMenuButtonStyles({ orientation }))}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        hamburgerMenuButtonStyles({ ...renderProps, orientation, className }),
+      )}
       {...rest}
     >
       {orientation === 'horizontal' && (isOpen ? iconHorizontalOpend : iconHorizontalClosed)}

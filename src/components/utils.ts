@@ -17,10 +17,11 @@ export const tv = createTV({
 });
 
 export const focusRing = tv({
-  base: [
-    'outline-0 outline-black outline-offset-2',
-    'ring-0 ring-yellow-300',
-    'data-focus-visible:outline-4 data-focus-visible:ring-2',
-  ],
-  variants: {},
+  base: ['outline-black outline-offset-2', 'ring-yellow-300'],
+  variants: {
+    isFocusVisible: {
+      true: 'outline-4 ring-2',
+      false: 'outline-0 ring-0',
+    },
+  },
 });

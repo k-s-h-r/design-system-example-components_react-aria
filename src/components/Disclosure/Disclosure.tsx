@@ -129,7 +129,9 @@ export function DisclosureSummary(props: DisclosureSummaryProps) {
     <Button
       {...rest}
       slot='trigger'
-      className={composeTailwindRenderProps(className, disclosureSummary())}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        disclosureSummary({ ...renderProps, className }),
+      )}
     >
       {({ isDisabled }) => {
         const defaultIconProps: DisclosureDefaultIconProps = {
@@ -187,7 +189,9 @@ export function DisclosureBackLink(props: DisclosureBackLinkProps) {
 
   return (
     <AriaLink
-      className={composeTailwindRenderProps(className, disclosureBackLink())}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        disclosureBackLink({ ...renderProps, className }),
+      )}
       href={href}
       {...rest}
     >

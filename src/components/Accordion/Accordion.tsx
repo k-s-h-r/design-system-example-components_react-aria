@@ -34,8 +34,8 @@ const accordionSummary = tv({
     'desktop:py-3.5 desktop:pl-[calc(var(--icon-size)+(--spacing(5)))] desktop:pr-4',
     'data-hovered:bg-solid-gray-50',
     'data-focus-visible:rounded-4 data-focus-visible:bg-yellow-300',
-    'data-disabled:hover:bg-transparent data-disabled:text-solid-gray-400',
-    'aria-disabled:hover:bg-transparent aria-disabled:text-solid-gray-400 aria-disabled:pointer-events-none',
+    'data-disabled:data-hovered:bg-transparent data-disabled:text-solid-gray-400',
+    'aria-disabled:data-hovered:bg-transparent aria-disabled:text-solid-gray-400 aria-disabled:pointer-events-none',
   ],
   variants: {},
 });
@@ -72,8 +72,8 @@ const accordionBackLink = tv({
   base: [
     'flex w-fit items-start gap-1.5 rounded',
     'text-blue-1000 underline underline-offset-[calc(3*var(--px-to-rem))]',
-    'hover:text-blue-1000 hover:decoration-[calc(3*var(--px-to-rem))]',
-    'active:text-orange-800 active:decoration-1',
+    'data-hovered:text-blue-1000 data-hovered:decoration-[calc(3*var(--px-to-rem))]',
+    'data-pressed:text-orange-800 data-pressed:decoration-1',
     'data-focus-visible:bg-yellow-300 data-focus-visible:text-blue-1000',
   ],
 });
@@ -151,7 +151,9 @@ export function AccordionSummary(props: AccordionSummaryProps) {
       <Button
         {...rest}
         slot='trigger'
-        className={composeTailwindRenderProps(className, accordionSummary())}
+        className={composeRenderProps(props.className, (className, renderProps) =>
+          accordionSummary({ ...renderProps, className }),
+        )}
       >
         {({ isDisabled }) => {
           const defaultIconProps: AccordionDefaultIconProps = {
@@ -217,7 +219,9 @@ export function AccordionBackLink(props: AccordionBackLinkProps) {
 
   return (
     <AriaLink
-      className={composeTailwindRenderProps(className, accordionBackLink())}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        accordionBackLink({ ...renderProps, className }),
+      )}
       href={href}
       {...rest}
     >

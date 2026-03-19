@@ -1,4 +1,4 @@
-import { Group, type GroupProps } from 'react-aria-components';
+import { composeRenderProps, Group, type GroupProps } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
@@ -24,6 +24,11 @@ export interface FieldGroupProps extends GroupProps, VariantProps<typeof fieldGr
 export function FieldGroup(props: FieldGroupProps) {
   const { isFocusWithin, isInvalid, isDisabled, ...rest } = props;
   return (
-    <Group {...rest} className={composeTailwindRenderProps(props.className, fieldGroupStyles())} />
+    <Group
+      {...rest}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        fieldGroupStyles({ ...renderProps, className }),
+      )}
+    />
   );
 }

@@ -1,6 +1,10 @@
-import { Button as AriaButton, type ButtonProps as AriaButtonProps } from 'react-aria-components';
+import {
+  Button as AriaButton,
+  type ButtonProps as AriaButtonProps,
+  composeRenderProps,
+} from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { composeTailwindRenderProps, focusRing, tv } from '../utils';
+import { focusRing, tv } from '../utils';
 
 const buttonStyles = tv({
   extend: focusRing,
@@ -64,11 +68,13 @@ export interface ButtonProps
 export interface ButtonProps extends AriaButtonProps, VariantProps<typeof buttonStyles> {}
 
 const Button = (props: ButtonProps) => {
-  const { className, variant, size, ...rest } = props;
+  const { className, size, ...rest } = props;
 
   return (
     <AriaButton
-      className={composeTailwindRenderProps(className, buttonStyles({ variant, size }))}
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        buttonStyles({ ...renderProps, variant: props.variant, size, className }),
+      )}
       {...rest}
     />
   );
