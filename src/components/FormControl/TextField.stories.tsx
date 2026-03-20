@@ -83,7 +83,34 @@ export const Example = (args) => (
       <Label>ラベル</Label>
       <Description>サポートテキスト</Description>
       <InputText />
-      <TextField />
+    </TextField>
+  </div>
+);
+
+export const StateFromParent = (args) => (
+  <div className='flex flex-col gap-8'>
+    <TextField defaultValue='入力済の内容' isReadOnly {...args}>
+      <Label>readOnly な Input</Label>
+      <Description>親 TextField の isReadOnly が子 InputText に伝播します。</Description>
+      <InputText />
+    </TextField>
+
+    <TextField defaultValue='入力済の内容' isDisabled {...args}>
+      <Label>disabled な Input</Label>
+      <Description>親 TextField の isDisabled が子 InputText に伝播します。</Description>
+      <InputText />
+    </TextField>
+
+    <TextField defaultValue='複数行の内容' isReadOnly {...args}>
+      <Label>readOnly な TextArea</Label>
+      <Description>親 TextField の isReadOnly が子 TextArea に伝播します。</Description>
+      <TextArea rows={5} />
+    </TextField>
+
+    <TextField defaultValue='複数行の内容' isDisabled {...args}>
+      <Label>disabled な TextArea</Label>
+      <Description>親 TextField の isDisabled が子 TextArea に伝播します。</Description>
+      <TextArea rows={5} />
     </TextField>
   </div>
 );

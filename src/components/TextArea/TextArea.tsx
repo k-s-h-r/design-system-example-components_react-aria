@@ -31,6 +31,10 @@ const inputStyles = tv({
       ],
       false: '',
     },
+    isRequired: {
+      true: '',
+      false: '',
+    },
     isReadOnly: {
       true: 'border-dashed',
       false: '',
@@ -63,7 +67,9 @@ export interface TextAreaProps extends AriaTextAreaProps {}
 
 export function TextArea(props: TextAreaProps) {
   const contextProps = useSlottedContext(TextAreaContext, props.slot) || {};
+  const disabledProp = props.disabled ?? contextProps.disabled;
   const ariaDisabledProp = props['aria-disabled'] ?? contextProps['aria-disabled'];
+  const requiredProp = props.required ?? contextProps.required;
   const readOnlyProp = props.readOnly ?? contextProps.readOnly;
   const isAriaDisabled = ariaDisabledProp === true || ariaDisabledProp === 'true';
   const isReadOnly = !!readOnlyProp || isAriaDisabled;
@@ -71,11 +77,15 @@ export function TextArea(props: TextAreaProps) {
   return (
     <AriaTextArea
       {...props}
+      disabled={disabledProp}
       aria-disabled={ariaDisabledProp}
+      required={requiredProp}
       readOnly={isReadOnly}
       className={composeRenderProps(props.className, (className, renderProps) =>
         inputStyles({
           ...renderProps,
+          isDisabled: !!disabledProp,
+          isRequired: !!requiredProp,
           isReadOnly: !!readOnlyProp,
           className,
         }),

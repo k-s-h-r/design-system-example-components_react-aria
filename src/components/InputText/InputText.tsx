@@ -37,6 +37,10 @@ const inputStyles = tv({
       ],
       false: '',
     },
+    isRequired: {
+      true: '',
+      false: '',
+    },
     isReadOnly: {
       true: 'border-dashed',
       false: '',
@@ -75,7 +79,9 @@ export interface InputProps
 export function InputText(props: InputProps) {
   const { size, ...rest } = props;
   const contextProps = useSlottedContext(InputContext, props.slot) || {};
+  const disabledProp = props.disabled ?? contextProps.disabled;
   const ariaDisabledProp = props['aria-disabled'] ?? contextProps['aria-disabled'];
+  const requiredProp = props.required ?? contextProps.required;
   const readOnlyProp = props.readOnly ?? contextProps.readOnly;
   const isAriaDisabled = ariaDisabledProp === true || ariaDisabledProp === 'true';
   const isReadOnly = !!readOnlyProp || isAriaDisabled;
@@ -83,12 +89,16 @@ export function InputText(props: InputProps) {
   return (
     <AriaInput
       {...rest}
+      disabled={disabledProp}
       aria-disabled={ariaDisabledProp}
+      required={requiredProp}
       readOnly={isReadOnly}
       className={composeRenderProps(props.className, (className, renderProps) =>
         inputStyles({
           ...renderProps,
           size,
+          isDisabled: !!disabledProp,
+          isRequired: !!requiredProp,
           isReadOnly: !!readOnlyProp,
           className,
         }),

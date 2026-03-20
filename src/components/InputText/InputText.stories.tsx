@@ -1,5 +1,5 @@
 import type { Meta } from '@storybook/react';
-import { Label, TextField } from '@/components';
+import { Label } from '@/components';
 import { InputText } from './';
 
 const meta = {
@@ -14,58 +14,48 @@ const meta = {
 export default meta;
 
 export const Example = (args) => (
-  <div className='flex flex-col gap-8'>
-    <TextField defaultValue='デフォルトテキスト'>
-      <InputText {...args} />
-    </TextField>
+  <div className='flex flex-col gap-4'>
+    <InputText {...args} defaultValue='デフォルトテキスト' />
   </div>
 );
 
 export const Disabled = (args) => (
-  <div className='flex flex-col gap-8'>
-    <TextField isDisabled defaultValue='デフォルトテキスト'>
-      <InputText {...args} />
-    </TextField>
+  <div className='flex flex-col gap-4'>
+    <InputText {...args} disabled defaultValue='編集不可テキスト' />
   </div>
 );
 
 export const AriaDisabled = (args) => (
-  <div className='flex flex-col gap-8'>
-    <TextField defaultValue='デフォルトテキスト'>
-      <InputText {...args} aria-disabled />
-    </TextField>
+  <div className='flex flex-col gap-4'>
+    <InputText {...args} aria-disabled defaultValue='デフォルトテキスト' />
   </div>
 );
 
 export const Invalid = (args) => (
-  <div className='flex flex-col gap-8'>
-    <TextField isInvalid defaultValue='デフォルトテキスト'>
-      <InputText {...args} />
-    </TextField>
+  <div className='flex flex-col gap-4'>
+    <InputText {...args} aria-invalid defaultValue='デフォルトテキスト' />
   </div>
 );
 
 export const ReadOnly = (args) => (
-  <div className='flex flex-col gap-8'>
-    <TextField isReadOnly defaultValue={'デフォルトテキスト'}>
-      <InputText {...args} />
-    </TextField>
+  <div className='flex flex-col gap-4'>
+    <InputText {...args} readOnly defaultValue='デフォルトテキスト' />
   </div>
 );
 
 export const Size = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField>
+    <div className='flex flex-col gap-2'>
       <Label>サイズ: small</Label>
       <InputText {...args} size='sm' />
-    </TextField>
-    <TextField>
+    </div>
+    <div className='flex flex-col gap-2'>
       <Label>サイズ: medium</Label>
       <InputText {...args} size='md' />
-    </TextField>
-    <TextField>
+    </div>
+    <div className='flex flex-col gap-2'>
       <Label>サイズ: large</Label>
       <InputText {...args} size='lg' />
-    </TextField>
+    </div>
   </div>
 );
