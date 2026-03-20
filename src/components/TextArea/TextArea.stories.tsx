@@ -6,41 +6,47 @@ const meta = {
   title: 'Component/TextArea',
   component: TextArea,
   tags: ['autodocs'],
-  args: {
-    className: 'flex gap-2 flex-col',
-  },
+  args: {},
 } satisfies Meta<typeof TextArea>;
 
 export default meta;
 
 export const Example = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField {...args}>
-      <TextArea />
+    <TextField defaultValue='デフォルトテキスト'>
+      <TextArea {...args} />
     </TextField>
   </div>
 );
 
 export const Disabled = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField isDisabled {...args}>
-      <TextArea />
+    <TextField isDisabled defaultValue='デフォルトテキスト'>
+      <TextArea {...args} />
+    </TextField>
+  </div>
+);
+
+export const AriaDisabled = (args) => (
+  <div className='flex flex-col gap-8'>
+    <TextField defaultValue='デフォルトテキスト'>
+      <TextArea {...args} aria-disabled />
     </TextField>
   </div>
 );
 
 export const Invalid = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField isInvalid {...args}>
-      <TextArea />
+    <TextField isInvalid defaultValue='デフォルトテキスト'>
+      <TextArea {...args} />
     </TextField>
   </div>
 );
 
 export const ReadOnly = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField isReadOnly {...args}>
-      <TextArea defaultValue={'デフォルトテキスト'} />
+    <TextField isReadOnly defaultValue='デフォルトテキスト'>
+      <TextArea {...args} />
     </TextField>
   </div>
 );

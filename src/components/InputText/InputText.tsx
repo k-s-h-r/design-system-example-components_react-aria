@@ -1,54 +1,100 @@
-import type { VariantProps } from 'cva';
 import {
-  Input as _Input,
-  type InputProps as _InputProps,
+  Input as AriaInput,
+  type InputProps as AriaInputProps,
   composeRenderProps,
+  InputContext,
+  useSlottedContext,
 } from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { focusRing, tv } from '../utils';
 
-const _inputStyles = cva({
+const inputStyles = tv({
+  extend: focusRing,
   base: [
-    'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-gray-900',
-    'bg-white border border-solid-gray-900',
-    'h-auto',
+    'min-w-80 max-w-full rounded-8 border bg-white text-std-16N-170 text-solid-gray-800',
+    'aria-disabled:border-solid-gray-300 aria-disabled:bg-solid-gray-50 aria-disabled:text-solid-gray-420',
+    'aria-disabled:forced-colors:text-[GrayText] aria-disabled:forced-colors:border-[GrayText]',
     'flex-1 min-w-0',
-    'disabled:text-solid-gray-200 disabled:bg-solid-gray-50 disabled:border-solid-gray-400',
   ],
   variants: {
     size: {
-      sm: 'px-4 py-2',
-      md: 'px-4 py-4',
-      lg: 'px-4 py-5',
+      sm: 'h-10 px-4 py-2',
+      md: 'h-12 px-4 py-3',
+      lg: 'h-14 px-4 py-4',
     },
-    isFocused: {
-      false: 'border-solid-gray-900',
-      true: 'border-focus-yellow',
+    isHovered: {
+      true: '',
+      false: '',
     },
     isInvalid: {
-      true: 'border-error-1 border-2',
+      true: 'border-error-1 data-hovered:border-red-1000',
+      false: '',
     },
     isDisabled: {
-      true: 'border-solid-gray-200',
+      true: [
+        'border-solid-gray-300 bg-solid-gray-50 text-solid-gray-420',
+        'forced-colors:text-[GrayText] forced-colors:border-[GrayText]',
+      ],
+      false: '',
+    },
+    isReadOnly: {
+      true: 'border-dashed',
+      false: '',
     },
   },
+  compoundVariants: [
+    {
+      isHovered: true,
+      isReadOnly: false,
+      isInvalid: false,
+      isDisabled: false,
+      className: 'border-black',
+    },
+    {
+      isHovered: true,
+      isReadOnly: false,
+      isInvalid: true,
+      isDisabled: false,
+      className: 'border-red-1000',
+    },
+    {
+      isInvalid: true,
+      isDisabled: true,
+      className: 'border-solid-gray-300',
+    },
+  ],
   defaultVariants: {
-    size: 'md',
+    size: 'lg',
   },
 });
 
-const inputStyles = compose(focusRing, _inputStyles);
-export interface InputProps extends Omit<_InputProps, 'size'>, VariantProps<typeof inputStyles> {}
+export interface InputProps
+  extends Omit<AriaInputProps, 'size'>,
+    VariantProps<typeof inputStyles> {}
 
-const InputText = (props: InputProps) => {
+export function InputText(props: InputProps) {
   const { size, ...rest } = props;
+  const contextProps = useSlottedContext(InputContext, props.slot) || {};
+  const ariaDisabledProp = props['aria-disabled'] ?? contextProps['aria-disabled'];
+  const readOnlyProp = props.readOnly ?? contextProps.readOnly;
+  const isAriaDisabled = ariaDisabledProp === true || ariaDisabledProp === 'true';
+  const isReadOnly = !!readOnlyProp || isAriaDisabled;
+
   return (
-    <_Input
+    <AriaInput
       {...rest}
+      aria-disabled={ariaDisabledProp}
+      readOnly={isReadOnly}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        cx(inputStyles({ ...renderProps, size, className })),
+        inputStyles({
+          ...renderProps,
+          size,
+          isReadOnly: !!readOnlyProp,
+          className,
+        }),
       )}
     />
   );
-};
+}
 
-export { InputText, inputStyles };
+export { inputStyles };

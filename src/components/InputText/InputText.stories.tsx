@@ -15,49 +15,57 @@ export default meta;
 
 export const Example = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField {...args}>
-      <InputText />
+    <TextField defaultValue='デフォルトテキスト'>
+      <InputText {...args} />
     </TextField>
   </div>
 );
 
 export const Disabled = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField isDisabled {...args}>
-      <InputText />
+    <TextField isDisabled defaultValue='デフォルトテキスト'>
+      <InputText {...args} />
+    </TextField>
+  </div>
+);
+
+export const AriaDisabled = (args) => (
+  <div className='flex flex-col gap-8'>
+    <TextField defaultValue='デフォルトテキスト'>
+      <InputText {...args} aria-disabled />
     </TextField>
   </div>
 );
 
 export const Invalid = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField isInvalid {...args}>
-      <InputText />
+    <TextField isInvalid defaultValue='デフォルトテキスト'>
+      <InputText {...args} />
     </TextField>
   </div>
 );
 
 export const ReadOnly = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField isReadOnly {...args}>
-      <InputText defaultValue={'デフォルトテキスト'} />
+    <TextField isReadOnly defaultValue={'デフォルトテキスト'}>
+      <InputText {...args} />
     </TextField>
   </div>
 );
 
 export const Size = (args) => (
   <div className='flex flex-col gap-8'>
-    <TextField {...args}>
+    <TextField>
       <Label>サイズ: small</Label>
-      <InputText size='sm' />
+      <InputText {...args} size='sm' />
     </TextField>
-    <TextField {...args}>
+    <TextField>
       <Label>サイズ: medium</Label>
-      <InputText size='md' />
+      <InputText {...args} size='md' />
     </TextField>
-    <TextField {...args}>
+    <TextField>
       <Label>サイズ: large</Label>
-      <InputText size='lg' />
+      <InputText {...args} size='lg' />
     </TextField>
   </div>
 );
