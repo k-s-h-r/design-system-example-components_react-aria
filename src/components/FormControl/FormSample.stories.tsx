@@ -70,17 +70,14 @@ export const Example: Story = {
         <InputText placeholder='自動で設定されます。' />
       </TextField>
 
-      <CheckboxGroup className='flex flex-col gap-2'>
-        <Label>
-          関心のある分野
-          <Requirements variant='optional'>任意</Requirements>
-        </Label>
-        <Description>当てはまるものをすべて選択してください。</Description>
-        <div className='flex flex-col gap-3'>
-          <Checkbox value='design-system'>デザインシステム</Checkbox>
-          <Checkbox value='accessibility'>アクセシビリティ</Checkbox>
-          <Checkbox value='frontend'>フロントエンド実装</Checkbox>
-        </div>
+      <CheckboxGroup
+        className='flex flex-col gap-2'
+        label='関心のある分野'
+        description='当てはまるものをすべて選択してください。'
+      >
+        <Checkbox value='design-system'>デザインシステム</Checkbox>
+        <Checkbox value='accessibility'>アクセシビリティ</Checkbox>
+        <Checkbox value='frontend'>フロントエンド実装</Checkbox>
       </CheckboxGroup>
 
       <RadioGroup className='flex flex-col gap-2'>

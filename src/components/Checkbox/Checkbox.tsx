@@ -1,6 +1,9 @@
+import { useControlledState } from '@react-stately/utils';
+import { useContext } from 'react';
 import {
   Checkbox as AriaCheckbox,
   type CheckboxProps as AriaCheckboxProps,
+  CheckboxGroupStateContext,
   composeRenderProps,
 } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
@@ -35,7 +38,7 @@ const Indeterminate = (props: { className: string }) => (
 
 const checkboxStyles = tv({
   base: [
-    'group relative flex w-fit items-start py-2 text-solid-gray-800 transition',
+    'group relative flex w-fit items-center py-2 text-solid-gray-800 transition',
     'touch-manipulation [-webkit-tap-highlight-color:transparent]',
   ],
   variants: {
@@ -92,7 +95,17 @@ const boxStyles = tv({
       ],
     },
     isDisabled: {
-      true: ['[--color:theme(colors.solid-gray.300)]', 'border-solid-gray-300 bg-solid-gray-50'],
+      true: [
+        '[--color:theme(colors.solid-gray.300)]',
+        'group-data-hovered:[--color:theme(colors.solid-gray.300)]',
+        'group-data-hovered:ring-0',
+      ],
+    },
+    isAriaDisabled: {
+      true: [
+        '[--color:theme(colors.solid-gray.300)]',
+        'group-data-hovered:[--color:theme(colors.solid-gray.300)]',
+      ],
     },
   },
   defaultVariants: {
@@ -103,43 +116,80 @@ const boxStyles = tv({
 const iconStyles = tv({
   base: 'size-full pointer-events-none text-white group-disabled:text-solid-gray-50',
   variants: {},
-  defaultVariants: {
-    size: 'sm',
-  },
 });
 
-export interface CheckboxProps extends AriaCheckboxProps, VariantProps<typeof checkboxStyles> {}
+export interface CheckboxProps extends AriaCheckboxProps, VariantProps<typeof checkboxStyles> {
+  'aria-disabled'?: boolean | 'true' | 'false';
+}
 
 export function Checkbox(props: CheckboxProps) {
-  const { size, ...rest } = props;
+  const {
+    size,
+    'aria-disabled': ariaDisabledProp,
+    isSelected: controlledIsSelected,
+    defaultSelected,
+    onChange,
+    ...rest
+  } = props;
+  const isAriaDisabled = ariaDisabledProp === true || ariaDisabledProp === 'true';
+  const groupState = useContext(CheckboxGroupStateContext);
+  const [selected, setSelected] = useControlledState(
+    controlledIsSelected,
+    defaultSelected ?? false,
+    onChange,
+  );
+
+  const onChangeHandler = (isSelected: boolean) => {
+    if (isAriaDisabled) {
+      return;
+    }
+    setSelected(isSelected);
+  };
+
+  const selectionProps = groupState
+    ? {}
+    : {
+        isSelected: selected,
+        onChange: onChangeHandler,
+      };
 
   return (
     <AriaCheckbox
       {...rest}
+      {...selectionProps}
+      aria-disabled={ariaDisabledProp}
       className={composeRenderProps(props.className, (className, renderProps) =>
-        checkboxStyles({ ...renderProps, size, className }),
+        checkboxStyles({
+          ...renderProps,
+          size,
+          isDisabled: renderProps.isDisabled || isAriaDisabled,
+          className,
+        }),
       )}
     >
       {composeRenderProps(
         props.children,
-        (children, { isSelected, isIndeterminate, ...renderProps }) => (
-          <>
-            <div
-              className={boxStyles({
-                isSelected: isSelected || isIndeterminate,
-                size,
-                ...renderProps,
-              })}
-            >
-              {isIndeterminate ? (
-                <Indeterminate aria-hidden className={iconStyles()} />
-              ) : isSelected ? (
-                <Check aria-hidden className={iconStyles()} />
-              ) : null}
-            </div>
-            {children}
-          </>
-        ),
+        (children, { isSelected, isIndeterminate, ...renderProps }) => {
+          return (
+            <>
+              <div
+                className={boxStyles({
+                  isSelected: isSelected || isIndeterminate,
+                  size,
+                  isAriaDisabled,
+                  ...renderProps,
+                })}
+              >
+                {isIndeterminate ? (
+                  <Indeterminate aria-hidden className={iconStyles()} />
+                ) : isSelected ? (
+                  <Check aria-hidden className={iconStyles()} />
+                ) : null}
+              </div>
+              {children}
+            </>
+          );
+        },
       )}
     </AriaCheckbox>
   );
