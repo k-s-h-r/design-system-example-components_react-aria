@@ -4,10 +4,10 @@ import {
   composeRenderProps,
 } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { focusRing, tv } from '../utils';
+import { focusVisibleRing, tv } from '../utils';
 
 const buttonStyles = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'inline-flex items-center justify-center border border-transparent underline-offset-2 cursor-pointer',
     'aria-disabled:no-underline aria-disabled:pointer-events-none aria-disabled:cursor-default',

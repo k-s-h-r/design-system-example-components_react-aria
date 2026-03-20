@@ -16,10 +16,20 @@ export const tv = createTV({
   twMergeConfig: tailwindMergeConfig,
 });
 
-export const focusRing = tv({
+export const focusVisibleRing = tv({
   base: ['outline-black outline-offset-2', 'ring-yellow-300'],
   variants: {
     isFocusVisible: {
+      true: 'outline-4 ring-2',
+      false: 'outline-0 ring-0',
+    },
+  },
+});
+
+export const focusRing = tv({
+  base: ['outline-black outline-offset-2', 'ring-yellow-300'],
+  variants: {
+    isFocused: {
       true: 'outline-4 ring-2',
       false: 'outline-0 ring-0',
     },

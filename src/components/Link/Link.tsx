@@ -4,10 +4,10 @@ import {
   type LinkProps as AriaLinkProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { composeTailwindRenderProps, focusRing, tv } from '../utils';
+import { focusVisibleRing, tv } from '../utils';
 
 const linkStyles = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'rounded',
     // 'aria-disabled:no-underline aria-disabled:pointer-events-none aria-disabled:text-solid-gray-400',

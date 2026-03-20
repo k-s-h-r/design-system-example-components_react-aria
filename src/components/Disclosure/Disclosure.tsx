@@ -14,14 +14,14 @@ import {
   composeRenderProps,
   DisclosureStateContext,
 } from 'react-aria-components';
-import { composeTailwindRenderProps, focusRing, tv } from '../utils';
+import { composeTailwindRenderProps, focusVisibleRing, tv } from '../utils';
 
 const disclosure = tv({
   base: 'group/disclosure',
 });
 
 const disclosureSummary = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'group/summary flex w-fit cursor-default list-none items-start justify-start gap-2',
     'data-hovered:underline data-hovered:underline-offset-[calc(3*var(--px-to-rem))]',
@@ -44,7 +44,7 @@ const disclosureDefaultIcon = tv({
 });
 
 const disclosureBackLink = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'flex w-fit items-start gap-1.5 rounded',
     'text-blue-1000 underline underline-offset-[calc(3*var(--px-to-rem))]',

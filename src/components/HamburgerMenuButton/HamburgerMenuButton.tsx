@@ -5,10 +5,10 @@ import {
   composeRenderProps,
   OverlayTriggerStateContext,
 } from 'react-aria-components';
-import { composeTailwindRenderProps, focusRing, tv } from '../utils';
+import { focusVisibleRing, tv } from '../utils';
 
 const hamburgerMenuButtonStyles = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'flex w-fit touch-manipulation items-center gap-x-1 rounded-6 px-3 py-1.5 text-solid-gray-900',
     'data-hovered:bg-solid-gray-50',

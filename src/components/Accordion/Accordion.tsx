@@ -17,7 +17,7 @@ import {
   DisclosureStateContext,
   Heading,
 } from 'react-aria-components';
-import { composeTailwindRenderProps, focusRing, tv } from '../utils';
+import { composeTailwindRenderProps, focusVisibleRing, tv } from '../utils';
 
 const accordion = tv({
   base: [
@@ -27,7 +27,7 @@ const accordion = tv({
 });
 
 const accordionSummary = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'group/summary relative block w-full cursor-default',
     'py-2 pl-[calc(var(--icon-size)+(--spacing(3)))] pr-2 text-left',
@@ -68,7 +68,7 @@ const accordionContent = tv({
 });
 
 const accordionBackLink = tv({
-  extend: focusRing,
+  extend: focusVisibleRing,
   base: [
     'flex w-fit items-start gap-1.5 rounded',
     'text-blue-1000 underline underline-offset-[calc(3*var(--px-to-rem))]',
