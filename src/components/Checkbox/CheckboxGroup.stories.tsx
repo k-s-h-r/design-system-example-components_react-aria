@@ -46,6 +46,23 @@ Disabeld.args = {
   isDisabled: true,
 };
 
+export const AriaDisabled = (args) => (
+  <CheckboxGroup {...args}>
+    <Checkbox name='x' value='1' aria-disabled>
+      選択肢1
+    </Checkbox>
+    <Checkbox name='x' value='2' aria-disabled>
+      選択肢2
+    </Checkbox>
+    <Checkbox name='x' value='3'>
+      選択肢3
+    </Checkbox>
+    <Checkbox name='x' value='4'>
+      選択肢4
+    </Checkbox>
+  </CheckboxGroup>
+);
+
 export const Horizontal = (args) => <Example {...args} />;
 
 Horizontal.args = {

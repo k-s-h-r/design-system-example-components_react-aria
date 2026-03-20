@@ -45,13 +45,13 @@ const checkboxStyles = tv({
     size: {
       sm: 'gap-1 text-dns-16N-130',
       md: 'gap-2 text-dns-16N-130',
-      lg: 'gap-2 text-dns-17N-130',
+      lg: 'gap-3 text-dns-17N-130',
     },
     isDisabled: {
       true: 'text-solid-gray-600 forced-colors:text-[GrayText]',
     },
     isInvalid: {
-      true: 'text-error-1',
+      true: '',
     },
   },
   compoundVariants: [
