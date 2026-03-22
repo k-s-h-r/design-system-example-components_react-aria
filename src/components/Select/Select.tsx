@@ -1,10 +1,8 @@
 import { mergeProps } from '@react-aria/utils';
 import {
-  Children,
   type ComponentProps,
   createContext,
   forwardRef,
-  isValidElement,
   type KeyboardEvent,
   type MouseEvent,
   type ReactNode,
@@ -14,6 +12,14 @@ import { useField } from 'react-aria';
 import { FieldErrorContext, LabelContext, Provider, TextContext } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
 import { Description, FieldError, Label } from '../FormControl';
+import {
+  type FieldErrorContent,
+  filterFieldChildren,
+  hasFieldChild,
+  type RequirementOption,
+  renderFieldErrorMessage,
+  renderFieldLabel,
+} from '../FormControl/fieldHelpers';
 import { tv, twMerge } from '../utils';
 
 const selectStyles = tv({
@@ -114,21 +120,36 @@ export function SelectSection(props: ComponentProps<'optgroup'>) {
 
 export interface SelectFieldProps extends Omit<ComponentProps<'div'>, 'children'> {
   children?: ReactNode;
+  description?: ReactNode;
+  errorMessage?: FieldErrorContent;
   isDisabled?: boolean;
   isInvalid?: boolean;
   isRequired?: boolean;
+  label?: ReactNode;
+  requirement?: RequirementOption;
 }
 
 export function SelectField(props: SelectFieldProps) {
-  const { children, className, isDisabled, isInvalid, isRequired, ...rest } = props;
-  const childArray = Children.toArray(children);
-  const hasLabel = childArray.some((child) => isValidElement(child) && child.type === Label);
-  const hasDescription = childArray.some(
-    (child) => isValidElement(child) && child.type === Description,
-  );
-  const hasFieldError = childArray.some(
-    (child) => isValidElement(child) && child.type === FieldError,
-  );
+  const {
+    children,
+    className,
+    description,
+    errorMessage,
+    isDisabled,
+    isInvalid,
+    isRequired,
+    label,
+    requirement,
+    ...rest
+  } = props;
+  const filteredChildren = filterFieldChildren(children, {
+    label: label != null,
+    description: description != null,
+    errorMessage: errorMessage != null,
+  });
+  const hasLabel = label != null || hasFieldChild(filteredChildren, Label);
+  const hasDescription = description != null || hasFieldChild(filteredChildren, Description);
+  const hasFieldError = errorMessage != null || hasFieldChild(filteredChildren, FieldError);
   const { labelProps, fieldProps, descriptionProps, errorMessageProps } = useField({
     label: hasLabel,
     description: hasDescription,
@@ -168,7 +189,10 @@ export function SelectField(props: SelectFieldProps) {
             'aria-required': isRequired || undefined,
           }}
         >
-          {children}
+          {renderFieldLabel(label, requirement, isRequired)}
+          {description != null ? <Description>{description}</Description> : null}
+          {filteredChildren}
+          {renderFieldErrorMessage(errorMessage)}
         </SelectFieldContext.Provider>
       </Provider>
     </div>

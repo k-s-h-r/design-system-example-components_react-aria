@@ -10,7 +10,8 @@ import {
   type ValidationResult,
 } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { Description, FieldError, Label } from '../FormControl';
+import { Description, FieldError } from '../FormControl';
+import { type RequirementOption, renderFieldLabel } from '../FormControl/fieldHelpers';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const radioStyles = tv({
@@ -123,10 +124,11 @@ const RadioAriaDisabledContext = createContext<RadioAriaDisabledContextValue | n
 export interface RadioGroupProps
   extends Omit<AriaRadioGroupProps, 'children'>,
     VariantProps<typeof radioGroupItemsStyles> {
-  label?: string;
+  label?: ReactNode;
   children?: ReactNode;
-  description?: string;
-  errorMessage?: string | ((validation: ValidationResult) => string);
+  description?: ReactNode;
+  errorMessage?: ReactNode | ((validation: ValidationResult) => ReactNode);
+  requirement?: RequirementOption;
 }
 
 export interface RadioProps extends AriaRadioProps, VariantProps<typeof radioStyles> {
@@ -140,6 +142,7 @@ export function RadioGroup(props: RadioGroupProps) {
     description,
     errorMessage,
     orientation,
+    requirement,
     value: controlledValue,
     defaultValue,
     onChange,
@@ -183,7 +186,7 @@ export function RadioGroup(props: RadioGroupProps) {
         onChange={handleChange}
         className={composeTailwindRenderProps(props.className, 'flex flex-col gap-2')}
       >
-        {label && <Label>{label}</Label>}
+        {renderFieldLabel(label, requirement, rest.isRequired)}
         {description && <Description>{description}</Description>}
         <div className={radioGroupItemsStyles({ orientation })}>{children}</div>
         {errorMessage && <FieldError>{errorMessage}</FieldError>}

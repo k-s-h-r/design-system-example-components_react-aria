@@ -1,15 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { Form } from 'react-aria-components';
-import {
-  Button,
-  Description,
-  InputText,
-  Label,
-  Requirements,
-  SelectField,
-  TextArea,
-  TextField,
-} from '@/components';
+import { Button, InputText, SelectField, TextArea, TextField } from '@/components';
 import { Checkbox, CheckboxGroup } from '../Checkbox';
 import { Radio, RadioGroup } from '../Radio';
 import { Select, SelectItem } from '../Select';
@@ -28,71 +19,68 @@ type Story = StoryObj<typeof meta>;
 export const Example: Story = {
   render: () => (
     <Form className='flex max-w-2xl flex-col gap-8 p-8'>
-      <TextField className='flex flex-col gap-2'>
-        <Label>
-          氏名
-          <Requirements variant='required'>※必須</Requirements>
-        </Label>
-        <Description>氏名を入力してください。</Description>
+      <TextField
+        className='flex flex-col gap-2'
+        description='氏名を入力してください。'
+        isRequired
+        label='氏名'
+      >
         <InputText placeholder='デジタル 太郎' />
       </TextField>
 
-      <TextField className='flex flex-col gap-2'>
-        <Label>
-          お問い合わせ内容
-          <Requirements variant='optional'>任意</Requirements>
-        </Label>
-        <Description>補足があれば自由に記入してください。</Description>
+      <TextField
+        className='flex flex-col gap-2'
+        description='補足があれば自由に記入してください。'
+        label='お問い合わせ内容'
+        requirement='optional'
+      >
         <TextArea rows={5} placeholder='ご用件を入力してください。' />
       </TextField>
 
-      <TextField className='flex flex-col gap-2' isReadOnly defaultValue='現在の登録内容です。'>
-        <Label>
-          登録メールアドレス
-          <Requirements variant='readonly'>変更不可</Requirements>
-        </Label>
-        <Description>登録済み情報のため編集できません。</Description>
+      <TextField
+        className='flex flex-col gap-2'
+        defaultValue='現在の登録内容です。'
+        description='登録済み情報のため編集できません。'
+        isReadOnly
+        label='登録メールアドレス'
+        requirement='readonly'
+      >
         <InputText />
       </TextField>
 
-      <TextField className='flex flex-col gap-2' isDisabled>
-        <Label>
-          組織コード
-          <Requirements variant='disabled'>無効</Requirements>
-        </Label>
-        <Description>この項目は現在利用できません。</Description>
+      <TextField
+        className='flex flex-col gap-2'
+        description='この項目は現在利用できません。'
+        isDisabled
+        label='組織コード'
+        requirement='disabled'
+      >
         <InputText placeholder='自動で設定されます。' />
       </TextField>
 
       <CheckboxGroup
         className='flex flex-col gap-2'
-        label='関心のある分野'
         description='当てはまるものをすべて選択してください。'
+        label='関心のある分野'
+        requirement='optional'
       >
         <Checkbox value='design-system'>デザインシステム</Checkbox>
         <Checkbox value='accessibility'>アクセシビリティ</Checkbox>
         <Checkbox value='frontend'>フロントエンド実装</Checkbox>
       </CheckboxGroup>
 
-      <RadioGroup className='flex flex-col gap-2'>
-        <Label>
-          返信方法
-          <Requirements variant='required'>※必須</Requirements>
-        </Label>
-        <Description>希望する連絡手段を1つ選択してください。</Description>
-        <div className='flex flex-col gap-3'>
-          <Radio value='email'>メール</Radio>
-          <Radio value='phone'>電話</Radio>
-          <Radio value='none'>返信不要</Radio>
-        </div>
+      <RadioGroup
+        className='flex flex-col gap-2'
+        description='希望する連絡手段を1つ選択してください。'
+        isRequired
+        label='返信方法'
+      >
+        <Radio value='email'>メール</Radio>
+        <Radio value='phone'>電話</Radio>
+        <Radio value='none'>返信不要</Radio>
       </RadioGroup>
 
-      <SelectField>
-        <Label>
-          都道府県
-          <Requirements variant='required'>※必須</Requirements>
-        </Label>
-        <Description>お住まいの都道府県を選択してください。</Description>
+      <SelectField description='お住まいの都道府県を選択してください。' isRequired label='都道府県'>
         <Select defaultValue='tokyo'>
           <SelectItem value='hokkaido'>北海道</SelectItem>
           <SelectItem value='tokyo'>東京都</SelectItem>

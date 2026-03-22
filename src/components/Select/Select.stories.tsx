@@ -1,7 +1,7 @@
 import type { Meta } from '@storybook/react';
 import { useState } from 'react';
 import { Form } from 'react-aria-components';
-import { Button, Description, FieldError, Label, Requirements } from '@/components';
+import { Button } from '@/components';
 import { Select, SelectField, SelectItem, SelectSection } from './';
 
 const meta = {
@@ -16,9 +16,7 @@ const meta = {
 export default meta;
 
 export const Example = (args) => (
-  <SelectField>
-    <Label>Ice cream flavor</Label>
-    <Description>好みのフレーバーを選択してください。</Description>
+  <SelectField description='好みのフレーバーを選択してください。' label='Ice cream flavor'>
     <Select {...args}>
       <SelectItem value='chocolate'>Chocolate</SelectItem>
       <SelectItem value='mint'>Mint</SelectItem>
@@ -85,11 +83,13 @@ function ValidationExample(args) {
         setIsInvalid(true);
       }}
     >
-      <SelectField isInvalid={isInvalid} isRequired>
-        <Label>
-          都道府県<Requirements variant='required'>※必須</Requirements>
-        </Label>
-        <Description>お住まいの都道府県を選択してください。</Description>
+      <SelectField
+        description='お住まいの都道府県を選択してください。'
+        errorMessage='＊エラーテキスト'
+        isInvalid={isInvalid}
+        isRequired
+        label='都道府県'
+      >
         <Select
           {...args}
           value={value}
@@ -107,7 +107,6 @@ function ValidationExample(args) {
           <SelectItem value='tokyo'>東京都</SelectItem>
           <SelectItem value='osaka'>大阪府</SelectItem>
         </Select>
-        <FieldError>＊エラーテキスト</FieldError>
       </SelectField>
       <Button type='submit' variant='secondary'>
         Submit
