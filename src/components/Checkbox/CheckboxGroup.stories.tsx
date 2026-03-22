@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { Form } from 'react-aria-components';
-import { Button } from '@/components';
+import { Button, Description, FieldError, Label, Requirements } from '@/components';
 import { Checkbox } from './Checkbox';
 import { CheckboxGroup } from './CheckboxGroup';
 
@@ -12,6 +12,14 @@ const meta = {
     label: 'ラベル',
     description: 'サポートテキスト',
     orientation: 'vertical',
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '`label` / `description` / `errorMessage` / `requirement` の convenience props と、`<Label />` / `<Description />` / `<FieldError />` を children に置く composition の両方をサポートします。',
+      },
+    },
   },
   argTypes: {
     orientation: {
@@ -67,6 +75,32 @@ export const Horizontal = (args) => <Example {...args} />;
 
 Horizontal.args = {
   orientation: 'horizontal',
+};
+
+export const Composition = (args) => (
+  <CheckboxGroup {...args} description={undefined} errorMessage={undefined} label={undefined}>
+    <Label>
+      ラベル<Requirements variant='required'>※必須</Requirements>
+    </Label>
+    <Description>サポートテキスト</Description>
+    <Checkbox name='x' value='1'>
+      選択肢1
+    </Checkbox>
+    <Checkbox name='x' value='2'>
+      選択肢2
+    </Checkbox>
+    <Checkbox name='x' value='3'>
+      選択肢3
+    </Checkbox>
+    <Checkbox name='x' value='4'>
+      選択肢4
+    </Checkbox>
+    <FieldError>1つ以上選択してください。</FieldError>
+  </CheckboxGroup>
+);
+
+Composition.args = {
+  isRequired: true,
 };
 
 export const Validation = (args) => (

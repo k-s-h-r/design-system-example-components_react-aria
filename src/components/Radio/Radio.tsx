@@ -10,8 +10,13 @@ import {
   type ValidationResult,
 } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { Description, FieldError } from '../FormControl';
-import { type RequirementOption, renderFieldLabel } from '../FormControl/fieldHelpers';
+import { Description } from '../FormControl';
+import {
+  type RequirementOption,
+  renderFieldErrorMessage,
+  renderFieldLabel,
+  splitFieldChildren,
+} from '../FormControl/fieldHelpers';
 import { composeTailwindRenderProps, focusRing, tv } from '../utils';
 
 const radioStyles = tv({
@@ -154,6 +159,14 @@ export function RadioGroup(props: RadioGroupProps) {
     defaultValue ?? null,
     onChange,
   );
+  const { contentChildren, descriptionChild, errorMessageChild, labelChild } = splitFieldChildren(
+    children,
+    {
+      label: label == null,
+      description: description == null,
+      errorMessage: errorMessage == null,
+    },
+  );
   const ariaDisabledContextValue: RadioAriaDisabledContextValue = {
     isValueAriaDisabled: (value) => value !== null && ariaDisabledValuesRef.current.has(value),
     register: (value, isAriaDisabled) => {
@@ -186,10 +199,10 @@ export function RadioGroup(props: RadioGroupProps) {
         onChange={handleChange}
         className={composeTailwindRenderProps(props.className, 'flex flex-col gap-2')}
       >
-        {renderFieldLabel(label, requirement, rest.isRequired)}
-        {description && <Description>{description}</Description>}
-        <div className={radioGroupItemsStyles({ orientation })}>{children}</div>
-        {errorMessage && <FieldError>{errorMessage}</FieldError>}
+        {renderFieldLabel(label, requirement, rest.isRequired) ?? labelChild}
+        {description != null ? <Description>{description}</Description> : descriptionChild}
+        <div className={radioGroupItemsStyles({ orientation })}>{contentChildren}</div>
+        {renderFieldErrorMessage(errorMessage) ?? errorMessageChild}
       </AriaRadioGroup>
     </RadioAriaDisabledContext.Provider>
   );

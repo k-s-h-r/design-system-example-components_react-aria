@@ -99,6 +99,8 @@ interface FilterFieldChildrenOptions {
   label?: boolean;
 }
 
+export interface SplitFieldChildrenOptions extends FilterFieldChildrenOptions {}
+
 export function filterFieldChildren(
   children: ReactNode,
   options: FilterFieldChildrenOptions,
@@ -122,4 +124,45 @@ export function filterFieldChildren(
 
 export function hasFieldChild(children: ReactNode, component: unknown) {
   return Children.toArray(children).some((child) => isElementOfType(child, component));
+}
+
+export function splitFieldChildren(
+  children: ReactNode,
+  options: SplitFieldChildrenOptions,
+): {
+  contentChildren: ReactNode[];
+  descriptionChild: ReactNode | null;
+  errorMessageChild: ReactNode | null;
+  labelChild: ReactNode | null;
+} {
+  let labelChild: ReactNode | null = null;
+  let descriptionChild: ReactNode | null = null;
+  let errorMessageChild: ReactNode | null = null;
+  const contentChildren: ReactNode[] = [];
+
+  for (const child of Children.toArray(children)) {
+    if (options.label && labelChild == null && isElementOfType(child, Label)) {
+      labelChild = child;
+      continue;
+    }
+
+    if (options.description && descriptionChild == null && isElementOfType(child, Description)) {
+      descriptionChild = child;
+      continue;
+    }
+
+    if (options.errorMessage && errorMessageChild == null && isElementOfType(child, FieldError)) {
+      errorMessageChild = child;
+      continue;
+    }
+
+    contentChildren.push(child);
+  }
+
+  return {
+    contentChildren,
+    descriptionChild,
+    errorMessageChild,
+    labelChild,
+  };
 }

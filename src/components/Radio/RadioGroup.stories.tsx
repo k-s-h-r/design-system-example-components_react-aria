@@ -1,6 +1,6 @@
 import type { Meta } from '@storybook/react';
 import { Form } from 'react-aria-components';
-import { Button } from '@/components';
+import { Button, Description, FieldError, Label, Requirements } from '@/components';
 import { Radio, RadioGroup } from './';
 
 const meta = {
@@ -11,6 +11,14 @@ const meta = {
     label: 'ラベル',
     description: 'サポートテキスト',
     orientation: 'vertical',
+  },
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '`label` / `description` / `errorMessage` / `requirement` の convenience props と、`<Label />` / `<Description />` / `<FieldError />` を children に置く composition の両方をサポートします。',
+      },
+    },
   },
   argTypes: {
     orientation: {
@@ -54,6 +62,24 @@ export const Horizontal = (args) => <Example {...args} />;
 
 Horizontal.args = {
   orientation: 'horizontal',
+};
+
+export const Composition = (args) => (
+  <RadioGroup {...args} description={undefined} errorMessage={undefined} label={undefined}>
+    <Label>
+      ラベル<Requirements variant='required'>※必須</Requirements>
+    </Label>
+    <Description>サポートテキスト</Description>
+    <Radio value='1'>選択肢1</Radio>
+    <Radio value='2'>選択肢2</Radio>
+    <Radio value='3'>選択肢3</Radio>
+    <Radio value='4'>選択肢4</Radio>
+    <FieldError>1つ選択してください。</FieldError>
+  </RadioGroup>
+);
+
+Composition.args = {
+  isRequired: true,
 };
 
 export const Validation = (args) => (

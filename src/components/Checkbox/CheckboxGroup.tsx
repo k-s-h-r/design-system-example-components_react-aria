@@ -5,8 +5,13 @@ import {
   type ValidationResult,
 } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { Description, FieldError } from '../FormControl';
-import { type RequirementOption, renderFieldLabel } from '../FormControl/fieldHelpers';
+import { Description } from '../FormControl';
+import {
+  type RequirementOption,
+  renderFieldErrorMessage,
+  renderFieldLabel,
+  splitFieldChildren,
+} from '../FormControl/fieldHelpers';
 import { composeTailwindRenderProps, tv } from '../utils';
 
 const checkboxGroupItemsStyles = tv({
@@ -34,16 +39,24 @@ export interface CheckboxGroupProps
 
 export function CheckboxGroup(props: CheckboxGroupProps) {
   const { label, children, description, errorMessage, orientation, requirement, ...rest } = props;
+  const { contentChildren, descriptionChild, errorMessageChild, labelChild } = splitFieldChildren(
+    children,
+    {
+      label: label == null,
+      description: description == null,
+      errorMessage: errorMessage == null,
+    },
+  );
 
   return (
     <AriaCheckboxGroup
       {...rest}
       className={composeTailwindRenderProps(props.className, 'flex flex-col gap-2')}
     >
-      {renderFieldLabel(label, requirement, rest.isRequired)}
-      {description && <Description>{description}</Description>}
-      <div className={checkboxGroupItemsStyles({ orientation })}>{children}</div>
-      {errorMessage && <FieldError>{errorMessage}</FieldError>}
+      {renderFieldLabel(label, requirement, rest.isRequired) ?? labelChild}
+      {description != null ? <Description>{description}</Description> : descriptionChild}
+      <div className={checkboxGroupItemsStyles({ orientation })}>{contentChildren}</div>
+      {renderFieldErrorMessage(errorMessage) ?? errorMessageChild}
     </AriaCheckboxGroup>
   );
 }
