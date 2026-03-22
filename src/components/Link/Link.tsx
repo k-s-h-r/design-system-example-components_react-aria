@@ -1,17 +1,15 @@
-import type { VariantProps } from 'cva';
+import { cloneElement, isValidElement, type ReactNode } from 'react';
 import {
   Link as AriaLink,
   type LinkProps as AriaLinkProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { focusVisibleRing, tv } from '../utils';
+import type { VariantProps } from 'tailwind-variants';
+import { focusVisibleRing, tv, twMerge } from '../utils';
 
 const linkStyles = tv({
   extend: focusVisibleRing,
-  base: [
-    'rounded',
-    // 'aria-disabled:no-underline aria-disabled:pointer-events-none aria-disabled:text-solid-gray-400',
-  ],
+  base: ['rounded'],
   variants: {
     hasHref: {
       true: [
@@ -30,14 +28,57 @@ const linkStyles = tv({
 });
 
 export interface LinkProps extends AriaLinkProps, VariantProps<typeof linkStyles> {
-  icon?: false | ((isDisabled: boolean) => React.ReactNode);
+  icon?: false | ((props: LinkIconRenderProps) => ReactNode);
+}
+
+interface LinkIconRenderProps {
+  'aria-label': string;
+  className: string;
+  isDisabled: boolean;
+  role: 'img';
+}
+
+const defaultIconClassName = 'ml-1 inline-block align-[-0.15em]';
+
+function renderCustomIcon(icon: ReactNode, props: LinkIconRenderProps) {
+  if (!icon) {
+    return null;
+  }
+
+  if (isValidElement<Record<string, unknown>>(icon)) {
+    const iconProps = icon.props as Record<string, unknown> & { className?: string };
+
+    return cloneElement<Record<string, unknown>>(icon, {
+      'aria-label': props['aria-label'],
+      role: props.role,
+      ...iconProps,
+      className: twMerge(props.className, iconProps.className),
+    });
+  }
+
+  return (
+    <span aria-label={props['aria-label']} role='img' className={props.className}>
+      {icon}
+    </span>
+  );
 }
 
 const Link = (props: LinkProps) => {
   const { className, children, icon, ...rest } = props;
-  const isDisabled = props['aria-disabled'] || props.isDisabled;
+  const isDisabled = Boolean(props['aria-disabled'] || props.isDisabled);
   const hasHref = Boolean(props.href);
-  const customIcon = typeof icon === 'function' ? icon(Boolean(isDisabled)) : undefined;
+  const externalIconAriaLabel = props['aria-label'] ?? '新規タブで開きます';
+
+  function getLinkIconRenderProps(): LinkIconRenderProps {
+    return {
+      'aria-label': externalIconAriaLabel,
+      className: defaultIconClassName,
+      isDisabled,
+      role: 'img',
+    };
+  }
+
+  const customIcon = typeof icon === 'function' ? icon(getLinkIconRenderProps()) : undefined;
 
   return (
     <AriaLink
@@ -52,24 +93,21 @@ const Link = (props: LinkProps) => {
           {props.target === '_blank' &&
             icon !== false &&
             (customIcon ? (
-              <span aria-label='新規タブで開きます' role='img' className='mb-0.75 ml-1 inline'>
-                {customIcon}
-              </span>
+              renderCustomIcon(customIcon, getLinkIconRenderProps())
             ) : (
               <svg
-                aria-label='新規タブで開きます'
+                aria-label={externalIconAriaLabel}
                 role='img'
-                className='mb-0.75 ml-1 inline'
+                className={defaultIconClassName}
+                width='16'
+                height='16'
+                viewBox='0 0 16 16'
                 fill='none'
-                height='20'
-                viewBox='0 0 21 20'
-                width='21'
               >
+                <path d='M3 13H13V8.66667H14V14H2V2H7.33333V3H3V13Z' fill='currentColor' />
                 <path
-                  clipRule='evenodd'
-                  d='M4.40625 16.25H16.9062V10.8333H18.1562V17.5H3.15625V2.5H9.82292V3.75H4.40625V16.25ZM12.3229 3.75V2.5H18.1562V8.33333H16.9062V4.66667L9.40625 12.0833L8.57292 11.25L15.9896 3.75H12.3229Z'
+                  d='M9.33333 3V2H14V6.66667H13V3.73333L7 9.66667L6.33333 9L12.2667 3H9.33333Z'
                   fill='currentColor'
-                  fillRule='evenodd'
                 />
               </svg>
             ))}

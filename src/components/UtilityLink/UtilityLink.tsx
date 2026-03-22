@@ -1,67 +1,155 @@
-import type { VariantProps } from 'cva';
+import { cloneElement, isValidElement, type ReactNode } from 'react';
 import {
-  Link as _Link,
-  type LinkProps as _LinkProps,
+  Link as AriaLink,
+  type LinkProps as AriaLinkProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { focusVisibleRing, tv, twMerge } from '../utils';
 
-const _linkStyles = cva({
-  base: ['disabled:no-underline disabled:pointer-events-none disabled:text-solid-gray-400'],
+const utilityLinkStyles = tv({
+  extend: focusVisibleRing,
+  base: ['rounded text-dns-16N-130'],
   variants: {
     hasHref: {
-      true: ['text-solid-gray-800 underline underline-offset-2 hover:decoration-[3px]'],
+      true: [
+        'text-solid-gray-800 underline underline-offset-[calc(3*var(--px-to-rem))]',
+        'data-hovered:decoration-[calc(3*var(--px-to-rem))]',
+        'data-pressed:text-orange-700 data-pressed:decoration-1',
+        'data-focus-visible:bg-yellow-300',
+      ],
+    },
+    isDisabled: {
+      true: 'no-underline pointer-events-none text-solid-gray-400',
     },
   },
-  defaultVariants: {},
 });
 
-const utilityLinkStyles = compose(focusRing, _linkStyles);
+interface UtilityLinkIconRenderProps {
+  'aria-hidden': true;
+  className: string;
+  isDisabled: boolean;
+}
 
-export interface LinkProps extends _LinkProps, VariantProps<typeof utilityLinkStyles> {
-  icon?: {
-    className?: string;
-    ariaLabel?: string;
-  };
+interface UtilityLinkTrailingIconRenderProps {
+  'aria-label': string;
+  className: string;
+  isDisabled: boolean;
+  role: 'img';
+}
+
+export interface LinkProps extends AriaLinkProps, VariantProps<typeof utilityLinkStyles> {
+  leadingIcon?: ReactNode | ((props: UtilityLinkIconRenderProps) => ReactNode);
+  trailingIcon?: false | ReactNode | ((props: UtilityLinkTrailingIconRenderProps) => ReactNode);
+}
+
+const defaultLeadingIconClassName = 'mr-1 inline-block align-[-0.15em]';
+const defaultTrailingIconClassName = 'ml-1 inline-block align-[-0.15em]';
+
+function renderIcon(icon: ReactNode, props: UtilityLinkIconRenderProps) {
+  if (!icon) {
+    return null;
+  }
+
+  if (isValidElement<Record<string, unknown>>(icon)) {
+    const iconProps = icon.props as Record<string, unknown> & { className?: string };
+
+    return cloneElement<Record<string, unknown>>(icon, {
+      'aria-hidden': props['aria-hidden'],
+      ...iconProps,
+      className: twMerge(props.className, iconProps.className),
+    });
+  }
+
+  return (
+    <span aria-hidden={props['aria-hidden']} className={props.className}>
+      {icon}
+    </span>
+  );
+}
+
+function renderTrailingIcon(icon: ReactNode, props: UtilityLinkTrailingIconRenderProps) {
+  if (!icon) {
+    return null;
+  }
+
+  if (isValidElement<Record<string, unknown>>(icon)) {
+    const iconProps = icon.props as Record<string, unknown> & { className?: string };
+
+    return cloneElement<Record<string, unknown>>(icon, {
+      'aria-label': props['aria-label'],
+      role: props.role,
+      ...iconProps,
+      className: twMerge(props.className, iconProps.className),
+    });
+  }
+
+  return (
+    <span aria-label={props['aria-label']} role='img' className={props.className}>
+      {icon}
+    </span>
+  );
 }
 
 const UtilityLink = (props: LinkProps) => {
-  const { className, children, icon, ...rest } = props;
+  const { children, leadingIcon, trailingIcon, ...rest } = props;
   const hasHref = Boolean(props.href);
+  const isDisabled = Boolean(props['aria-disabled'] || props.isDisabled);
+  const leadingIconProps: UtilityLinkIconRenderProps = {
+    'aria-hidden': true,
+    className: defaultLeadingIconClassName,
+    isDisabled,
+  };
+  const trailingIconA11yProps: UtilityLinkTrailingIconRenderProps = {
+    'aria-label': props['aria-label'] ?? '新規タブで開きます',
+    className: defaultTrailingIconClassName,
+    isDisabled,
+    role: 'img',
+  };
+  const renderedLeadingIcon =
+    typeof leadingIcon === 'function' ? leadingIcon(leadingIconProps) : leadingIcon;
+  const renderedTrailingIcon =
+    typeof trailingIcon === 'function' ? trailingIcon(trailingIconA11yProps) : trailingIcon;
 
   return (
-    <_Link
-      className={composeRenderProps(className, (className, renderProps) =>
-        cx(utilityLinkStyles({ ...renderProps, hasHref, className })),
+    <AriaLink
+      className={composeRenderProps(props.className, (className, renderProps) =>
+        utilityLinkStyles({
+          ...renderProps,
+          className,
+          hasHref,
+          isDisabled,
+        }),
       )}
       {...rest}
     >
       {composeRenderProps(children, (children) => (
         <>
+          {renderedLeadingIcon && renderIcon(renderedLeadingIcon, leadingIconProps)}
           {children}
-          {props.target === '_blank' && (
-            <svg
-              aria-label={`${icon?.ariaLabel ?? '新規タブで開きます'}`}
-              role='img'
-              className={`mb-[3px] ml-1 inline ${icon ? (icon.className ?? '') : ''}`}
-              fill='none'
-              height='20'
-              viewBox='0 0 21 20'
-              width='21'
-            >
-              <g>
-                <path
-                  clipRule='evenodd'
-                  d='M4.40625 16.25H16.9062V10.8333H18.1562V17.5H3.15625V2.5H9.82292V3.75H4.40625V16.25ZM12.3229 3.75V2.5H18.1562V8.33333H16.9062V4.66667L9.40625 12.0833L8.57292 11.25L15.9896 3.75H12.3229Z'
-                  fill='currentColor'
-                  fillRule='evenodd'
-                />
-              </g>
-            </svg>
-          )}
+          {trailingIcon !== false &&
+            (renderedTrailingIcon
+              ? renderTrailingIcon(renderedTrailingIcon, trailingIconA11yProps)
+              : props.target === '_blank' && (
+                  <svg
+                    aria-label={trailingIconA11yProps['aria-label']}
+                    role={trailingIconA11yProps.role}
+                    className={defaultTrailingIconClassName}
+                    width='16'
+                    height='16'
+                    viewBox='0 0 16 16'
+                    fill='none'
+                  >
+                    <path d='M3 13H13V8.66667H14V14H2V2H7.33333V3H3V13Z' fill='currentColor' />
+                    <path
+                      d='M9.33333 3V2H14V6.66667H13V3.73333L7 9.66667L6.33333 9L12.2667 3H9.33333Z'
+                      fill='currentColor'
+                    />
+                  </svg>
+                ))}
         </>
       ))}
-    </_Link>
+    </AriaLink>
   );
 };
 
