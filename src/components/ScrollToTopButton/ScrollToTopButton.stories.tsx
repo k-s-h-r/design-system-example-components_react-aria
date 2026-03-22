@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ScrollToTopButton } from './';
 
 const meta = {
-  title: 'Component/ScrollToTopButton',
+  title: 'Component/Deprecated/ScrollToTopButton',
   component: ScrollToTopButton,
   tags: ['autodocs'],
 } satisfies Meta<typeof ScrollToTopButton>;

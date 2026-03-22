@@ -1,49 +1,50 @@
-import type { VariantProps } from 'cva';
 import {
-  Link as _Link,
-  type LinkProps as _LinkProps,
+  Link as AriaLink,
+  type LinkProps as AriaLinkProps,
   composeRenderProps,
 } from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { focusVisibleRing, tv } from '../utils';
 
-const _scrollToTopButtonStyles = cva({
+const scrollToTopButtonStyles = tv({
+  extend: focusVisibleRing,
   base: [
-    'flex h-14 w-14 cursor-pointer items-center justify-center rounded-full border border-blue-900 text-blue-900 bg-white',
-    'hover:border-blue-1000 hover:bg-blue-200 hover:text-blue-1000',
-    'active:border-blue-1200 active:bg-blue-300 active:text-blue-1200',
+    'flex size-14 cursor-pointer items-center justify-center rounded-full border border-blue-900 bg-white text-blue-900',
+    'data-hovered:border-blue-1000 data-hovered:bg-blue-200 data-hovered:text-blue-1000',
+    'data-pressed:border-blue-1200 data-pressed:bg-blue-300 data-pressed:text-blue-1200',
+    'aria-disabled:border-solid-gray-400 aria-disabled:bg-white aria-disabled:text-solid-gray-400',
+    'aria-disabled:pointer-events-none',
+    'disabled:border-solid-gray-400 disabled:bg-white disabled:text-solid-gray-400',
   ],
-  variants: {},
-  defaultVariants: {},
 });
 
-const scrollToTopButtonStyles = compose(focusRing, _scrollToTopButtonStyles);
+export interface ScrollToTopButtonProps
+  extends AriaLinkProps,
+    VariantProps<typeof scrollToTopButtonStyles> {}
 
-interface ScrollToTopButtonProps extends _LinkProps, VariantProps<typeof scrollToTopButtonStyles> {}
-
+/**
+ * @deprecated
+ * ※ このコンポーネントはアクセシビリティまたはユーザビリティの観点等から、現在は使用が推奨されません。やむを得ず使用する場合は、不利益があるユーザーの存在を踏まえたうえで注意深く使用してください。
+ */
 const ScrollToTopButton = (props: ScrollToTopButtonProps) => {
-  const { className, ...rest } = props;
+  const { 'aria-label': ariaLabelProp, className, ...rest } = props;
+  const ariaLabel = ariaLabelProp ?? 'ページ上部に戻る';
 
   return (
-    <_Link
-      className={composeRenderProps(className, (className, renderProps) =>
-        cx(scrollToTopButtonStyles({ ...renderProps, className })),
-      )}
+    <AriaLink
       {...rest}
+      aria-label={ariaLabel}
+      className={composeRenderProps(className, (className, renderProps) =>
+        scrollToTopButtonStyles({ ...renderProps, className }),
+      )}
     >
-      <svg
-        aria-label={rest['aria-label'] ?? 'ページ上部に戻る'}
-        fill='none'
-        height='16'
-        role='img'
-        viewBox='0 0 15 16'
-        width='15'
-      >
+      <svg aria-hidden={true} fill='none' height='16' viewBox='0 0 15 16' width='15'>
         <path
           d='M6.75 15.5L6.75 3.37303L1.05383 9.06918L0 7.99998L7.49997 0.5L15 7.99998L13.9461 9.06918L8.24995 3.37303L8.24995 15.5H6.75Z'
           fill='currentColor'
         />
       </svg>
-    </_Link>
+    </AriaLink>
   );
 };
 
