@@ -1,21 +1,23 @@
-import type { VariantProps } from 'cva';
-import { useMemo } from 'react';
-import { Button, type ButtonProps } from '@/components';
-import { cva } from '@/lib/cva';
+import { composeRenderProps } from 'react-aria-components';
+import type { ButtonProps } from '../Button';
+import { Button } from '../Button';
+import { tv } from '../utils';
 
-export const variantsClass = cva({
-  base: 'grid place-items-center h-12 w-12 border-border-divider p-1 shrink-0 font-normal rounded-full min-w-0',
-  variants: {},
-  compoundVariants: [],
-  defaultVariants: {},
+export const paginationItemStyles = tv({
+  base: 'grid h-12 w-12 min-w-0 shrink-0 place-items-center rounded-full border-border-divider p-1 font-normal',
 });
 
-type PaginationItemProps = VariantProps<typeof variantsClass> & ButtonProps;
+type PaginationItemProps = ButtonProps;
 
 const PaginationItem = ({ children, className, ...props }: PaginationItemProps) => {
-  const styles = useMemo(() => variantsClass({ className }), [className]);
   return (
-    <Button variant='secondary' className={styles} {...props}>
+    <Button
+      variant='secondary'
+      className={composeRenderProps(className, (className) =>
+        paginationItemStyles({ className }),
+      )}
+      {...props}
+    >
       {children}
     </Button>
   );

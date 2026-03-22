@@ -1,19 +1,13 @@
-import type { VariantProps } from 'cva';
-import React, { type ComponentProps } from 'react';
-import { cva } from '@/lib/cva';
+import type { ComponentProps } from 'react';
+import type { VariantProps } from 'tailwind-variants';
+import { tv } from '../utils';
 import { PaginationItem } from './PaginationItem';
 
-export const variantsClass = cva(
-  {
-    base: [],
-    variants: {},
-    compoundVariants: [],
-    defaultVariants: {},
-  },
-  // { responsiveStyles: ['sm', 'md', 'lg'] },
-);
+export const paginationStyles = tv({
+  base: '',
+});
 
-type PaginationStyles = VariantProps<typeof variantsClass> & ComponentProps<'table'>;
+type PaginationStyles = VariantProps<typeof paginationStyles> & ComponentProps<'div'>;
 
 export interface PaginationProps extends PaginationStyles {
   value: number;
@@ -21,19 +15,19 @@ export interface PaginationProps extends PaginationStyles {
   siblings?: number;
   withEdge?: boolean;
   withControl?: boolean;
-  isSimple: boolean;
+  isSimple?: boolean;
 
   // biome-ignore lint/suspicious/noExplicitAny: The getItemProps function is expected to return an object with any props that should be applied to the pagination item, such as onClick handlers or aria attributes. The exact shape of this object can vary depending on the implementation, so using Record<string, any> allows for flexibility in the props that can be returned.
   getItemProps?(page: number, control?: 'first' | 'prev' | 'last' | 'next'): Record<string, any>;
 }
 
-export const _Pagination = ({ ...props }: PaginationProps) => {
+export const Pagination = (props: PaginationProps) => {
   const {
     className,
     value,
     total,
     siblings = 3,
-    isSimple,
+    isSimple = false,
     withEdge = true,
     withControl = true,
     getItemProps,
@@ -48,21 +42,22 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
   const prevItems = [...Array(siblings)].map((_, i) => {
     const page = value - siblings + i;
     return page > 0 ? (
-      <PaginationItem {...getItemProps?.(page)} key={_}>
+      <PaginationItem {...getItemProps?.(page)} key={`prev-${page}`}>
         {page}
       </PaginationItem>
     ) : (
-      <div className='h-12 w-12' key={_}></div>
+      <div className='h-12 w-12' key={`prev-empty-${page}`}></div>
     );
   });
+
   const nextItems = [...Array(siblings)].map((_, i) => {
     const page = value + i + 1;
     return page <= total ? (
-      <PaginationItem {...getItemProps?.(page)} key={_}>
+      <PaginationItem {...getItemProps?.(page)} key={`next-${page}`}>
         {page}
       </PaginationItem>
     ) : (
-      <div className='h-12 w-12' key={_}></div>
+      <div className='h-12 w-12' key={`next-empty-${page}`}></div>
     );
   });
 
@@ -73,18 +68,12 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
   const isNextDots = value + siblings < total;
 
   return (
-    <div className={variantsClass({ className })} {...rest}>
+    <div className={paginationStyles({ className })} {...rest}>
       <div className='flex items-center justify-center gap-x-6 md:gap-x-4'>
         {withEdge &&
           (isPrev ? (
             <PaginationItem {...getItemProps?.(firstPage, 'first')}>
-              <svg
-                role='img'
-                className='h-6 w-6'
-                aria-label='最初へ'
-                viewBox='0 0 24 24'
-                fill='none'
-              >
+              <svg aria-label='最初へ' className='h-6 w-6' role='img' viewBox='0 0 24 24' fill='none'>
                 <path
                   d='M18.33 19L19 18.33L12.67 12L19 5.67L18.33 5L11.33 12L18.33 19Z'
                   fill='currentColor'
@@ -100,10 +89,11 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
           ) : (
             <div className='h-12 w-12'></div>
           ))}
+
         {withControl &&
           (isPrev ? (
             <PaginationItem {...getItemProps?.(prevPage, 'prev')}>
-              <svg role='img' className='h-6 w-6' aria-label='前へ' viewBox='0 0 24 24' fill='none'>
+              <svg aria-label='前へ' className='h-6 w-6' role='img' viewBox='0 0 24 24' fill='none'>
                 <path
                   d='M15.33 19L16 18.33L9.67 12L16 5.67L15.33 5L8.33 12L15.33 19Z'
                   fill='currentColor'
@@ -126,16 +116,15 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
               )}
             </div>
           )}
-          {!isSimple &&
-            prevItems.map((item, i) => <React.Fragment key={String(i)}>{item}</React.Fragment>)}
+          {!isSimple && prevItems}
         </div>
+
         <div>
           {value} / {total}
         </div>
 
         <div className='hidden items-center gap-x-6 md:flex md:gap-x-4'>
-          {!isSimple &&
-            nextItems.map((item, i) => <React.Fragment key={String(i)}>{item}</React.Fragment>)}
+          {!isSimple && nextItems}
 
           {isDots && (
             <div className='h-full w-[14px]'>
@@ -153,7 +142,7 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
         {withControl &&
           (isNext ? (
             <PaginationItem {...getItemProps?.(nextPage, 'next')}>
-              <svg role='img' className='h-6 w-6' aria-label='次へ' viewBox='0 0 24 24' fill='none'>
+              <svg aria-label='次へ' className='h-6 w-6' role='img' viewBox='0 0 24 24' fill='none'>
                 <path
                   d='M8.67 19L8 18.33L14.33 12L8 5.67L8.67 5L15.67 12L8.67 19Z'
                   fill='currentColor'
@@ -163,16 +152,11 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
           ) : (
             <div className='h-12 w-12'></div>
           ))}
+
         {withEdge &&
           (isNext ? (
             <PaginationItem {...getItemProps?.(lastPage, 'last')}>
-              <svg
-                role='img'
-                className='h-6 w-6'
-                aria-label='最後へ'
-                viewBox='0 0 24 24'
-                fill='none'
-              >
+              <svg aria-label='最後へ' className='h-6 w-6' role='img' viewBox='0 0 24 24' fill='none'>
                 <path
                   d='M5.67 19L5 18.33L11.33 12L5 5.67L5.67 5L12.67 12L5.67 19Z'
                   fill='currentColor'
@@ -194,5 +178,3 @@ export const _Pagination = ({ ...props }: PaginationProps) => {
     </div>
   );
 };
-
-export const Pagination = _Pagination;
