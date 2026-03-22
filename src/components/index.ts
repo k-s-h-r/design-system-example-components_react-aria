@@ -31,12 +31,11 @@ export { Description, FieldError, FieldGroup, Label, Requirements, TextField } f
 export { HamburgerMenuButton } from './HamburgerMenuButton';
 export { InputText } from './InputText';
 export { Link, type LinkProps, linkStyles } from './Link';
-export { Ol, olStyles } from './Ol';
+export { Ol, olStyles, Ul, ulStyles } from './List';
 export { Pagination } from './Pagination';
 export { Radio } from './Radio';
 export { ScrollToTopButton, scrollToTopButtonStyles } from './ScrollToTopButton';
 export { Select, SelectField, SelectItem, SelectSection } from './Select';
 export { Table, Tbody, Td, Th, Thead, Tr, tdStyles, thStyles } from './Table';
 export { TextArea } from './TextArea';
-export { Ul, ulStyles } from './Ul';
 export { UtilityLink, utilityLinkStyles } from './UtilityLink';

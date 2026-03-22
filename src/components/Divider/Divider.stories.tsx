@@ -3,7 +3,7 @@ import { Divider } from './Divider';
 
 const meta = {
   id: 'Component/Divider',
-  title: 'Component/ディバイダー',
+  title: 'Component/Divider',
   component: Divider,
   tags: ['autodocs'],
   argTypes: {
