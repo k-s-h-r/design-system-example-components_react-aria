@@ -35,7 +35,7 @@ export { Ol, olStyles } from './Ol';
 export { Pagination } from './Pagination';
 export { Radio } from './Radio';
 export { ScrollToTopButton, scrollToTopButtonStyles } from './ScrollToTopButton';
-export { Select, SelectItem, SelectSection } from './Select';
+export { Select, SelectField, SelectItem, SelectSection } from './Select';
 export { Table, Tbody, Td, Th, Thead, Tr, tdStyles, thStyles } from './Table';
 export { TextArea } from './TextArea';
 export { Ul, ulStyles } from './Ul';

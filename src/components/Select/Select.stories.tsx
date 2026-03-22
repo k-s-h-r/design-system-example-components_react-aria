@@ -1,156 +1,133 @@
 import type { Meta } from '@storybook/react';
-import { Form, Label } from 'react-aria-components';
-import { Button } from '@/components';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectPopover,
-  SelectSection,
-  SelectSeparator,
-  SelectTrigger,
-  SelectValue,
-} from './';
+import { useState } from 'react';
+import { Form } from 'react-aria-components';
+import { Button, Description, FieldError, Label, Requirements } from '@/components';
+import { Select, SelectField, SelectItem, SelectSection } from './';
 
-const meta: Meta<typeof Select> = {
+const meta = {
   title: 'Component/Select',
   component: Select,
-  parameters: {
-    layout: 'centered',
-  },
   tags: ['autodocs'],
-  args: {},
-};
+  args: {
+    defaultValue: 'vanilla',
+  },
+} satisfies Meta<typeof Select>;
 
 export default meta;
 
 export const Example = (args) => (
-  <Select {...args}>
+  <SelectField>
     <Label>Ice cream flavor</Label>
-    <SelectTrigger>
-      <SelectValue />
-    </SelectTrigger>
-    <SelectPopover>
-      <SelectContent>
-        <SelectItem>Chocolate</SelectItem>
-        <SelectItem id='mint'>Mint</SelectItem>
-        <SelectItem>Strawberry</SelectItem>
-        <SelectItem>Vanilla</SelectItem>
-      </SelectContent>
-    </SelectPopover>
-  </Select>
+    <Description>好みのフレーバーを選択してください。</Description>
+    <Select {...args}>
+      <SelectItem value='chocolate'>Chocolate</SelectItem>
+      <SelectItem value='mint'>Mint</SelectItem>
+      <SelectItem value='strawberry'>Strawberry</SelectItem>
+      <SelectItem value='vanilla'>Vanilla</SelectItem>
+    </Select>
+  </SelectField>
 );
 
-export const DisabledItems = (args) => <Example {...args} />;
-DisabledItems.args = {
-  disabledKeys: ['mint'],
-};
+export const DisabledItems = (args) => (
+  <Select {...args}>
+    <SelectItem value='chocolate'>Chocolate</SelectItem>
+    <SelectItem disabled value='mint'>
+      Mint
+    </SelectItem>
+    <SelectItem value='strawberry'>Strawberry</SelectItem>
+    <SelectItem value='vanilla'>Vanilla</SelectItem>
+  </Select>
+);
 
 export const Disabled = (args) => <Example {...args} />;
 Disabled.args = {
-  isDisabled: true,
+  disabled: true,
 };
 
-export const Separator = (args) => (
+export const AriaDisabled = (args) => <Example {...args} />;
+AriaDisabled.args = {
+  'aria-disabled': true,
+};
+
+export const Invalid = (args) => <Example {...args} />;
+Invalid.args = {
+  'aria-invalid': true,
+};
+
+export const Sections = (args) => (
   <Select {...args}>
-    <Label>Ice cream flavor</Label>
-    <SelectTrigger>
-      <SelectValue />
-    </SelectTrigger>
-    <SelectPopover>
-      <SelectContent>
-        <SelectItem>Chocolate</SelectItem>
-        <SelectItem>Mint</SelectItem>
-        <SelectSeparator />
-        <SelectItem>Strawberry</SelectItem>
-        <SelectSeparator />
-        <SelectItem>Vanilla</SelectItem>
-      </SelectContent>
-    </SelectPopover>
+    <SelectSection label='Fruit'>
+      <SelectItem value='apple'>Apple</SelectItem>
+      <SelectItem value='banana'>Banana</SelectItem>
+      <SelectItem value='orange'>Orange</SelectItem>
+    </SelectSection>
+    <SelectSection label='Vegetable'>
+      <SelectItem value='cabbage'>Cabbage</SelectItem>
+      <SelectItem value='broccoli'>Broccoli</SelectItem>
+      <SelectItem value='carrots'>Carrots</SelectItem>
+    </SelectSection>
   </Select>
 );
 
-export const Sections = (_args) => (
-  <Select>
-    _args
-    <Label>Ice cream flavor</Label>
-    <SelectTrigger>
-      <SelectValue />
-    </SelectTrigger>
-    <SelectPopover>
-      <SelectContent>
-        <SelectSection title='Fruit'>
-          <SelectItem id='Apple'>Apple</SelectItem>
-          <SelectItem id='Banana'>Banana</SelectItem>
-          <SelectItem id='Orange'>Orange</SelectItem>
-          <SelectItem id='Honeydew'>Honeydew</SelectItem>
-          <SelectItem id='Grapes'>Grapes</SelectItem>
-          <SelectItem id='Watermelon'>Watermelon</SelectItem>
-          <SelectItem id='Cantaloupe'>Cantaloupe</SelectItem>
-          <SelectItem id='Pear'>Pear</SelectItem>
-        </SelectSection>
-        <SelectSection title='Vegetable'>
-          <SelectItem id='Cabbage'>Cabbage</SelectItem>
-          <SelectItem id='Broccoli'>Broccoli</SelectItem>
-          <SelectItem id='Carrots'>Carrots</SelectItem>
-          <SelectItem id='Lettuce'>Lettuce</SelectItem>
-          <SelectItem id='Spinach'>Spinach</SelectItem>
-          <SelectItem id='Bok Choy'>Bok Choy</SelectItem>
-          <SelectItem id='Cauliflower'>Cauliflower</SelectItem>
-          <SelectItem id='Potatoes'>Potatoes</SelectItem>
-        </SelectSection>
-      </SelectContent>
-    </SelectPopover>
-  </Select>
-);
+function ValidationExample(args) {
+  const [value, setValue] = useState('');
+  const [isInvalid, setIsInvalid] = useState(false);
 
-export const Validation = (args) => (
-  <Form className='flex flex-col gap-2 items-start'>
-    <Example {...args} />
-    <Button type='submit' variant='secondary'>
-      Submit
-    </Button>
-  </Form>
-);
+  return (
+    <Form
+      className='flex flex-col gap-2 items-start'
+      onSubmit={(event) => {
+        if (value !== '') {
+          return;
+        }
 
-Validation.args = {
-  isRequired: true,
-};
+        event.preventDefault();
+        setIsInvalid(true);
+      }}
+    >
+      <SelectField isInvalid={isInvalid} isRequired>
+        <Label>
+          都道府県<Requirements variant='required'>※必須</Requirements>
+        </Label>
+        <Description>お住まいの都道府県を選択してください。</Description>
+        <Select
+          {...args}
+          value={value}
+          onChange={(event) => {
+            setValue(event.target.value);
+            if (event.target.value !== '') {
+              setIsInvalid(false);
+            }
+          }}
+        >
+          <SelectItem disabled value=''>
+            選択してください
+          </SelectItem>
+          <SelectItem value='hokkaido'>北海道</SelectItem>
+          <SelectItem value='tokyo'>東京都</SelectItem>
+          <SelectItem value='osaka'>大阪府</SelectItem>
+        </Select>
+        <FieldError>＊エラーテキスト</FieldError>
+      </SelectField>
+      <Button type='submit' variant='secondary'>
+        Submit
+      </Button>
+    </Form>
+  );
+}
+
+export const Validation = (args) => <ValidationExample {...args} />;
 
 export const Size = (_args) => (
-  <div className='fle_argsex-col items-start gap-8'>
-    <Select>
-      <Label>Small</Label>
-      <SelectTrigger size='sm'>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectPopover>
-        <SelectContent>
-          <SelectItem>Chocolate</SelectItem>
-        </SelectContent>
-      </SelectPopover>
+  <div className='flex flex-col items-start gap-8'>
+    <Select blockSize='sm' defaultValue='chocolate'>
+      <SelectItem value='chocolate'>Chocolate</SelectItem>
     </Select>
-    <Select>
-      <Label>Small</Label>
-      <SelectTrigger size='md'>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectPopover>
-        <SelectContent>
-          <SelectItem>Chocolate</SelectItem>
-        </SelectContent>
-      </SelectPopover>
+    <Select blockSize='md' defaultValue='chocolate'>
+      <SelectItem value='chocolate'>Chocolate</SelectItem>
     </Select>
-    <Select>
-      <Label>Small</Label>
-      <SelectTrigger size='lg'>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectPopover>
-        <SelectContent>
-          <SelectItem>Chocolate</SelectItem>
-        </SelectContent>
-      </SelectPopover>
+    <Select blockSize='lg' defaultValue='chocolate'>
+      <SelectItem value='chocolate'>Chocolate</SelectItem>
     </Select>
   </div>
 );

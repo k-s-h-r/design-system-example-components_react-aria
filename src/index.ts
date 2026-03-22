@@ -34,6 +34,7 @@ export {
   Requirements,
   ScrollToTopButton,
   Select,
+  SelectField,
   scrollToTopButtonStyles,
   Table,
   Tbody,

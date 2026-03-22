@@ -1,154 +1,176 @@
+import { mergeProps } from '@react-aria/utils';
 import {
-  Select as _Select,
-  type SelectProps as _SelectProps,
-  Button,
-  type ButtonProps,
-  composeRenderProps,
-  ListBox,
-  type ListBoxItemProps,
-  type ListBoxProps,
-  type PopoverProps,
-  SelectValue,
-  type SelectValueProps,
-  Separator,
-  type SeparatorProps,
-} from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
-import { DropdownItem, DropdownSection, type DropdownSectionProps } from '../ListBox';
-import { Popover } from '../Popover';
+  Children,
+  type ComponentProps,
+  createContext,
+  forwardRef,
+  isValidElement,
+  type KeyboardEvent,
+  type MouseEvent,
+  type ReactNode,
+  useContext,
+} from 'react';
+import { useField } from 'react-aria';
+import { FieldErrorContext, LabelContext, Provider, TextContext } from 'react-aria-components';
+import type { VariantProps } from 'tailwind-variants';
+import { Description, FieldError, Label } from '../FormControl';
+import { tv, twMerge } from '../utils';
 
-const _selectButtonStyles = cva({
+const selectStyles = tv({
   base: [
-    'flex items-center text-start gap-4 w-full cursor-default transition',
-    'rounded-8 min-w-80 max-w-full text-std-16N-7 text-solid-gray-900',
-    'bg-white border',
-    'h-auto',
-    'flex-1 min-w-0',
-    'disabled:text-solid-gray-200 disabled:bg-solid-gray-50 disabled:border-solid-gray-400',
-    'pressed:border-focus-yellow pressed:',
+    'w-full appearance-none rounded-8 border border-solid-gray-600 bg-white pl-4 pr-10 text-std-16N-170 text-solid-gray-800',
+    'hover:border-black',
+    'focus-visible:outline-4 focus-visible:outline-black focus-visible:outline-offset-2',
+    'focus-visible:ring-2 focus-visible:ring-yellow-300',
+    'aria-invalid:border-error-1 aria-invalid:hover:border-red-1000',
+    'aria-disabled:border-solid-gray-300 aria-disabled:bg-solid-gray-50 aria-disabled:text-solid-gray-420',
+    'aria-disabled:forced-colors:border-[GrayText] aria-disabled:forced-colors:text-[GrayText]',
+    'disabled:border-solid-gray-300 disabled:bg-solid-gray-50 disabled:text-solid-gray-420',
+    'disabled:forced-colors:border-[GrayText] disabled:forced-colors:text-[GrayText]',
   ],
   variants: {
-    size: {
-      sm: 'px-4 py-2',
-      md: 'px-4 py-4',
-      lg: 'px-4 py-5',
-    },
-    isFocused: {
-      false: 'border-solid-gray-900',
-      true: 'border-focus-yellow',
-    },
-    isInvalid: {
-      true: 'border-error-1 border-2',
-    },
-    isDisabled: {
-      false: '',
-      true: 'border-solid-gray-200',
+    blockSize: {
+      sm: 'h-10 py-2',
+      md: 'h-12 py-3',
+      lg: 'h-14 py-[calc(11/16*1rem)]',
     },
   },
   defaultVariants: {
-    size: 'md',
+    blockSize: 'lg',
   },
 });
 
-const selectButtonStyles = compose(focusRing, _selectButtonStyles);
+export type SelectBlockSize = 'lg' | 'md' | 'sm';
 
-interface SelectProps<T extends object> extends _SelectProps<T> {}
-function Select<T extends object>({ ...props }: SelectProps<T>) {
+const SelectFieldContext = createContext<ComponentProps<'select'> | null>(null);
+
+export interface SelectProps
+  extends Omit<ComponentProps<'select'>, 'size'>,
+    VariantProps<typeof selectStyles> {}
+
+export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(props, ref) {
+  const fieldContextProps = useContext(SelectFieldContext);
+  const mergedProps = fieldContextProps ? mergeProps(fieldContextProps, props) : props;
+  const { blockSize, children, className, onKeyDown, onMouseDown, ...rest } = mergedProps;
+  const isAriaDisabled =
+    mergedProps['aria-disabled'] === true || mergedProps['aria-disabled'] === 'true';
+
+  const handleDisabledKeyDown = (event: KeyboardEvent<HTMLSelectElement>) => {
+    onKeyDown?.(event);
+
+    if (!event.defaultPrevented && isAriaDisabled && event.code !== 'Tab') {
+      event.preventDefault();
+    }
+  };
+
+  const handleDisabledMouseDown = (event: MouseEvent<HTMLSelectElement>) => {
+    onMouseDown?.(event);
+
+    if (!event.defaultPrevented && isAriaDisabled) {
+      event.preventDefault();
+    }
+  };
+
   return (
-    <_Select
-      {...props}
-      className={composeRenderProps(props.className, (className, _renderProps) =>
-        cx('group flex flex-col gap-2', className),
-      )}
-      {...props}
-    />
+    <div className='relative w-fit'>
+      <select
+        {...rest}
+        aria-invalid={mergedProps['aria-invalid'] || undefined}
+        className={selectStyles({ blockSize, className })}
+        onKeyDown={handleDisabledKeyDown}
+        onMouseDown={handleDisabledMouseDown}
+        ref={ref}
+      >
+        {children}
+      </select>
+      <svg
+        aria-hidden={true}
+        className={twMerge(
+          'pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 fill-none',
+          isAriaDisabled || mergedProps.disabled
+            ? 'text-solid-gray-420 forced-colors:text-[GrayText]'
+            : 'text-solid-gray-900 forced-colors:text-[CanvasText]',
+        )}
+        height='16'
+        viewBox='0 0 16 16'
+        width='16'
+      >
+        <path
+          d='M13.3344 4.40002L8.00104 9.73336L2.66771 4.40002L1.73438 5.33336L8.00104 11.6L14.2677 5.33336L13.3344 4.40002Z'
+          fill='currentColor'
+        />
+      </svg>
+    </div>
   );
+});
+
+export function SelectItem(props: ComponentProps<'option'>) {
+  return <option {...props} />;
 }
 
-const _SelectValue = <T extends object>({ className, ...props }: SelectValueProps<T>) => (
-  <SelectValue
-    className={composeRenderProps('', (className, _renderProps) =>
-      cx('flex-1 text-oln-16N-1', className),
-    )}
-    {...props}
-  />
-);
+export function SelectSection(props: ComponentProps<'optgroup'>) {
+  return <optgroup {...props} />;
+}
 
-function SelectTrigger({
-  className,
-  children,
-  size,
-  ...props
-}: ButtonProps & {
-  size?: 'sm' | 'md' | 'lg';
-}) {
+export interface SelectFieldProps extends Omit<ComponentProps<'div'>, 'children'> {
+  children?: ReactNode;
+  isDisabled?: boolean;
+  isInvalid?: boolean;
+  isRequired?: boolean;
+}
+
+export function SelectField(props: SelectFieldProps) {
+  const { children, className, isDisabled, isInvalid, isRequired, ...rest } = props;
+  const childArray = Children.toArray(children);
+  const hasLabel = childArray.some((child) => isValidElement(child) && child.type === Label);
+  const hasDescription = childArray.some(
+    (child) => isValidElement(child) && child.type === Description,
+  );
+  const hasFieldError = childArray.some(
+    (child) => isValidElement(child) && child.type === FieldError,
+  );
+  const { labelProps, fieldProps, descriptionProps, errorMessageProps } = useField({
+    label: hasLabel,
+    description: hasDescription,
+    errorMessage: hasFieldError,
+    isInvalid,
+  });
+
   return (
-    <Button
-      className={composeRenderProps('', (className, renderProps) =>
-        cx(selectButtonStyles({ ...renderProps, size }), className),
-      )}
-      {...props}
-    >
-      {composeRenderProps(children, (children, _values) => (
-        <>
+    <div {...rest} className={twMerge('flex flex-col gap-2', className)}>
+      <Provider
+        values={[
+          [LabelContext, labelProps],
+          [
+            TextContext,
+            {
+              slots: {
+                description: descriptionProps,
+                errorMessage: errorMessageProps,
+              },
+            },
+          ],
+          [
+            FieldErrorContext,
+            {
+              isInvalid: !!isInvalid,
+              validationErrors: [],
+              validationDetails: {} as ValidityState,
+            },
+          ],
+        ]}
+      >
+        <SelectFieldContext.Provider
+          value={{
+            ...fieldProps,
+            disabled: isDisabled,
+            'aria-invalid': isInvalid || undefined,
+            'aria-required': isRequired || undefined,
+          }}
+        >
           {children}
-          <svg
-            className='w-4 h-4 text-solid-gray-900 fill-current group-disabled:text-solid-gray-400 '
-            aria-hidden={true}
-            width='16'
-            height='16'
-            viewBox='0 0 16 16'
-            fill='none'
-          >
-            <path d='M8 11.4L2 5.33334L2.66667 4.66667L8 10L13.3333 4.66667L14 5.33334L8 11.4Z' />
-          </svg>
-        </>
-      ))}
-    </Button>
+        </SelectFieldContext.Provider>
+      </Provider>
+    </div>
   );
 }
-
-const SelectContent = <T extends object>({ className, ...props }: ListBoxProps<T>) => (
-  <ListBox
-    className={composeRenderProps(className, (className, _renderProps) =>
-      cx(
-        'outline-none p-1 max-h-[inherit] overflow-auto [clip-path:inset(0_0_0_0_round_.75rem)]',
-        className,
-      ),
-    )}
-    {...props}
-  />
-);
-
-const SelectPopover = ({ className, ...props }: PopoverProps) => (
-  <Popover
-    className={composeRenderProps(className, (className, _renderProps) =>
-      cx('min-w-[--trigger-width]', className),
-    )}
-    {...props}
-  />
-);
-
-const SelectItem = (props: ListBoxItemProps) => {
-  return <DropdownItem {...props} />;
-};
-const SelectSection = <T extends object>(props: DropdownSectionProps<T>) => {
-  return <DropdownSection {...props} />;
-};
-const SelectSeparator = ({ className, ...props }: SeparatorProps) => (
-  <Separator className={cx('-mx-1 my-1 h-px bg-solid-gray-100', className)} {...props} />
-);
-
-export type { PopoverProps as SelectPopoverProps, SelectProps };
-export {
-  _SelectValue as SelectValue,
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectPopover,
-  SelectSection,
-  SelectSeparator,
-  SelectTrigger,
-  // SelectCollection -> inside SelectSection
-  // SelectHeader -> inside SelectSection
-};

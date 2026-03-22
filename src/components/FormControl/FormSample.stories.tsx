@@ -6,19 +6,13 @@ import {
   InputText,
   Label,
   Requirements,
+  SelectField,
   TextArea,
   TextField,
 } from '@/components';
 import { Checkbox, CheckboxGroup } from '../Checkbox';
 import { Radio, RadioGroup } from '../Radio';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectPopover,
-  SelectTrigger,
-  SelectValue,
-} from '../Select';
+import { Select, SelectItem } from '../Select';
 
 const meta = {
   title: 'Component/FormControl/FormSample',
@@ -93,25 +87,20 @@ export const Example: Story = {
         </div>
       </RadioGroup>
 
-      <Select className='flex flex-col gap-2' defaultSelectedKey='tokyo'>
+      <SelectField>
         <Label>
           都道府県
           <Requirements variant='required'>※必須</Requirements>
         </Label>
         <Description>お住まいの都道府県を選択してください。</Description>
-        <SelectTrigger>
-          <SelectValue />
-        </SelectTrigger>
-        <SelectPopover>
-          <SelectContent>
-            <SelectItem id='hokkaido'>北海道</SelectItem>
-            <SelectItem id='tokyo'>東京都</SelectItem>
-            <SelectItem id='aichi'>愛知県</SelectItem>
-            <SelectItem id='osaka'>大阪府</SelectItem>
-            <SelectItem id='fukuoka'>福岡県</SelectItem>
-          </SelectContent>
-        </SelectPopover>
-      </Select>
+        <Select defaultValue='tokyo'>
+          <SelectItem value='hokkaido'>北海道</SelectItem>
+          <SelectItem value='tokyo'>東京都</SelectItem>
+          <SelectItem value='aichi'>愛知県</SelectItem>
+          <SelectItem value='osaka'>大阪府</SelectItem>
+          <SelectItem value='fukuoka'>福岡県</SelectItem>
+        </Select>
+      </SelectField>
 
       <div className='pt-2'>
         <Button type='submit' variant='secondary'>
