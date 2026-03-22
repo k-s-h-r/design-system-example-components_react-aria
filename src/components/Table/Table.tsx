@@ -1,113 +1,117 @@
-import type { VariantProps } from 'cva';
 import type { ComponentProps } from 'react';
-import { compose, cva, cx } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { tv } from '../utils';
 
-// import { Cell as _Cell, Column as _Column, Row as _Row, Table as _Table, TableBody as _TableBody, TableHeader as _TableHeader } from 'react-aria-components';
+const tableOuterStyles = tv({
+  base: 'w-full overflow-x-auto',
+});
 
-const tableStyles = cva({});
+const tableStyles = tv({
+  base: 'w-full border-collapse text-std-16N-170 text-solid-gray-900',
+});
 
-type TableProps = ComponentProps<'table'> &
-  VariantProps<typeof tableStyles> & {
-    outerClassName?: string;
-  };
+const theadStyles = tv({
+  base: '',
+});
 
-const Table = (props: TableProps) => {
+const tbodyStyles = tv({
+  base: '',
+});
+
+const trStyles = tv({
+  base: '',
+});
+
+const cellStyles = tv({
+  base: 'border-b border-solid-gray-400 px-4 py-6 align-top text-left',
+});
+
+const thStyles = tv({
+  extend: cellStyles,
+  base: 'font-bold',
+});
+
+const tdStyles = tv({
+  extend: cellStyles,
+  base: 'font-normal',
+});
+
+export interface TableProps
+  extends ComponentProps<'table'>,
+    VariantProps<typeof tableStyles> {
+  outerClassName?: string;
+}
+
+export function Table(props: TableProps) {
   const { children, className, outerClassName, ...rest } = props;
 
   return (
-    <div className={cx('w-full overflow-x-auto', outerClassName)}>
-      <table className={cx(tableStyles({ className }))} {...rest}>
+    <div className={tableOuterStyles({ className: outerClassName })}>
+      <table {...rest} className={tableStyles({ className })}>
         {children}
       </table>
     </div>
   );
-};
+}
 
-const theadStyles = cva({});
+export interface TheadProps extends ComponentProps<'thead'>, VariantProps<typeof theadStyles> {}
 
-type TheadProps = ComponentProps<'thead'> & VariantProps<typeof theadStyles>;
-
-const Thead = (props: TheadProps) => {
+export function Thead(props: TheadProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <thead {...rest} className={cx(theadStyles({ className }))}>
+    <thead {...rest} className={theadStyles({ className })}>
       {children}
     </thead>
   );
-};
+}
 
-const tbodyStyles = cva({});
+export interface TbodyProps extends ComponentProps<'tbody'>, VariantProps<typeof tbodyStyles> {}
 
-type TbodyProps = ComponentProps<'tbody'> & VariantProps<typeof tbodyStyles>;
-
-const Tbody = (props: TbodyProps) => {
+export function Tbody(props: TbodyProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <tbody {...rest} className={cx(tbodyStyles({ className }))}>
+    <tbody {...rest} className={tbodyStyles({ className })}>
       {children}
     </tbody>
   );
-};
+}
 
-const trStyles = cva({});
+export interface TrProps extends ComponentProps<'tr'>, VariantProps<typeof trStyles> {}
 
-type TrProps = ComponentProps<'tr'> & VariantProps<typeof trStyles>;
-
-const Tr = (props: TrProps) => {
+export function Tr(props: TrProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <tr {...rest} className={cx(trStyles({ className }))}>
+    <tr {...rest} className={trStyles({ className })}>
       {children}
     </tr>
   );
-};
+}
 
-const cellStyles = cva({
-  base: 'border-b border-solid-gray-400 px-4 py-6 text-left text-solid-gray-900',
-});
-const thStyles = compose(cellStyles, cva({}));
+export interface ThProps extends ComponentProps<'th'>, VariantProps<typeof thStyles> {}
 
-type ThProps = ComponentProps<'th'> & VariantProps<typeof thStyles>;
-
-const Th = (props: ThProps) => {
+export function Th(props: ThProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <th {...rest} className={cx(thStyles({ className }))}>
+    <th {...rest} className={thStyles({ className })}>
       {children}
     </th>
   );
-};
+}
 
-const tdStyles = compose(cellStyles, cva({}));
+export interface TdProps extends ComponentProps<'td'>, VariantProps<typeof tdStyles> {}
 
-type TdProps = ComponentProps<'td'> & VariantProps<typeof tdStyles>;
-
-const Td = (props: TdProps) => {
+export function Td(props: TdProps) {
   const { children, className, ...rest } = props;
 
   return (
-    <td {...rest} className={cx(tdStyles({ className }))}>
+    <td {...rest} className={tdStyles({ className })}>
       {children}
     </td>
   );
-};
+}
 
-export type { TableProps, TbodyProps, TdProps, TheadProps, ThProps, TrProps };
-export {
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  tableStyles,
-  tbodyStyles,
-  tdStyles,
-  theadStyles,
-  thStyles,
-  trStyles,
-};
+export { tableOuterStyles, tableStyles, tbodyStyles, tdStyles, theadStyles, thStyles, trStyles };

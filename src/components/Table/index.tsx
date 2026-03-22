@@ -6,6 +6,7 @@ export {
   Th,
   Thead,
   Tr,
+  tableOuterStyles,
   tableStyles,
   tbodyStyles,
   tdStyles,

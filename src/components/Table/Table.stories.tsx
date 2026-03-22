@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
-import { Ol } from '../Ol';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Table, Tbody, Td, Th, Thead, Tr } from './';
 
 const meta = {
@@ -558,13 +557,13 @@ export const VerticalAlignedTextInCell: Story = {
             <Tr>
               <Td>サービスを提供する地域</Td>
               <Td>
-                <Ol>
+                <ol className='list-decimal ps-6'>
                   <li>りんご区</li>
                   <li>みかん区</li>
                   <li>ぶどう区</li>
                   <li>いちご区</li>
                   <li>なし区</li>
-                </Ol>
+                </ol>
               </Td>
               <Td>
                 特有のニーズに応えながら、高品質かつ効率的なサポートを目指しています。地元のコミュニティと密接に連携し、信頼性とアクセシビリティを大切にしています。

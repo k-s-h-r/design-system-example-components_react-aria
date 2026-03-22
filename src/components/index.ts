@@ -82,6 +82,47 @@ export {
   emergencyBannerHeadingStyles,
   emergencyBannerStyles,
 } from './EmergencyBanner';
+export {
+  FileUpload,
+  FileUploadDropArea,
+  FileUploadFileInfo,
+  FileUploadFileItem,
+  FileUploadFileList,
+  FileUploadFileMarker,
+  FileUploadFileMeta,
+  FileUploadFileName,
+  FileUploadTrigger,
+  FileUploadViewportOverlay,
+  FileUploadViewportOverlayMessage,
+  type FileInfo,
+  type FileUploadDropAreaProps,
+  type FileUploadFileInfoProps,
+  type FileUploadFileItemProps,
+  type FileUploadFileListProps,
+  type FileUploadFileMarkerProps,
+  type FileUploadFileMetaProps,
+  type FileUploadFileNameProps,
+  type FileUploadMessages,
+  type FileUploadProps,
+  type FileUploadTriggerProps,
+  type FileUploadViewportOverlayMessageProps,
+  type FileUploadViewportOverlayProps,
+  type UseFileUploadOptions,
+  fileUploadDefaultMessages,
+  fileUploadDropAreaStyles,
+  fileUploadFileInfoStyles,
+  fileUploadFileItemStyles,
+  fileUploadFileListStyles,
+  fileUploadFileMarkerStyles,
+  fileUploadFileMetaStyles,
+  fileUploadFileNameStyles,
+  fileUploadStyles,
+  fileUploadViewportOverlayMessageStyles,
+  fileUploadViewportOverlayStyles,
+  formatSize,
+  parseSize,
+  useFileUpload,
+} from './FileUpload';
 export { Description, FieldError, FieldGroup, Label, Requirements, TextField } from './FormControl';
 export { HamburgerMenuButton } from './HamburgerMenuButton';
 export {
@@ -99,7 +140,37 @@ export {
   type RuleSize,
 } from './Heading';
 export { InputText } from './InputText';
+export {
+  LanguageSelector,
+  LanguageSelectorArrowIcon,
+  LanguageSelectorButton,
+  LanguageSelectorGlobeIcon,
+  LanguageSelectorGlobeWithLabelIcon,
+  LanguageSelectorMenu,
+  LanguageSelectorMenuItem,
+  type LanguageSelectorArrowIconProps,
+  type LanguageSelectorButtonProps,
+  type LanguageSelectorGlobeIconProps,
+  type LanguageSelectorGlobeWithLabelIconProps,
+  type LanguageSelectorMenuItemProps,
+  type LanguageSelectorMenuProps,
+  type LanguageSelectorProps,
+  languageSelectorButtonStyles,
+  languageSelectorMenuItemStyles,
+  languageSelectorMenuStyles,
+  languageSelectorPopoverStyles,
+} from './LanguageSelector';
 export { Link, type LinkProps, linkStyles } from './Link';
+export {
+  NotificationBanner,
+  NotificationBannerBody,
+  NotificationBannerClose,
+  NotificationBannerIcon,
+  NotificationBannerMobileClose,
+  type NotificationBannerHeadingLevel,
+  type NotificationBannerStyle,
+  type NotificationBannerType,
+} from './NotificationBanner';
 export { Ol, olStyles, Ul, ulStyles } from './List';
 export { Pagination } from './Pagination';
 export { Radio } from './Radio';
