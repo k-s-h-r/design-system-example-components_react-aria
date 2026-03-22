@@ -11,7 +11,7 @@ import {
 } from './';
 
 const meta = {
-  title: 'Component/Dialog',
+  title: 'Component/DADS v1/Dialog',
   component: Dialog,
   tags: ['autodocs'],
 } satisfies Meta<typeof Dialog>;
@@ -20,7 +20,6 @@ export default meta;
 
 export const Example = (_args) => (
   <DialogTrigger>
-    _args
     <Button size='lg' variant='primary'>
       ダイアログ表示
     </Button>
@@ -51,7 +50,6 @@ export const Example = (_args) => (
 
 export const DialogWithHorizontalActions = (_args) => (
   <DialogTrigger>
-    _args
     <Button size='lg' variant='primary'>
       ダイアログ表示
     </Button>
@@ -85,7 +83,6 @@ export const DialogWithHorizontalActions = (_args) => (
 
 export const AlertDialog = (_args) => (
   <DialogTrigger>
-    _args
     <Button size='lg' variant='primary'>
       ダイアログ表示
     </Button>

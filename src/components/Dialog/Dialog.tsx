@@ -1,9 +1,8 @@
-import type { VariantProps } from 'cva';
-import type * as React from 'react';
+import type { ComponentProps, HTMLAttributes } from 'react';
 import {
-  Dialog as _Dialog,
-  DialogTrigger as _DialogTrigger,
-  Button,
+  Button as AriaButton,
+  Dialog as AriaDialog,
+  DialogTrigger as AriaDialogTrigger,
   composeRenderProps,
   type DialogProps,
   type DialogTriggerProps,
@@ -13,129 +12,158 @@ import {
   ModalOverlay,
   type ModalOverlayProps,
 } from 'react-aria-components';
-import { compose, cva, cx, focusRing } from '@/lib/cva';
+import type { VariantProps } from 'tailwind-variants';
+import { focusVisibleRing, tv, twMerge } from '../utils';
 
-const sheetStyles = cva({
-  base: 'fixed z-50 gap-4 bg-background shadow-lg transition ease-in-out data-[entering]:duration-500 data-[exiting]:duration-300 data-[entering]:animate-in data-[exiting]:animate-out',
+const dialogOverlayStyles = tv({
+  base: [
+    'fixed inset-0 z-50 bg-black/45',
+    'data-[entering]:animate-in data-[exiting]:animate-out',
+    'data-[entering]:fade-in-0 data-[exiting]:fade-out-0',
+    'data-[exiting]:duration-300',
+  ],
+});
+
+const dialogContentStyles = tv({
+  base: [
+    'fixed z-50 bg-white shadow-lg',
+    'data-[entering]:animate-in data-[exiting]:animate-out',
+    'data-[entering]:duration-500 data-[exiting]:duration-300',
+    'ease-in-out',
+  ],
   variants: {
-    side: {
+    placement: {
+      center: [
+        'left-1/2 top-1/2 w-full max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl border border-solid-gray-200 p-6 desktop:p-10',
+        'md:w-full',
+        // Centered dialogs should only fade/zoom. Slide utilities here cause the current
+        // diagonal movement from the top-left because they stack with the fixed centering transform.
+        'data-[entering]:fade-in-0 data-[exiting]:fade-out-0',
+        'data-[entering]:zoom-in-95 data-[exiting]:zoom-out-95',
+      ],
       top: 'inset-x-0 top-0 border-b data-[entering]:slide-in-from-top data-[exiting]:slide-out-to-top',
       bottom:
         'inset-x-0 bottom-0 border-t data-[entering]:slide-in-from-bottom data-[exiting]:slide-out-to-bottom',
       left: 'inset-y-0 left-0 h-full w-3/4 border-r data-[entering]:slide-in-from-left data-[exiting]:slide-out-to-left sm:max-w-sm',
       right:
-        'inset-y-0 right-0 h-full w-3/4  border-l data-[entering]:slide-in-from-right data-[exiting]:slide-out-to-right sm:max-w-sm',
+        'inset-y-0 right-0 h-full w-3/4 border-l data-[entering]:slide-in-from-right data-[exiting]:slide-out-to-right sm:max-w-sm',
     },
+  },
+  defaultVariants: {
+    placement: 'center',
   },
 });
 
-const DialogTrigger = (props: DialogTriggerProps) => <_DialogTrigger {...props} />;
-const Dialog = (props: DialogProps) => <_Dialog {...props} />;
+const dialogInnerStyles = tv({
+  base: 'h-full outline-none',
+  variants: {
+    placement: {
+      center: 'grid gap-4',
+      top: 'h-full',
+      bottom: 'h-full',
+      left: 'h-full',
+      right: 'h-full',
+    },
+  },
+  defaultVariants: {
+    placement: 'center',
+  },
+});
+
+const closeButtonStyles = tv({
+  extend: focusVisibleRing,
+  base: ['absolute right-4 top-4 rounded-sm', 'disabled:pointer-events-none'],
+});
+
+const dialogHeaderStyles = tv({
+  base: 'flex flex-col space-y-1.5 text-center sm:text-left',
+});
+
+const dialogFooterStyles = tv({
+  base: 'flex flex-col gap-4 sm:flex-row-reverse desktop:mt-6',
+});
+
+const dialogTitleStyles = tv({
+  base: 'text-std-24B-150 desktop:text-std-28B-150',
+});
+
+const DialogTrigger = (props: DialogTriggerProps) => <AriaDialogTrigger {...props} />;
+const Dialog = (props: DialogProps) => <AriaDialog {...props} />;
 
 const DialogOverlay = ({ className, isDismissable = true, ...props }: ModalOverlayProps) => (
   <ModalOverlay
-    isDismissable={isDismissable}
-    className={composeRenderProps(className, (className, _renderProps) =>
-      cx(
-        [
-          'fixed inset-0 z-50 bg-black/45',
-          'data-[exiting]:duration-300 data-[entering]:animate-in data-[exiting]:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0',
-        ],
-        className,
-      ),
-    )}
     {...props}
+    isDismissable={isDismissable}
+    className={composeRenderProps(className, (className) => dialogOverlayStyles({ className }))}
   />
 );
 
 export interface DialogContentProps
-  extends Omit<React.ComponentProps<typeof Modal>, 'children'>,
-    VariantProps<typeof sheetStyles> {
+  extends Omit<ComponentProps<typeof Modal>, 'children'>,
+    Omit<VariantProps<typeof dialogContentStyles>, 'placement'> {
   children?: DialogProps['children'];
-  role?: DialogProps['role'];
   closeButton?: boolean;
+  role?: DialogProps['role'];
+  side?: Exclude<VariantProps<typeof dialogContentStyles>['placement'], 'center'>;
 }
 
-const _closeButtonStyles = cva({
-  base: [
-    'absolute right-4 top-4 rounded-sm',
-    'disabled:pointer-events-none',
-    'data-[entering]:bg-accent data-[entering]:text-muted-foreground',
-  ],
-  variants: {},
-  defaultVariants: {},
-});
-
-const closeButtonStyles = compose(focusRing, _closeButtonStyles);
-
-// flex flex-col items-center gap-4
 const DialogContent = ({
-  className,
   children,
-  side,
-  role,
+  className,
   closeButton = true,
+  role,
+  side,
   ...props
-}: DialogContentProps) => (
-  <Modal
-    className={cx(
-      [
-        !side && [
-          'fixed left-[50%] top-[50%] z-50 w-full max-w-lg translate-x-[-50%] translate-y-[-50%]',
-          'md:w-full',
-          'border border-solid-gray-200 bg-white rounded-xl p-6 desktop:p-10 duration-200',
-          'data-[exiting]:duration-300 data-[entering]:animate-in data-[exiting]:animate-out data-[entering]:fade-in-0 data-[exiting]:fade-out-0 data-[entering]:zoom-in-95 data-[exiting]:zoom-out-95 data-[entering]:slide-in-from-left-1/2 data-[entering]:slide-in-from-top-[48%] data-[exiting]:slide-out-to-left-1/2 data-[exiting]:slide-out-to-top-[48%]',
-        ],
-        side && sheetStyles({ side }),
-        side && 'h-full p-6',
-      ],
-      className,
-    )}
-    {...props}
-  >
-    <Dialog role={role} className={cx(!side && 'grid h-full gap-4', 'h-full outline-none')}>
-      {composeRenderProps(children, (children, values) => (
-        <>
-          {children}
-          {closeButton && (
-            <Button
-              onPress={values.close}
-              className={composeRenderProps('', (className, renderProps) =>
-                cx(closeButtonStyles({ ...renderProps, className })),
-              )}
-            >
-              <svg aria-hidden={true} width='24' height='24' viewBox='0 0 24 24' fill='none'>
-                <path
-                  d='M6.39961 18.6496L5.34961 17.5996L10.9496 11.9996L5.34961 6.39961L6.39961 5.34961L11.9996 10.9496L17.5996 5.34961L18.6496 6.39961L13.0496 11.9996L18.6496 17.5996L17.5996 18.6496L11.9996 13.0496L6.39961 18.6496Z'
-                  fill='#1A1A1A'
-                />
-              </svg>
-              <span className='sr-only'>Close</span>
-            </Button>
-          )}
-        </>
-      ))}
-    </Dialog>
-  </Modal>
+}: DialogContentProps) => {
+  const placement = side ?? 'center';
+
+  return (
+    <Modal
+      {...props}
+      className={composeRenderProps(className, (className) =>
+        dialogContentStyles({
+          placement,
+          className: twMerge(side ? 'h-full p-6' : undefined, className),
+        }),
+      )}
+    >
+      <Dialog className={dialogInnerStyles({ placement })} role={role}>
+        {composeRenderProps(children, (children, values) => (
+          <>
+            {children}
+            {closeButton && (
+              <AriaButton
+                className={composeRenderProps('', (className, renderProps) =>
+                  closeButtonStyles({ ...renderProps, className }),
+                )}
+                onPress={values.close}
+              >
+                <svg aria-hidden={true} width='24' height='24' viewBox='0 0 24 24' fill='none'>
+                  <path
+                    d='M6.39961 18.6496L5.34961 17.5996L10.9496 11.9996L5.34961 6.39961L6.39961 5.34961L11.9996 10.9496L17.5996 5.34961L18.6496 6.39961L13.0496 11.9996L18.6496 17.5996L17.5996 18.6496L11.9996 13.0496L6.39961 18.6496Z'
+                    fill='currentColor'
+                  />
+                </svg>
+                <span className='sr-only'>Close</span>
+              </AriaButton>
+            )}
+          </>
+        ))}
+      </Dialog>
+    </Modal>
+  );
+};
+
+const DialogHeader = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={dialogHeaderStyles({ className })} />
 );
 
-const DialogHeader = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div className={cx('flex flex-col space-y-1.5 text-center sm:text-left', className)} {...props} />
-);
-
-const DialogFooter = ({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className={cx('flex flex-col gap-4 sm:flex-row-reverse desktop:mt-6', className)}
-    {...props}
-  />
+const DialogFooter = ({ className, ...props }: HTMLAttributes<HTMLDivElement>) => (
+  <div {...props} className={dialogFooterStyles({ className })} />
 );
 
 const DialogTitle = ({ className, ...props }: HeadingProps) => (
-  <Heading
-    slot='title'
-    className={cx('text-std-24B-5 desktop:text-std-28B-5', className)}
-    {...props}
-  />
+  <Heading {...props} slot='title' className={dialogTitleStyles({ className })} />
 );
 
 export {
