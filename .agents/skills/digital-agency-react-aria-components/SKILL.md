@@ -48,7 +48,8 @@ description: このリポジトリでデジタル庁デザインシステムの�
 - スタイルはコンポーネント本体に散らさず、先に `tv(...)` か近い形で定義する。
 - 配色・余白・タイポグラフィは既存トークン名を使う。
 - state ごとの差分は `data-hovered:*`, `data-pressed:*`, `data-focus-visible:*`, `aria-disabled:*` のように state class へ寄せる。
-- インタラクティブ要素は既存の `focusRing` を優先して再利用する。
+- インタラクティブ要素は既存の `focusRing` / `focusVisibleRing` を優先して再利用する。
+- `react-aria-components` の state は `renderProps` や `data-*` 属性に寄せ、擬似クラスへ直接書き散らさない。
 
 ### 3. `className` は上書き可能に保つ
 
@@ -62,6 +63,13 @@ description: このリポジトリでデジタル庁デザインシステムの�
 - 独自 props は、デザインシステムの差分を表す最小限に絞る。
 - 既存の例では `variant`, `size`, `separator`, `icon`, `linkClassName`, `panelClassName` のような拡張だけを足している。
 - 元の primitive が持つ意味を壊す独自抽象化は避ける。
+
+### 4.1 Field wrapper は convenience と composition を両立させる
+
+- `TextField`, `SelectField`, `CheckboxGroup`, `RadioGroup` のような field wrapper では、`label`, `description`, `errorMessage`, `requirement` の convenience props を足してよい。
+- ただし同時に child の `<Label />`, `<Description />`, `<FieldError />` も正式サポートにする。
+- convenience props がある場合だけ同種 child を除外し、二重描画を避ける。
+- group 系は `<Label />`, `<Description />`, `<FieldError />` と選択肢 children を分離して配置する。
 
 ### 5. 合成コンポーネントは part ごとに export する
 
@@ -105,6 +113,8 @@ description: このリポジトリでデジタル庁デザインシステムの�
 - 追加 props がある場合だけ interface を拡張する。
 - `className` は merge する。
 - render props が必要な箇所だけ `composeRenderProps` を使う。
+- `Input`, `TextArea`, native `select` のような leaf は native / ARIA props を正として扱い、必要なら wrapper 内で `isDisabled`, `isRequired`, `isReadOnly` の variant state に正規化する。
+- field wrapper 側の `isDisabled`, `isInvalid`, `isRequired`, `isReadOnly` と、leaf 側の `disabled`, `required`, `readOnly`, `aria-invalid` を混同しない。
 
 ### 4. アクセシビリティを埋める
 
@@ -119,6 +129,7 @@ description: このリポジトリでデジタル庁デザインシステムの�
 - 最低でも 1 つは基本例を置く。
 - variant や状態差分がある場合は比較しやすい story を置く。
 - render props で差し替え可能な API を持つ場合は、その使用例を 1 つ含める。
+- field wrapper は convenience props の例と child composition の例を両方用意する。
 
 ### 6. Export を通す
 
@@ -144,6 +155,8 @@ export 名は既存命名に揃える。`Props` 型や variant helper を外に�
 - 必要な a11y 属性が入っている
 - Storybook がある
 - export が `src/components/index.ts` と `src/index.ts` まで通っている
+- `biome lint` に加えて、必要なら対象ファイルに絞った `tsc --noEmit --skipLibCheck` でも確認している
+- Storybook の `Meta<typeof Component>` で型が漏れる場合に備えて、公開コンポーネントの `Props` interface は `export` を検討する
 
 ## Guardrails
 
