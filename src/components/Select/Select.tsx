@@ -8,7 +8,7 @@ import {
   type ReactNode,
   useContext,
 } from 'react';
-import { useField } from 'react-aria';
+import { useField, useFocusRing, useHover } from 'react-aria';
 import { FieldErrorContext, LabelContext, Provider, TextContext } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
 import { Description, FieldError, Label } from '../FormControl';
@@ -20,19 +20,12 @@ import {
   renderFieldErrorMessage,
   renderFieldLabel,
 } from '../FormControl/fieldHelpers';
-import { tv, twMerge } from '../utils';
+import { focusRing, tv, twMerge } from '../utils';
 
 const selectStyles = tv({
+  extend: focusRing,
   base: [
     'w-full appearance-none rounded-8 border border-solid-gray-600 bg-white pl-4 pr-10 text-std-16N-170 text-solid-gray-800',
-    'hover:border-black',
-    'focus-visible:outline-4 focus-visible:outline-black focus-visible:outline-offset-2',
-    'focus-visible:ring-2 focus-visible:ring-yellow-300',
-    'aria-invalid:border-error-1 aria-invalid:hover:border-red-1000',
-    'aria-disabled:border-solid-gray-300 aria-disabled:bg-solid-gray-50 aria-disabled:text-solid-gray-420',
-    'aria-disabled:forced-colors:border-[GrayText] aria-disabled:forced-colors:text-[GrayText]',
-    'disabled:border-solid-gray-300 disabled:bg-solid-gray-50 disabled:text-solid-gray-420',
-    'disabled:forced-colors:border-[GrayText] disabled:forced-colors:text-[GrayText]',
   ],
   variants: {
     blockSize: {
@@ -40,7 +33,41 @@ const selectStyles = tv({
       md: 'h-12 py-3',
       lg: 'h-14 py-[calc(11/16*1rem)]',
     },
+    isDisabled: {
+      true: [
+        'border-solid-gray-300 bg-solid-gray-50 text-solid-gray-420',
+        'forced-colors:border-[GrayText] forced-colors:text-[GrayText]',
+      ],
+      false: '',
+    },
+    isHovered: {
+      true: '',
+      false: '',
+    },
+    isInvalid: {
+      true: 'border-error-1',
+      false: '',
+    },
   },
+  compoundVariants: [
+    {
+      isDisabled: false,
+      isHovered: true,
+      isInvalid: false,
+      className: 'border-black',
+    },
+    {
+      isDisabled: false,
+      isHovered: true,
+      isInvalid: true,
+      className: 'border-red-1000',
+    },
+    {
+      isDisabled: true,
+      isInvalid: true,
+      className: 'border-solid-gray-300',
+    },
+  ],
   defaultVariants: {
     blockSize: 'lg',
   },
@@ -60,6 +87,12 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   const { blockSize, children, className, onKeyDown, onMouseDown, ...rest } = mergedProps;
   const isAriaDisabled =
     mergedProps['aria-disabled'] === true || mergedProps['aria-disabled'] === 'true';
+  const isDisabled = !!mergedProps.disabled || isAriaDisabled;
+  const isInvalid = !!mergedProps['aria-invalid'];
+  const { hoverProps, isHovered } = useHover({
+    isDisabled,
+  });
+  const { focusProps, isFocused, isFocusVisible } = useFocusRing();
 
   const handleDisabledKeyDown = (event: KeyboardEvent<HTMLSelectElement>) => {
     onKeyDown?.(event);
@@ -77,12 +110,27 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
     }
   };
 
+  const interactionProps = mergeProps(hoverProps, focusProps);
+
   return (
     <div className='relative w-fit'>
       <select
         {...rest}
+        {...interactionProps}
         aria-invalid={mergedProps['aria-invalid'] || undefined}
-        className={selectStyles({ blockSize, className })}
+        className={selectStyles({
+          blockSize,
+          className,
+          isDisabled,
+          isFocused,
+          isHovered,
+          isInvalid,
+        })}
+        data-disabled={isDisabled || undefined}
+        data-focus-visible={isFocusVisible || undefined}
+        data-focused={isFocused || undefined}
+        data-hovered={isHovered || undefined}
+        data-invalid={isInvalid || undefined}
         onKeyDown={handleDisabledKeyDown}
         onMouseDown={handleDisabledMouseDown}
         ref={ref}
