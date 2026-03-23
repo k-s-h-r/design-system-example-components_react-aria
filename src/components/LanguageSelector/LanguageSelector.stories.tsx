@@ -4,13 +4,12 @@ import {
   LanguageSelectorArrowIcon,
   LanguageSelectorButton,
   LanguageSelectorGlobeIcon,
-  LanguageSelectorGlobeWithLabelIcon,
   LanguageSelectorMenu,
   LanguageSelectorMenuItem,
 } from './LanguageSelector';
 
 const meta = {
-  title: 'Component/ランゲージセレクター',
+  title: 'Component/LanguageSelector',
   component: LanguageSelector,
   tags: ['autodocs'],
   args: {

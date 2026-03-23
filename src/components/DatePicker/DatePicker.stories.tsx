@@ -12,7 +12,7 @@ import {
 } from './DatePicker';
 
 const meta = {
-  title: 'Component/日付ピッカー',
+  title: 'Component/DatePicker',
   component: DatePicker,
   tags: ['autodocs'],
 } satisfies Meta<typeof DatePicker>;

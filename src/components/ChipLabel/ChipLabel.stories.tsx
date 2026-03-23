@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite';
 import { ChipLabel, type ChipLabelColor, type ChipLabelVariant } from './ChipLabel';
 
 const meta = {
-  title: 'Component/チップラベル',
+  title: 'Component/ChipLabel',
   component: ChipLabel,
   tags: ['autodocs'],
 } satisfies Meta<typeof ChipLabel>;

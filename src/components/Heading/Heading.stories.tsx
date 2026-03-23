@@ -9,7 +9,7 @@ import {
 } from './Heading';
 
 const meta = {
-  title: 'Component/見出し',
+  title: 'Component/Heading',
   component: Heading,
   tags: ['autodocs'],
 } satisfies Meta<typeof Heading>;

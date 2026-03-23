@@ -6,7 +6,7 @@ import { Button } from '../Button';
 import { Calendar, CalendarCell, CalendarGrid, CalendarHeader } from './Calendar';
 
 const meta = {
-  title: 'Component/カレンダー',
+  title: 'Component/Calendar',
   component: Calendar,
   tags: ['autodocs'],
 } satisfies Meta<typeof Calendar>;
