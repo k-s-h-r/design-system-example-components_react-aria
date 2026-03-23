@@ -1,24 +1,14 @@
 import { useContext } from 'react';
-import {
-  Button,
-  type ButtonProps,
-  composeRenderProps,
-  OverlayTriggerStateContext,
-} from 'react-aria-components';
-import { focusVisibleRing, tv } from '../utils';
+import { composeRenderProps, OverlayTriggerStateContext } from 'react-aria-components';
+import { TriggerButton, type TriggerButtonProps } from '../Button';
+import { tv } from '../utils';
 
 const hamburgerMenuButtonStyles = tv({
-  extend: focusVisibleRing,
-  base: [
-    'flex w-fit touch-manipulation items-center gap-x-1 rounded-6 px-3 py-1.5 text-solid-gray-900',
-    'data-hovered:bg-solid-gray-50',
-    'data-focus-visible:bg-yellow-300',
-  ],
+  base: [''],
   variants: {
     orientation: {
-      horizontal: 'flex-row gap-1',
-      vertical:
-        'min-w-11 min-h-11 flex-col justify-center gap-1 items-center rounded-4 p-0.5 pt-1 data-hovered:outline-1 data-hovered:outline-offset-0',
+      horizontal: '',
+      vertical: '',
     },
   },
 });
@@ -26,9 +16,8 @@ const hamburgerMenuButtonStyles = tv({
 const hamburgerMenuButtonLabelStyles = tv({
   variants: {
     orientation: {
-      horizontal:
-        'text-oln-16N-100 data-hovered:underline data-hovered:underline-offset-[calc(3*var(--px-to-rem))]',
-      vertical: 'text-[0.625rem] leading-none tracking-tighter',
+      horizontal: '',
+      vertical: '',
     },
   },
 });
@@ -62,7 +51,7 @@ const iconVerticalClosed = (
   </svg>
 );
 
-type HamburgerMenuButtonProps = ButtonProps & {
+type HamburgerMenuButtonProps = TriggerButtonProps & {
   labelClassName?: string;
   label: {
     open: string;
@@ -78,10 +67,11 @@ export const HamburgerMenuButton = (props: HamburgerMenuButtonProps) => {
   const dispLabel = isOpen ? (label.close ?? label.open) : label.open;
 
   return (
-    <Button
+    <TriggerButton
       className={composeRenderProps(props.className, (className, renderProps) =>
         hamburgerMenuButtonStyles({ ...renderProps, orientation, className }),
       )}
+      orientation={orientation}
       {...rest}
     >
       {orientation === 'horizontal' && (isOpen ? iconHorizontalOpend : iconHorizontalClosed)}
@@ -89,6 +79,6 @@ export const HamburgerMenuButton = (props: HamburgerMenuButtonProps) => {
       <span className={hamburgerMenuButtonLabelStyles({ orientation, className: labelClassName })}>
         {dispLabel}
       </span>
-    </Button>
+    </TriggerButton>
   );
 };
