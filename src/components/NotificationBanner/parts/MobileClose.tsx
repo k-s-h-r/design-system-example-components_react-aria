@@ -1,40 +1,39 @@
-import {
-  Button as AriaButton,
-  type ButtonProps as AriaButtonProps,
-  composeRenderProps,
-} from 'react-aria-components';
+import { composeRenderProps } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { focusVisibleRing, tv } from '../../utils';
+import { TriggerButton, type TriggerButtonProps } from '../../Button';
+import { tv } from '../../utils';
 
 const notificationBannerMobileCloseStyles = tv({
-  extend: focusVisibleRing,
-  base: [
-    'mt-1 inline-flex self-start rounded-4 text-solid-gray-900 touch-manipulation',
-    'data-hovered:bg-solid-gray-50 data-hovered:outline data-hovered:outline-1',
-    'data-pressed:bg-solid-gray-100',
-  ],
+  base: ['[&>svg]:size-5.5'],
 });
 
 export interface NotificationBannerMobileCloseProps
-  extends AriaButtonProps,
-    VariantProps<typeof notificationBannerMobileCloseStyles> {}
+  extends TriggerButtonProps,
+    VariantProps<typeof notificationBannerMobileCloseStyles> {
+  label?: string;
+}
 
 export function NotificationBannerMobileClose(props: NotificationBannerMobileCloseProps) {
+  const { label = '閉じる', ...rest } = props;
+
   return (
-    <AriaButton
-      {...props}
+    <TriggerButton
+      {...rest}
+      aria-label={props['aria-label'] ?? label}
+      orientation='vertical'
       type='button'
       className={composeRenderProps(props.className, (className, renderProps) =>
         notificationBannerMobileCloseStyles({ ...renderProps, className }),
       )}
     >
-      <svg aria-label='閉じる' role='img' width='44' height='44' viewBox='0 0 44 44'>
+      <svg aria-hidden={true} viewBox='0 0 22 22' fill='none'>
         <path
-          d='m13 26-2-2 9-9-9-9 2-2 9 9 9-9 2 2-9 9 9 9-2 2-9-9-9 9Z'
+          d='M1.89474 22L0 20.1053L9.10526 11L0 1.89474L1.89474 0L11 9.10526L20.1053 0L22 1.89474L12.8947 11L22 20.1053L20.1053 22L11 12.8947L1.89474 22Z'
           fill='currentColor'
         />
       </svg>
-    </AriaButton>
+      <span>{label}</span>
+    </TriggerButton>
   );
 }
 
