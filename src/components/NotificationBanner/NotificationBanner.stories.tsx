@@ -130,12 +130,12 @@ export const MobileClose: Story = {
       title='登録期間が延長されました'
       type='info1'
     >
+      <NotificationBannerMobileClose />
       <NotificationBannerBody>
         <p>
           モバイル向け close ボタンの利用例です。`desktop:hidden` なので小さい viewport
           で確認してください。
         </p>
-        <NotificationBannerMobileClose />
       </NotificationBannerBody>
     </NotificationBanner>
   ),
