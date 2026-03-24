@@ -1,9 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { Button } from '../Button';
-import { NotificationBanner } from './NotificationBanner';
-import { NotificationBannerBody } from './parts/Body';
-import { NotificationBannerClose } from './parts/Close';
-import { NotificationBannerMobileClose } from './parts/MobileClose';
+import {
+  NotificationBanner,
+  NotificationBannerBody,
+  NotificationBannerClose,
+  NotificationBannerMobileClose,
+} from './NotificationBanner';
 
 function ExampleBody() {
   return (
