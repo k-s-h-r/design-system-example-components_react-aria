@@ -36,6 +36,14 @@ export {
   fileUploadViewportOverlayStyles,
   useFileUpload,
 } from './FileUpload';
+export {
+  FileUploadField,
+  type FileUploadFieldProps,
+  fileUploadFieldButtonAreaStyles,
+  fileUploadFieldDescriptionStyles,
+  fileUploadFieldErrorMessagesStyles,
+  fileUploadFieldStyles,
+} from './FileUploadField';
 export { fileUploadDefaultMessages } from './messages';
 export type { FileInfo, FileUploadMessages, UseFileUploadOptions } from './types';
 export { formatSize, parseSize } from './utils';

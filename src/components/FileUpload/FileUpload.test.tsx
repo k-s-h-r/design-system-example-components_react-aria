@@ -1,6 +1,7 @@
-import { act, renderHook } from '@testing-library/react';
+import { act, render, renderHook, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { useFileUpload } from './FileUpload';
+import { FileUploadField } from './FileUploadField';
 
 function createFile(name: string, size: number, type: string) {
   return new File([new Uint8Array(size)], name, { type });
@@ -91,5 +92,30 @@ describe('useFileUpload', () => {
 
     expect(first.result.current.isExpandedDropArea).toBe(false);
     expect(second.result.current.isExpandedDropArea).toBe(true);
+  });
+
+  it('renders a high-level field with existing files', () => {
+    render(
+      <FileUploadField
+        description='補足テキスト'
+        existingInputName='existing-files'
+        initialFiles={[
+          {
+            id: 'existing-file',
+            isExisting: true,
+            name: 'existing.pdf',
+            size: 2048,
+          },
+        ]}
+        label='添付ファイル'
+        maxFiles={3}
+      />,
+    );
+
+    expect(screen.getByText('添付ファイル')).toBeTruthy();
+    expect(screen.getByText('existing.pdf')).toBeTruthy();
+    expect(screen.getByDisplayValue('temp-existing-file').getAttribute('name')).toBe(
+      'existing-files',
+    );
   });
 });
