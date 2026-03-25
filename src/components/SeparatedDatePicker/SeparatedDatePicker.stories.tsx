@@ -8,7 +8,7 @@ import {
 } from './SeparatedDatePicker';
 
 const meta = {
-  title: 'Component/DatePicker/Separated',
+  title: 'Component/DatePicker（作業中）/Separated',
   component: SeparatedDatePicker,
   tags: ['autodocs'],
 } satisfies Meta<typeof SeparatedDatePicker>;

@@ -18,7 +18,7 @@ import {
 } from './FileUpload';
 
 const meta = {
-  title: 'Component/FileUpload',
+  title: 'Component/FileUpload（作業中）',
   component: FileUpload,
   tags: ['autodocs'],
 } satisfies Meta<typeof FileUpload>;
