@@ -25,10 +25,17 @@ export {
   CalendarHeader,
   type CalendarHeaderProps,
   type CalendarProps,
+  CalendarWithMonthYearNavigation,
+  type CalendarWithMonthYearNavigationProps,
   calendarCellStyles,
   calendarGridStyles,
   calendarHeaderStyles,
   calendarStyles,
+  calendarWithMonthYearNavigationActionsStyles,
+  calendarWithMonthYearNavigationMonthHeadingStyles,
+  calendarWithMonthYearNavigationNavButtonStyles,
+  calendarWithMonthYearNavigationStyles,
+  calendarWithMonthYearNavigationYearSelectStyles,
 } from './Calendar';
 export { Checkbox } from './Checkbox';
 export {

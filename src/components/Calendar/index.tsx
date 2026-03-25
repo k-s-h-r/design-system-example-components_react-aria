@@ -12,3 +12,12 @@ export {
   calendarHeaderStyles,
   calendarStyles,
 } from './Calendar';
+export {
+  CalendarWithMonthYearNavigation,
+  calendarWithMonthYearNavigationActionsStyles,
+  calendarWithMonthYearNavigationMonthHeadingStyles,
+  calendarWithMonthYearNavigationNavButtonStyles,
+  calendarWithMonthYearNavigationStyles,
+  calendarWithMonthYearNavigationYearSelectStyles,
+  type CalendarWithMonthYearNavigationProps,
+} from './CalendarWithMonthYearNavigation';
