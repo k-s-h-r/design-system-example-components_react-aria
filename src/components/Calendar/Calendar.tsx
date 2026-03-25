@@ -1,17 +1,17 @@
 import type { ComponentProps } from 'react';
+import type { DateValue } from 'react-aria-components';
 import {
   Calendar as AriaCalendar,
   CalendarCell as AriaCalendarCell,
+  type CalendarCellProps as AriaCalendarCellProps,
   CalendarGrid as AriaCalendarGrid,
   CalendarGridBody as AriaCalendarGridBody,
   CalendarGridHeader as AriaCalendarGridHeader,
-  CalendarHeaderCell as AriaCalendarHeaderCell,
-  composeRenderProps,
-  type CalendarCellProps as AriaCalendarCellProps,
   type CalendarGridProps as AriaCalendarGridProps,
+  CalendarHeaderCell as AriaCalendarHeaderCell,
   type CalendarProps as AriaCalendarProps,
+  composeRenderProps,
 } from 'react-aria-components';
-import type { DateValue } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
 import { focusVisibleRing, tv, twMerge } from '../utils';
 
@@ -85,7 +85,9 @@ const calendarCellStyles = tv({
   ],
 });
 
-export interface CalendarProps extends AriaCalendarProps<DateValue>, VariantProps<typeof calendarStyles> {}
+export interface CalendarProps
+  extends AriaCalendarProps<DateValue>,
+    VariantProps<typeof calendarStyles> {}
 
 export function Calendar(props: CalendarProps) {
   return (
