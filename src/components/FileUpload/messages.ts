@@ -6,10 +6,10 @@ export const fileUploadDefaultMessages: FileUploadMessages = {
     maxTotalSize: '選択できるファイルサイズの合計が上限を超過しています。',
     invalidType: '許可されていないファイル形式です。',
     maxFileSize: 'ファイルサイズが上限を超過しています。',
-    hasFileErrors: '選択したファイルにエラーがあります。該当ファイルを確認してください。',
+    hasFileErrors: '選択したファイルにエラーがあります。該当ファイルをチェックしてください。',
   },
   announce: {
     dropAvailable: 'ここにドロップできます。',
-    dropUnavailable: 'ドロップエリア外です。',
+    dropUnavailable: 'ドロップエリア外。',
   },
 };

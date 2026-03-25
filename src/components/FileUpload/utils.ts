@@ -32,3 +32,39 @@ export function parseSize(value?: string): number | undefined {
 
   return Number(amount) * multipliers[normalizedUnit];
 }
+
+export function parseAcceptAttribute(value?: string): string[] {
+  if (!value) {
+    return [];
+  }
+
+  return value
+    .split(',')
+    .map((entry) => entry.trim().toLowerCase())
+    .filter(Boolean);
+}
+
+export function isFileTypeAllowed(
+  fileName: string,
+  mimeType: string,
+  allowedExtensions: string[],
+): boolean {
+  if (allowedExtensions.length === 0) {
+    return true;
+  }
+
+  const normalizedFileName = fileName.toLowerCase();
+  const normalizedMimeType = mimeType.toLowerCase();
+
+  return allowedExtensions.some((allowedExtension) => {
+    if (allowedExtension.startsWith('.')) {
+      return normalizedFileName.endsWith(allowedExtension);
+    }
+
+    if (allowedExtension.endsWith('/*')) {
+      return normalizedMimeType.startsWith(allowedExtension.slice(0, -1));
+    }
+
+    return normalizedMimeType === allowedExtension;
+  });
+}
