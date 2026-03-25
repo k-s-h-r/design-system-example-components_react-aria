@@ -68,7 +68,8 @@ export const WithMonthYearNavigation: Story = {
         <p className='mb-6'>
           選択中の日付：<output>{value?.toString() ?? '未選択'}</output>
         </p>
-        <Calendar
+        <div className='inline-flex flex-col items-start gap-4'>
+          <Calendar
           aria-label='日付を選択'
           focusedValue={focusedDate}
           onChange={(nextValue) => setValue(nextValue)}
@@ -111,7 +112,8 @@ export const WithMonthYearNavigation: Story = {
             </div>
           </CalendarHeader>
           <CalendarGrid>{(date) => <CalendarCell date={date} />}</CalendarGrid>
-          <div className='flex self-stretch justify-between gap-4 p-4'>
+          </Calendar>
+          <div className='flex self-stretch justify-between gap-4'>
             <Button onPress={() => setValue(null)} size='sm' variant='tertiary'>
               削除
             </Button>
@@ -127,7 +129,7 @@ export const WithMonthYearNavigation: Story = {
               今日
             </Button>
           </div>
-        </Calendar>
+        </div>
       </>
     );
   },
