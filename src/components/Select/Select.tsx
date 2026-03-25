@@ -73,18 +73,25 @@ const selectStyles = tv({
   },
 });
 
+const selectOuterStyles = tv({
+  base: 'relative w-fit',
+});
+
 export type SelectBlockSize = 'lg' | 'md' | 'sm';
 
 const SelectFieldContext = createContext<ComponentProps<'select'> | null>(null);
 
 export interface SelectProps
   extends Omit<ComponentProps<'select'>, 'size'>,
-    VariantProps<typeof selectStyles> {}
+    VariantProps<typeof selectStyles> {
+  outerClassName?: string;
+}
 
 export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select(props, ref) {
   const fieldContextProps = useContext(SelectFieldContext);
   const mergedProps = fieldContextProps ? mergeProps(fieldContextProps, props) : props;
-  const { blockSize, children, className, onKeyDown, onMouseDown, ...rest } = mergedProps;
+  const { blockSize, children, className, onKeyDown, onMouseDown, outerClassName, ...rest } =
+    mergedProps;
   const isAriaDisabled =
     mergedProps['aria-disabled'] === true || mergedProps['aria-disabled'] === 'true';
   const isDisabled = !!mergedProps.disabled || isAriaDisabled;
@@ -113,7 +120,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(function Select
   const interactionProps = mergeProps(hoverProps, focusProps);
 
   return (
-    <div className='relative w-fit'>
+    <div className={selectOuterStyles({ className: outerClassName })}>
       <select
         {...rest}
         {...interactionProps}
@@ -246,3 +253,5 @@ export function SelectField(props: SelectFieldProps) {
     </div>
   );
 }
+
+export { selectOuterStyles, selectStyles };

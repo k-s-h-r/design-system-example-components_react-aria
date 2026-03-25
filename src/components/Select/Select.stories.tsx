@@ -67,6 +67,17 @@ export const Sections = (args) => (
   </Select>
 );
 
+export const OuterClassName = (args) => (
+  <div className='w-80 rounded-8 bg-solid-gray-50 p-4'>
+    <Select {...args} outerClassName='w-full'>
+      <SelectItem value='chocolate'>Chocolate</SelectItem>
+      <SelectItem value='mint'>Mint</SelectItem>
+      <SelectItem value='strawberry'>Strawberry</SelectItem>
+      <SelectItem value='vanilla'>Vanilla</SelectItem>
+    </Select>
+  </div>
+);
+
 function ValidationExample(args) {
   const [value, setValue] = useState('');
   const [isInvalid, setIsInvalid] = useState(false);
