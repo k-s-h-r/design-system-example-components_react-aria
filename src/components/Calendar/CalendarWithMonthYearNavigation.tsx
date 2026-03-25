@@ -146,6 +146,7 @@ export function CalendarWithMonthYearNavigation(props: CalendarWithMonthYearNavi
         focusedValue={focusedDate}
         maxValue={maxValue}
         minValue={minValue}
+        onChange={setValue}
         onFocusChange={setFocusedDate}
         value={value}
       >
