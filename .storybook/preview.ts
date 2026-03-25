@@ -17,7 +17,10 @@ const preview: Preview = {
     },
     options: {
       storySort: (a, b) => {
-        const trailingStoryGroups = new Set(['DADS v1', 'Deprecated']);
+        const trailingStoryGroupOrder = new Map([
+          ['DADS v1', 1],
+          ['Deprecated', 2],
+        ]);
         const aSegments = a.title.split('/');
         const bSegments = b.title.split('/');
 
@@ -30,19 +33,18 @@ const preview: Preview = {
           const bSegment = bSegments[index];
 
           if (aSegment == null || bSegment == null) {
-            return aSegments.length - bSegments.length;
+            return 0;
           }
 
-          const aIsTrailingGroup = trailingStoryGroups.has(aSegment);
-          const bIsTrailingGroup = trailingStoryGroups.has(bSegment);
+          if (aSegment !== bSegment) {
+            const aOrder = trailingStoryGroupOrder.get(aSegment) ?? 0;
+            const bOrder = trailingStoryGroupOrder.get(bSegment) ?? 0;
 
-          if (aIsTrailingGroup !== bIsTrailingGroup) {
-            return aIsTrailingGroup ? 1 : -1;
-          }
+            if (aOrder !== bOrder) {
+              return aOrder - bOrder;
+            }
 
-          const segmentComparison = aSegment.localeCompare(bSegment, 'ja');
-          if (segmentComparison !== 0) {
-            return segmentComparison;
+            return 0;
           }
         }
 
