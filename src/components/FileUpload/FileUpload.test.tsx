@@ -1,7 +1,13 @@
 import { act, render, renderHook, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
 import { useFileUpload } from './FileUpload';
-import { FileUploadField } from './FileUploadField';
+import {
+  FileUploadArea,
+  FileUploadItems,
+  FileUploadLabel,
+  FileUploadRoot,
+  FileUploadTriggerButton,
+} from './FileUploadRoot';
 
 function createFile(name: string, size: number, type: string) {
   return new File([new Uint8Array(size)], name, { type });
@@ -94,11 +100,9 @@ describe('useFileUpload', () => {
     expect(second.result.current.isExpandedDropArea).toBe(true);
   });
 
-  it('renders a high-level field with existing files', () => {
+  it('renders compound parts with existing files', () => {
     render(
-      <FileUploadField
-        description='補足テキスト'
-        existingInputName='existing-files'
+      <FileUploadRoot
         initialFiles={[
           {
             id: 'existing-file',
@@ -107,9 +111,14 @@ describe('useFileUpload', () => {
             size: 2048,
           },
         ]}
-        label='添付ファイル'
         maxFiles={3}
-      />,
+      >
+        <FileUploadLabel>添付ファイル</FileUploadLabel>
+        <FileUploadArea>
+          <FileUploadTriggerButton>ファイルを選択</FileUploadTriggerButton>
+        </FileUploadArea>
+        <FileUploadItems existingInputName='existing-files' />
+      </FileUploadRoot>,
     );
 
     expect(screen.getByText('添付ファイル')).toBeTruthy();

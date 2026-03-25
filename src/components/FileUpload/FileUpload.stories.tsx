@@ -1,13 +1,27 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { FileUploadField } from './FileUploadField';
+import { Requirements } from '../FormControl';
+import {
+  FileUploadArea,
+  FileUploadButtonGroup,
+  FileUploadDescription,
+  FileUploadDropHint,
+  FileUploadErrorMessages,
+  FileUploadExpandDropAreaToggle,
+  FileUploadItems,
+  FileUploadLabel,
+  FileUploadOverlay,
+  FileUploadRoot,
+  FileUploadSelectionSummary,
+  FileUploadTriggerButton,
+} from './FileUploadRoot';
 import { fileUploadDefaultMessages } from './messages';
 import type { FileInfo } from './types';
 
 const meta = {
   title: 'Component/FileUpload',
-  component: FileUploadField,
+  component: FileUploadRoot,
   tags: ['autodocs'],
-} satisfies Meta<typeof FileUploadField>;
+} satisfies Meta<typeof FileUploadRoot>;
 
 export default meta;
 
@@ -33,24 +47,15 @@ function createDescription(maxFiles: number, maxFileSize: string, maxTotalSize: 
   );
 }
 
-function FileUploadStory(props: PlaygroundArgs & { initialFiles?: FileInfo[] }) {
+function FileUploadExample(props: PlaygroundArgs & { initialFiles?: FileInfo[] }) {
   const { initialFiles = [], maxFileSize, maxFiles, maxTotalSize, ...rest } = props;
 
   return (
-    <FileUploadField
+    <FileUploadRoot
       {...rest}
-      buttonLabel='ファイルを選択'
-      className='max-w-[48rem]'
-      description={createDescription(maxFiles, maxFileSize, maxTotalSize)}
-      dragAndDropText='または、このエリア内にドラッグ＆ドロップ'
-      dropAreaExpandable={rest.dropAreaExpandable}
-      droppable={rest.droppable}
-      existingInputName='file-upload-existing'
-      fileUploadClassName='mt-2'
-      getExistingInputValue={(file) => `temp-${file.id}`}
+      className='max-w-[48rem] mt-2'
       initialFiles={initialFiles}
       inputName='file-upload'
-      label='参照する画像・ドキュメント'
       maxFileSize={maxFileSize}
       maxFiles={maxFiles}
       maxTotalSize={maxTotalSize}
@@ -62,11 +67,30 @@ function FileUploadStory(props: PlaygroundArgs & { initialFiles?: FileInfo[] }) 
             'PNG/JPEG/GIF形式の画像、Excel/Word/PowerPoint/PDF形式のドキュメントだけが選択できます。',
         },
       }}
-      requirement={{
-        children: '※任意',
-        variant: 'optional',
-      }}
-    />
+    >
+      <FileUploadLabel>
+        参照する画像・ドキュメント
+        <Requirements variant='optional'>※任意</Requirements>
+      </FileUploadLabel>
+      <FileUploadDescription>
+        {createDescription(maxFiles, maxFileSize, maxTotalSize)}
+      </FileUploadDescription>
+      <FileUploadArea>
+        <FileUploadButtonGroup>
+          <FileUploadTriggerButton size='md'>ファイルを選択</FileUploadTriggerButton>
+          <FileUploadDropHint>または、このエリア内にドラッグ＆ドロップ</FileUploadDropHint>
+        </FileUploadButtonGroup>
+        <FileUploadSelectionSummary className='mt-2' />
+        <FileUploadErrorMessages />
+        <div className='-mb-4 -ml-1 mt-12'>
+          <FileUploadExpandDropAreaToggle size='md'>
+            ドラッグ＆ドロップの範囲をこのブラウザウィンドウ全体に広げる
+          </FileUploadExpandDropAreaToggle>
+        </div>
+      </FileUploadArea>
+      <FileUploadItems existingInputName='file-upload-existing' />
+      <FileUploadOverlay />
+    </FileUploadRoot>
   );
 }
 
@@ -87,12 +111,12 @@ export const Playground: StoryObj<PlaygroundArgs> = {
     maxFiles: 5,
     maxTotalSize: '10MB',
   },
-  render: (args) => <FileUploadStory {...args} />,
+  render: (args) => <FileUploadExample {...args} />,
 };
 
 export const WithExistingFiles: Story = {
   render: () => (
-    <FileUploadStory
+    <FileUploadExample
       accept='.png,.jpg,.jpeg,.gif,.xlsx,.xls,.docx,.doc,.pptx,.ppt,.pdf'
       dropAreaExpandable
       droppable
