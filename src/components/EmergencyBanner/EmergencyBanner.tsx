@@ -1,8 +1,8 @@
 import type { ComponentProps } from 'react';
 import {
   Heading as AriaHeading,
-  Link as AriaLink,
   type HeadingProps as AriaHeadingProps,
+  Link as AriaLink,
   type LinkProps as AriaLinkProps,
   composeRenderProps,
 } from 'react-aria-components';
@@ -113,8 +113,8 @@ export function EmergencyBannerButton(props: EmergencyBannerButtonProps) {
 }
 
 export {
-  emergencyBannerStyles,
   emergencyBannerBodyStyles,
-  emergencyBannerHeadingStyles,
   emergencyBannerButtonStyles,
+  emergencyBannerHeadingStyles,
+  emergencyBannerStyles,
 };
