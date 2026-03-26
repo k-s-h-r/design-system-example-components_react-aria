@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
-import { EmergencyBanner } from './EmergencyBanner';
-import { EmergencyBannerBody } from './parts/Body';
-import { EmergencyBannerButton } from './parts/Button';
-import { EmergencyBannerHeading } from './parts/Heading';
+import {
+  EmergencyBanner,
+  EmergencyBannerBody,
+  EmergencyBannerButton,
+  EmergencyBannerHeading,
+} from './EmergencyBanner';
 
 const meta = {
   title: 'Component/EmergencyBanner',

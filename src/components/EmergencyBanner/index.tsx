@@ -1,16 +1,14 @@
 export {
   EmergencyBanner,
+  EmergencyBannerBody,
+  EmergencyBannerButton,
+  EmergencyBannerHeading,
+  type EmergencyBannerBodyProps,
+  type EmergencyBannerButtonProps,
+  type EmergencyBannerHeadingProps,
   type EmergencyBannerProps,
+  emergencyBannerBodyStyles,
+  emergencyBannerButtonStyles,
+  emergencyBannerHeadingStyles,
   emergencyBannerStyles,
 } from './EmergencyBanner';
-export {
-  EmergencyBannerBody,
-  type EmergencyBannerBodyProps,
-  emergencyBannerBodyStyles,
-} from './parts/Body';
-export { EmergencyBannerButton, type EmergencyBannerButtonProps } from './parts/Button';
-export {
-  EmergencyBannerHeading,
-  type EmergencyBannerHeadingProps,
-  emergencyBannerHeadingStyles,
-} from './parts/Heading';
