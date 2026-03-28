@@ -1,5 +1,5 @@
-import type { VariantProps } from 'cva';
 import { Label as AriaLabel, type LabelProps as AriaLabelProps } from 'react-aria-components';
+import type { VariantProps } from 'tailwind-variants';
 import { tv } from '../utils';
 
 const labelStyles = tv({

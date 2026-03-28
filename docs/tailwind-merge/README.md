@@ -1,11 +1,10 @@
 # Tailwind Merge Config
 
-このリポジトリの `tailwind-merge` 設定は [`src/lib/tailwind-merge-config.ts`](/Users/k/develop/design-system-example-components/src/lib/tailwind-merge-config.ts) を source of truth にしています。
+このリポジトリの `tailwind-merge` 設定は [`src/lib/tailwind-merge-config.ts`](../../src/lib/tailwind-merge-config.ts) を source of truth にしています。
 
 利用箇所:
 
-- [`src/components/utils.ts`](/Users/k/develop/design-system-example-components/src/components/utils.ts)
-- [`src/lib/cva/index.ts`](/Users/k/develop/design-system-example-components/src/lib/cva/index.ts)
+- [`src/components/utils.ts`](../../src/components/utils.ts)
 
 ## 方針
 
@@ -31,7 +30,7 @@
 2. `tailwind-merge` の対応 namespace に載るものは `theme` に追加する。
 3. namespace が存在しない utility だけ `classGroups` に追加する。
 4. current token を変えたら必要に応じて legacy token の整理も行う。
-5. `npm run test` で [`src/components/utils.test.ts`](/Users/k/develop/design-system-example-components/src/components/utils.test.ts) と [`src/lib/cva/index.test.ts`](/Users/k/develop/design-system-example-components/src/lib/cva/index.test.ts) を含む検証を通す。
+5. `npm run test` で [`src/components/utils.test.ts`](../../src/components/utils.test.ts) を含む検証を通す。
 
 ## 参照元
 
