@@ -1,18 +1,19 @@
-import { parseDate, today, getLocalTimeZone, type CalendarDate } from '@internationalized/date';
+import { type CalendarDate, getLocalTimeZone, parseDate, today } from '@internationalized/date';
 import type { Meta, StoryObj } from '@storybook/react-vite';
 import { useState } from 'react';
-import { Calendar, CalendarCell, CalendarGrid } from '../Calendar';
 import { Button } from '../Button';
 import {
   DatePicker,
+  DatePickerCalendar,
   DatePickerCalendarButton,
+  DatePickerContent,
   DatePickerDialog,
   DatePickerInput,
   DatePickerPopover,
 } from './DatePicker';
 
 const meta = {
-  title: 'Component/DatePicker（作業中）',
+  title: 'Component/DatePicker',
   component: DatePicker,
   tags: ['autodocs'],
 } satisfies Meta<typeof DatePicker>;
@@ -28,19 +29,7 @@ export const Basic: Story = {
       description='例：2025年03月23日'
       label='日付'
       requirement='required'
-    >
-      <div className='flex items-start gap-2'>
-        <DatePickerInput />
-        <DatePickerCalendarButton />
-      </div>
-      <DatePickerPopover>
-        <DatePickerDialog>
-          <Calendar aria-label='日付を選択'>
-            <CalendarGrid>{(date) => <CalendarCell date={date} />}</CalendarGrid>
-          </Calendar>
-        </DatePickerDialog>
-      </DatePickerPopover>
-    </DatePicker>
+    />
   ),
 };
 
@@ -58,7 +47,6 @@ export const Validation: Story = {
         }}
       >
         <DatePicker
-          aria-label='日付'
           errorMessage={isInvalid ? '＊日付を入力してください。' : undefined}
           isInvalid={isInvalid}
           label='日付'
@@ -68,19 +56,7 @@ export const Validation: Story = {
           }}
           requirement='required'
           value={value}
-        >
-          <div className='flex items-start gap-2'>
-            <DatePickerInput />
-            <DatePickerCalendarButton />
-          </div>
-          <DatePickerPopover>
-            <DatePickerDialog>
-              <Calendar aria-label='日付を選択'>
-                <CalendarGrid>{(date) => <CalendarCell date={date} />}</CalendarGrid>
-              </Calendar>
-            </DatePickerDialog>
-          </DatePickerPopover>
-        </DatePicker>
+        />
         <div className='flex gap-4'>
           <Button type='submit' variant='secondary'>
             Submit
@@ -109,11 +85,39 @@ export const ReadOnly: Story = {
       isReadOnly
       label='日付'
       requirement='readonly'
+    />
+  ),
+};
+
+export const WithCalendar: Story = {
+  render: () => (
+    <DatePicker
+      defaultValue={parseDate('2025-03-23')}
+      description='カレンダー付きの例'
+      label='日付'
+      requirement='required'
+      withCalendar
+    />
+  ),
+};
+
+export const Composed: Story = {
+  render: () => (
+    <DatePicker
+      defaultValue={parseDate('2025-03-23')}
+      description='part を組み合わせた例'
+      label='日付'
+      requirement='required'
     >
-      <div className='flex items-start gap-2'>
+      <DatePickerContent>
         <DatePickerInput />
         <DatePickerCalendarButton />
-      </div>
+      </DatePickerContent>
+      <DatePickerPopover>
+        <DatePickerDialog>
+          <DatePickerCalendar />
+        </DatePickerDialog>
+      </DatePickerPopover>
     </DatePicker>
   ),
 };

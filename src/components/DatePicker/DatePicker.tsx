@@ -1,23 +1,37 @@
 'use client';
 
+import { getLocalTimeZone, toCalendarDate, today } from '@internationalized/date';
 import { createContext, type ReactNode, useContext } from 'react';
 import {
   Button as AriaButton,
   type ButtonProps as AriaButtonProps,
-  composeRenderProps,
   DateInput as AriaDateInput,
   type DateInputProps as AriaDateInputProps,
   DatePicker as AriaDatePicker,
-  Dialog as AriaDialog,
-  type DialogProps as AriaDialogProps,
+  type DatePickerProps as AriaDatePickerProps,
   DateSegment as AriaDateSegment,
   type DateSegmentProps as AriaDateSegmentProps,
+  Dialog as AriaDialog,
+  type DialogProps as AriaDialogProps,
+  Group as AriaGroup,
+  type GroupProps as AriaGroupProps,
   Popover as AriaPopover,
   type PopoverProps as AriaPopoverProps,
-  type DatePickerProps as AriaDatePickerProps,
+  ButtonContext,
+  CalendarStateContext,
+  composeRenderProps,
   type DateValue,
+  Provider,
 } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
+import { Button } from '../Button';
+import {
+  Calendar,
+  CalendarCell,
+  CalendarGrid,
+  CalendarHeader,
+  type CalendarProps as CalendarPropsBase,
+} from '../Calendar';
 import { Description } from '../FormControl';
 import {
   type FieldErrorContent,
@@ -26,6 +40,7 @@ import {
   renderFieldErrorMessage,
   renderFieldLabel,
 } from '../FormControl/fieldHelpers';
+import { Select, SelectItem } from '../Select';
 import { composeTailwindRenderProps, focusVisibleRing, tv, twMerge } from '../utils';
 
 export type DatePickerSize = 'lg' | 'md' | 'sm';
@@ -34,9 +49,13 @@ const datePickerStyles = tv({
   base: 'group/date-picker flex w-fit flex-col gap-2',
 });
 
+const datePickerContentStyles = tv({
+  base: 'inline-flex flex-wrap items-start gap-2',
+});
+
 const datePickerInputStyles = tv({
-  extend: focusVisibleRing,
   base: [
+    'outline-black outline-offset-2 ring-yellow-300',
     'inline-flex rounded-8 border bg-[--date-picker-bg] p-0.5 pe-0 text-solid-gray-900 [--date-picker-bg:theme(colors.white)]',
     'group-data-[readonly]/date-picker:border-dashed',
     'group-data-[disabled]/date-picker:border-solid-gray-300 group-data-[disabled]/date-picker:[--date-picker-bg:theme(colors.solid-gray.50)] group-data-[disabled]/date-picker:text-solid-gray-420',
@@ -53,8 +72,8 @@ const datePickerInputStyles = tv({
       false: '',
     },
     isFocusWithin: {
-      true: '',
-      false: '',
+      true: 'outline-4 ring-2',
+      false: 'outline-0 ring-0',
     },
     isFocusVisible: {
       true: '',
@@ -101,20 +120,18 @@ const datePickerInputStyles = tv({
 });
 
 const datePickerSegmentStyles = tv({
-  extend: focusVisibleRing,
   base: [
-    'relative z-0 inline-flex flex-row-reverse items-center justify-end rounded-8 border border-transparent bg-transparent pe-3 text-right text-oln-16N-100',
+    'relative z-0 inline-flex items-center justify-end rounded-8 border border-transparent bg-transparent pe-3 text-right text-oln-16N-100',
     'after:relative after:z-10 after:self-center after:bg-[--date-picker-bg] after:p-1',
     'data-[placeholder]:text-solid-gray-600',
     'data-[readonly]:cursor-default',
     'data-[disabled]:pointer-events-none',
-    'data-[type=year]:w-16 data-[type=year]:after:content-[\'年\']',
-    'data-[type=month]:w-11 data-[type=month]:after:content-[\'月\']',
-    'data-[type=day]:w-11 data-[type=day]:after:content-[\'日\']',
-    'data-[type=literal]:w-0 data-[type=literal]:overflow-hidden data-[type=literal]:p-0 data-[type=literal]:text-transparent data-[type=literal]:after:hidden',
+    "data-[type=year]:w-16 data-[type=year]:after:content-['年']",
+    "data-[type=month]:w-11 data-[type=month]:after:content-['月']",
+    "data-[type=day]:w-11 data-[type=day]:after:content-['日']",
   ],
   variants: {
-    isFocusVisible: {
+    isFocused: {
       true: 'border-solid-gray-600',
       false: '',
     },
@@ -183,9 +200,67 @@ const datePickerDialogStyles = tv({
   base: 'outline-none',
 });
 
+const datePickerCalendarStyles = tv({
+  base: 'inline-flex flex-col items-start gap-4',
+});
+
+const datePickerCalendarHeaderStyles = tv({
+  base: 'flex w-full items-center justify-between gap-4',
+});
+
+const datePickerCalendarYearSelectStyles = tv({
+  base: 'h-11 py-1',
+});
+
+const datePickerCalendarMonthHeadingStyles = tv({
+  base: 'w-14 text-center text-std-16B-170',
+});
+
+const datePickerCalendarNavButtonStyles = tv({
+  base: 'size-11 min-w-0 p-0',
+});
+
+const datePickerCalendarActionsStyles = tv({
+  base: 'flex w-full justify-between gap-4',
+});
+
 const DatePickerStyleContext = createContext<{ size: DatePickerSize }>({
   size: 'lg',
 });
+
+function ArrowLeftIcon() {
+  return (
+    <svg
+      aria-hidden={true}
+      className='mx-auto'
+      fill='none'
+      height='16'
+      viewBox='0 0 16 16'
+      width='16'
+    >
+      <path d='m5.27 8 5.33-5.33-.93-.94L3.4 8l6.27 6.27.93-.94L5.27 8Z' fill='currentColor' />
+    </svg>
+  );
+}
+
+function ArrowRightIcon() {
+  return (
+    <svg
+      aria-hidden={true}
+      className='mx-auto'
+      fill='none'
+      height='16'
+      viewBox='0 0 16 16'
+      width='16'
+    >
+      <path d='m6 1.73-.93.94L10.4 8l-5.33 5.33.93.94L12.27 8 6 1.73Z' fill='currentColor' />
+    </svg>
+  );
+}
+
+function toYearRange(start: number, end: number) {
+  return Array.from({ length: end - start + 1 }, (_, index) => start + index);
+}
 
 function useDatePickerSize(size?: DatePickerSize) {
   const context = useContext(DatePickerStyleContext);
@@ -193,21 +268,35 @@ function useDatePickerSize(size?: DatePickerSize) {
 }
 
 export interface DatePickerProps<T extends DateValue> extends AriaDatePickerProps<T> {
+  calendarLabel?: string;
+  clearButtonLabel?: ReactNode;
   description?: ReactNode;
   errorMessage?: FieldErrorContent;
   label?: ReactNode;
+  nextMonthLabel?: string;
+  previousMonthLabel?: string;
   requirement?: RequirementOption;
   size?: DatePickerSize;
+  todayButtonLabel?: ReactNode;
+  withCalendar?: boolean;
+  yearLabel?: string;
 }
 
 export function DatePicker<T extends DateValue>({
+  calendarLabel = '日付を選択',
   children,
   className,
+  clearButtonLabel = '削除',
   description,
   errorMessage,
   label,
+  nextMonthLabel = '次の月',
+  previousMonthLabel = '前の月',
   requirement,
   size = 'lg',
+  todayButtonLabel = '今日',
+  withCalendar = false,
+  yearLabel = '年',
   ...props
 }: DatePickerProps<T>) {
   const leadingContent = (
@@ -220,25 +309,48 @@ export function DatePicker<T extends DateValue>({
   const trailingContent = renderFieldErrorMessage(errorMessage);
 
   const renderedChildren =
-    typeof children === 'function'
-      ? (values: Parameters<Exclude<DatePickerProps<T>['children'], ReactNode>>[0]) => (
-          <>
-            {leadingContent}
-            {children(values)}
-            {trailingContent}
-          </>
-        )
-      : (
-          <>
-            {leadingContent}
-            {filterFieldChildren(children, {
-              label: label != null,
-              description: description != null,
-              errorMessage: errorMessage != null,
-            })}
-            {trailingContent}
-          </>
-        );
+    children == null ? (
+      <>
+        {leadingContent}
+        <DatePickerContent>
+          <DatePickerInput />
+          {withCalendar ? <DatePickerCalendarButton /> : null}
+        </DatePickerContent>
+        {withCalendar ? (
+          <DatePickerPopover>
+            <DatePickerDialog>
+              <DatePickerCalendar
+                aria-label={calendarLabel}
+                clearButtonLabel={clearButtonLabel}
+                nextMonthLabel={nextMonthLabel}
+                previousMonthLabel={previousMonthLabel}
+                todayButtonLabel={todayButtonLabel}
+                yearLabel={yearLabel}
+              />
+            </DatePickerDialog>
+          </DatePickerPopover>
+        ) : null}
+        {trailingContent}
+      </>
+    ) : typeof children === 'function' ? (
+      (values: Parameters<Exclude<DatePickerProps<T>['children'], ReactNode>>[0]) => (
+        <>
+          {leadingContent}
+          {children(values)}
+          {trailingContent}
+        </>
+      )
+    ) : (
+      <>
+        {leadingContent}
+        {filterFieldChildren(children, {
+          label: label != null,
+          description: description != null,
+          errorMessage: errorMessage != null,
+        })}
+        {trailingContent}
+      </>
+    );
 
   return (
     <DatePickerStyleContext.Provider value={{ size }}>
@@ -249,6 +361,21 @@ export function DatePicker<T extends DateValue>({
         {renderedChildren}
       </AriaDatePicker>
     </DatePickerStyleContext.Provider>
+  );
+}
+
+export interface DatePickerContentProps extends AriaGroupProps {}
+
+export function DatePickerContent(props: DatePickerContentProps) {
+  const { className, ...rest } = props;
+
+  return (
+    <AriaGroup
+      {...rest}
+      className={composeRenderProps(className, (className) =>
+        datePickerContentStyles({ className }),
+      )}
+    />
   );
 }
 
@@ -291,7 +418,10 @@ export function DatePickerSegment(props: DatePickerSegmentProps) {
       className={composeRenderProps(className, (className, renderProps) =>
         datePickerSegmentStyles({
           ...renderProps,
-          className,
+          className: twMerge(
+            renderProps.type === 'literal' ? 'hidden w-0 overflow-hidden p-0 text-transparent' : '',
+            className,
+          ),
         }),
       )}
     />
@@ -328,7 +458,11 @@ export function DatePickerCalendarButton(props: DatePickerCalendarButtonProps) {
               fill='currentColor'
             />
           </svg>
-          <svg aria-hidden={true} className='size-4 group-aria-expanded:rotate-180' viewBox='0 0 24 24'>
+          <svg
+            aria-hidden={true}
+            className='size-4 group-aria-expanded:rotate-180'
+            viewBox='0 0 24 24'
+          >
             <path d='M12 17.1L3 8L4 7L12 15L20 7L21 8L12 17.1Z' fill='currentColor' />
           </svg>
         </>
@@ -337,7 +471,9 @@ export function DatePickerCalendarButton(props: DatePickerCalendarButtonProps) {
   );
 }
 
-export interface DatePickerPopoverProps extends AriaPopoverProps, VariantProps<typeof datePickerPopoverStyles> {}
+export interface DatePickerPopoverProps
+  extends AriaPopoverProps,
+    VariantProps<typeof datePickerPopoverStyles> {}
 
 export function DatePickerPopover(props: DatePickerPopoverProps) {
   const { className, ...rest } = props;
@@ -360,8 +496,160 @@ export function DatePickerDialog(props: DatePickerDialogProps) {
   return <AriaDialog {...rest} className={twMerge(datePickerDialogStyles(), className)} />;
 }
 
+interface DatePickerCalendarInnerProps {
+  clearButtonLabel: ReactNode;
+  nextMonthLabel: string;
+  previousMonthLabel: string;
+  todayButtonLabel: ReactNode;
+  yearLabel: string;
+}
+
+function DatePickerCalendarInner({
+  clearButtonLabel,
+  nextMonthLabel,
+  previousMonthLabel,
+  todayButtonLabel,
+  yearLabel,
+}: DatePickerCalendarInnerProps) {
+  const state = useContext(CalendarStateContext);
+
+  if (state == null) {
+    return null;
+  }
+
+  const currentDate = today(state.timeZone || getLocalTimeZone());
+  const startYear = state.minValue
+    ? toCalendarDate(state.minValue).year
+    : state.focusedDate.year - 6;
+  const endYear = state.maxValue ? toCalendarDate(state.maxValue).year : state.focusedDate.year + 6;
+  const yearOptions = toYearRange(startYear, endYear);
+  const isTodayDisabled =
+    state.isDisabled ||
+    state.isReadOnly ||
+    state.isInvalid(currentDate) ||
+    state.isCellUnavailable(currentDate);
+
+  return (
+    <>
+      <CalendarHeader className={datePickerCalendarHeaderStyles()}>
+        <Select
+          aria-label={yearLabel}
+          blockSize='md'
+          className={datePickerCalendarYearSelectStyles()}
+          outerClassName='w-full'
+          onChange={(event) =>
+            state.setFocusedDate(state.focusedDate.set({ year: Number(event.target.value) }))
+          }
+          value={String(state.focusedDate.year)}
+        >
+          {yearOptions.map((year) => (
+            <SelectItem key={year} value={String(year)}>
+              {year}年
+            </SelectItem>
+          ))}
+        </Select>
+        <div className='flex items-center'>
+          <Button
+            aria-label={previousMonthLabel}
+            className={datePickerCalendarNavButtonStyles()}
+            isDisabled={state.isDisabled || state.isPreviousVisibleRangeInvalid()}
+            onPress={() => state.focusPreviousPage()}
+            size='sm'
+            slot='previous'
+            variant='secondary'
+          >
+            <ArrowLeftIcon />
+          </Button>
+          <span className={datePickerCalendarMonthHeadingStyles()}>
+            {state.focusedDate.month}月
+          </span>
+          <Button
+            aria-label={nextMonthLabel}
+            className={datePickerCalendarNavButtonStyles()}
+            isDisabled={state.isDisabled || state.isNextVisibleRangeInvalid()}
+            onPress={() => state.focusNextPage()}
+            size='sm'
+            slot='next'
+            variant='secondary'
+          >
+            <ArrowRightIcon />
+          </Button>
+        </div>
+      </CalendarHeader>
+      <CalendarGrid>{(date) => <CalendarCell date={date} />}</CalendarGrid>
+      <Provider values={[[ButtonContext, null]]}>
+        <div className={datePickerCalendarActionsStyles()}>
+          <Button
+            isDisabled={state.isDisabled || state.isReadOnly || state.value == null}
+            onPress={() => state.setValue(null)}
+            size='sm'
+            variant='tertiary'
+          >
+            {clearButtonLabel}
+          </Button>
+          <Button
+            isDisabled={isTodayDisabled}
+            onPress={() => {
+              state.setFocusedDate(currentDate);
+              state.selectDate(currentDate);
+            }}
+            size='sm'
+            variant='secondary'
+          >
+            {todayButtonLabel}
+          </Button>
+        </div>
+      </Provider>
+    </>
+  );
+}
+
+export interface DatePickerCalendarProps extends Omit<CalendarPropsBase, 'children'> {
+  clearButtonLabel?: ReactNode;
+  nextMonthLabel?: string;
+  previousMonthLabel?: string;
+  todayButtonLabel?: ReactNode;
+  yearLabel?: string;
+}
+
+export function DatePickerCalendar({
+  'aria-label': ariaLabel = '日付を選択',
+  className,
+  clearButtonLabel = '削除',
+  nextMonthLabel = '次の月',
+  previousMonthLabel = '前の月',
+  todayButtonLabel = '今日',
+  yearLabel = '年',
+  ...rest
+}: DatePickerCalendarProps) {
+  return (
+    <Calendar
+      {...rest}
+      aria-label={ariaLabel}
+      className={composeRenderProps(className, (className) =>
+        twMerge(datePickerCalendarStyles(), className),
+      )}
+    >
+      <DatePickerCalendarInner
+        clearButtonLabel={clearButtonLabel}
+        nextMonthLabel={nextMonthLabel}
+        previousMonthLabel={previousMonthLabel}
+        todayButtonLabel={todayButtonLabel}
+        yearLabel={yearLabel}
+      />
+    </Calendar>
+  );
+}
+
 export {
+  datePickerCalendarActionsStyles,
   datePickerCalendarButtonStyles,
+  datePickerCalendarHeaderStyles,
+  datePickerCalendarMonthHeadingStyles,
+  datePickerCalendarNavButtonStyles,
+  datePickerCalendarStyles,
+  datePickerCalendarYearSelectStyles,
+  datePickerContentStyles,
   datePickerDialogStyles,
   datePickerInputStyles,
   datePickerPopoverStyles,

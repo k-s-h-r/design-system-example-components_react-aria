@@ -77,12 +77,13 @@ function toYearRange(start: number, end: number) {
 export interface CalendarWithMonthYearNavigationProps
   extends Omit<
     CalendarProps,
-    'children' | 'defaultFocusedValue' | 'focusedValue' | 'onFocusChange'
+    'children' | 'defaultFocusedValue' | 'focusedValue' | 'onChange' | 'onFocusChange'
   > {
   clearButtonLabel?: ReactNode;
   defaultFocusedValue?: DateValue;
   focusedValue?: DateValue;
   nextMonthLabel?: string;
+  onChange?: (value: DateValue | null) => void;
   onFocusChange?: (value: CalendarDate) => void;
   previousMonthLabel?: string;
   todayButtonLabel?: ReactNode;
@@ -108,7 +109,7 @@ export function CalendarWithMonthYearNavigation(props: CalendarWithMonthYearNavi
   } = props;
 
   const [value, setValue] = useControlledState<DateValue | null, DateValue | null>(
-    controlledValue,
+    controlledValue ?? null,
     defaultValue ?? null,
     onChange,
   );
