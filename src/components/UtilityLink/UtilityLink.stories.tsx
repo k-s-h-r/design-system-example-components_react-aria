@@ -24,6 +24,7 @@ export const Example: Story = {
             leadingIcon={({ className, ...iconProps }) => (
               <svg
                 {...iconProps}
+                aria-hidden={true}
                 className={className}
                 fill='none'
                 height='16'
@@ -52,6 +53,7 @@ export const Example: Story = {
             trailingIcon={({ className, ...iconProps }) => (
               <svg
                 {...iconProps}
+                aria-hidden={true}
                 className={className}
                 fill='none'
                 height='16'
@@ -74,6 +76,7 @@ export const Example: Story = {
             leadingIcon={({ className, ...iconProps }) => (
               <svg
                 {...iconProps}
+                aria-hidden={true}
                 className={className}
                 fill='none'
                 height='16'
@@ -89,6 +92,7 @@ export const Example: Story = {
             trailingIcon={({ className, ...iconProps }) => (
               <svg
                 {...iconProps}
+                aria-hidden={true}
                 className={className}
                 fill='none'
                 height='16'

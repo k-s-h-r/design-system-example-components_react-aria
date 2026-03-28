@@ -30,6 +30,7 @@ export const Example: Story = {
           icon={({ className, ...iconProps }) => (
             <svg
               {...iconProps}
+              aria-hidden={true}
               className={className}
               fill='none'
               height='20'
@@ -51,6 +52,7 @@ export const Example: Story = {
           icon={({ className, isDisabled, ...iconProps }) => (
             <svg
               {...iconProps}
+              aria-hidden={true}
               className={`${className} ${isDisabled ? 'text-solid-gray-400' : 'text-blue-1000'}`}
               fill='none'
               height='20'

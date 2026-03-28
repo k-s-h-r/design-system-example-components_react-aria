@@ -1,6 +1,6 @@
 import { composeRenderProps, Group, type GroupProps } from 'react-aria-components';
 import type { VariantProps } from 'tailwind-variants';
-import { composeTailwindRenderProps, focusRing, tv } from '../utils';
+import { focusRing, tv } from '../utils';
 
 export const fieldGroupStyles = tv({
   extend: focusRing,
