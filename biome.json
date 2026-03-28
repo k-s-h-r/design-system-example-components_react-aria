@@ -1,9 +1,13 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.4.7/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.9/schema.json",
   "vcs": {
     "enabled": true,
     "clientKind": "git",
     "useIgnoreFile": true
+  },
+  "assist": { "actions": { "source": { "organizeImports": "on" } } },
+  "files": {
+    "includes": ["**/src/**"]
   },
   "formatter": {
     "enabled": true,
@@ -19,6 +23,7 @@
       "enabled": true,
       "quoteStyle": "single",
       "jsxQuoteStyle": "single",
+      "trailingCommas": "all",
       "semicolons": "always",
       "arrowParentheses": "always",
       "quoteProperties": "asNeeded"
@@ -37,7 +42,11 @@
         "useSelfClosingElements": "off"
       },
       "a11y": {
-        "noSvgWithoutTitle": "off"
+        "useValidAnchor": "off",
+        "noLabelWithoutControl": "off"
+      },
+      "correctness": {
+        "useUniqueElementIds": "off"
       }
     }
   }
